@@ -1,6 +1,8 @@
 package Object;
 
-
+/**
+ * An abstarct class for GameObject like Cannon, Target, Bullet and so on
+ */
 public abstract class GameObject {
     private CoordinateInt coordinate;
     private CoordinateInt size;

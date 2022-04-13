@@ -1,5 +1,8 @@
 package Object;
 
+/**
+ * A class for bullet
+ */
 public class Bullet extends GameObject {
 
     public Bullet(CoordinateInt coordinate, CoordinateInt size) {

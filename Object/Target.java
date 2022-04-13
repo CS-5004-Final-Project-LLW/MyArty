@@ -1,5 +1,8 @@
 package Object;
 
+/**
+ * A class for Target
+ */
 public class Target extends GameObject {
 
     public Target(CoordinateInt coordinate, CoordinateInt size) {
