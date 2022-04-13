@@ -55,6 +55,8 @@ public class Main {
 
         while (true) {
             // read a line
+	    // a valid input should contain at least contain 1 char 
+	    // 0 action s: shoot r:restart e:exit otherwise wrong input 
             String input = theMain.scanner.nextLine();
             // split line by space
             String[] inputs = input.split(" ");
