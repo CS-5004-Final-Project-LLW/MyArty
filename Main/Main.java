@@ -2,8 +2,13 @@ package Main;
 
 import java.util.Scanner;
 
+/**
+ * The entrance of the program
+ */
 public class Main {
+    // for game control
     API gameAPI;
+    // for user input
     Scanner scanner = new Scanner(System.in);
 
     public Main() {
@@ -20,17 +25,22 @@ public class Main {
 
     private void shoot(String[] inputs) {
         if (inputs.length != 3) {
+            // wrong input if the input does not contain exactly 3 words
             wrongInput(inputs);
             return;
         }
         double angleDegree, powerPercentage;
         try {
+            // read angle
             angleDegree = Double.parseDouble(inputs[1]);
+            // read power
             powerPercentage = Double.parseDouble(inputs[2]);
         } catch (NullPointerException | NumberFormatException e) {
+            // wrong input
             wrongInput(inputs);
             return;
         }
+        // perform shooting
         gameAPI.shoot(angleDegree, powerPercentage);
     }
 
@@ -43,20 +53,26 @@ public class Main {
         Main theMain = new Main();
 
         while (true) {
+            // read a line
             String input = theMain.scanner.nextLine();
+            // split line by space
             String[] inputs = input.split(" ");
 
             switch (inputs[0]) {
                 case "s":
+                    // shoot
                     theMain.shoot(inputs);
                     break;
                 case "r":
+                    // restart
                     theMain.restart(inputs);
                     break;
                 default:
+                    // wrong input
                     theMain.wrongInput(inputs);
                     break;
                 case "e":
+                    // exit
                     System.exit(0);
                     break;
             }

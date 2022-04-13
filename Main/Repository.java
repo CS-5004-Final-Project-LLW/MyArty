@@ -3,6 +3,9 @@ package Main;
 import Object.Cannon;
 import Object.Target;
 
+/**
+ * A class for storing game objects like cannon and target
+ */
 public class Repository {
     private Cannon cannon;
     private Target target;

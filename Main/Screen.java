@@ -23,6 +23,7 @@ public class Screen {
             return;
         }
 
+        // paint buffer
         buffer[x][y] = value;
     }
 
@@ -43,26 +44,27 @@ public class Screen {
             for (int j = topLeftY; j < topLeftY + sizeY; j++) {
                 paintPoint(new CoordinateInt(i, j), 1);
             }
-
         }
-
     }
 
     public void clearBuffer() {
+        // create a new buffer
         this.buffer = new int[screenSize.x][screenSize.y];
     }
 
     public void printOut() {
         StringBuffer sb = new StringBuffer('\n');
         for (int j = screenSize.y - 1; j >= 0; j--) {
-
             for (int i = 0; i < screenSize.x; i++) {
                 if (buffer[i][j] == 1) {
+                    // black dot
                     sb.append('◼');
                 } else {
+                    // white dot
                     sb.append('◻');
                 }
             }
+            // wrap
             sb.append('\n');
         }
         System.out.println(sb.toString());
