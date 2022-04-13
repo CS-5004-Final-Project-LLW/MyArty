@@ -44,6 +44,7 @@ public class Main {
         gameAPI.shoot(angleDegree, powerPercentage);
     }
 
+    // wrong input promot user to re-entry 
     private void wrongInput(String[] inputs) {
         System.out.println("Wrong input.");
     }
