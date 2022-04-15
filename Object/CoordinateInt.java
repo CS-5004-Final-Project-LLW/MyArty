@@ -4,7 +4,7 @@ package Object;
  * A class for coordinate storing with Integer type
  */
 public class CoordinateInt extends Coordinate<Integer> {
-
+    
     public CoordinateInt(Integer x, Integer y) {
         super(x, y);
     }

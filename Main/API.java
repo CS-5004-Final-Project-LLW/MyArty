@@ -37,7 +37,7 @@ public class API {
     private Cannon generateCannon() {
         int midX = screen.getScreenSize().x / 2;
         // x should be at the left screen
-        int x = new Random().nextInt(midX - 2);
+        int x = 1 + new Random().nextInt(midX - 3);
         int y = 1;
         Cannon cannon = new Cannon(new CoordinateInt(x, y));
         return cannon;
@@ -52,7 +52,7 @@ public class API {
     private Target generateTarget() {
         int midX = screen.getScreenSize().x / 2;
         // x should be at the right screen
-        int x = midX + 2 + new Random().nextInt(midX - 2);
+        int x = midX + new Random().nextInt(midX - 2);
         int y = 1;
         Target target = new Target(new CoordinateInt(x, y));
         return target;
@@ -91,6 +91,7 @@ public class API {
             try {
                 Thread.sleep(SPEED_OF_SHOW_MILLISECOND);
             } catch (InterruptedException ex) {
+                // catch keyboard interrupt
                 Thread.currentThread().interrupt();
             }
         }

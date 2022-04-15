@@ -3,6 +3,7 @@ package Main;
 import Object.CoordinateInt;
 import Object.GameObject;
 
+
 public class Screen {
     private final CoordinateInt screenSize;
     private int[][] buffer;

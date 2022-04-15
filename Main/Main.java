@@ -44,7 +44,7 @@ public class Main {
         gameAPI.shoot(angleDegree, powerPercentage);
     }
 
-    // wrong input promot user to re-entry 
+    // wrong input promot user to re-entry
     private void wrongInput(String[] inputs) {
         System.out.println("Wrong input.");
     }
@@ -55,8 +55,8 @@ public class Main {
 
         while (true) {
             // read a line
-	    // a valid input should contain at least contain 1 char 
-	    // 0 action s: shoot r:restart e:exit otherwise wrong input 
+            // a valid input should contain at least contain 1 char
+            // 0 action s: shoot r:restart e:exit otherwise wrong input
             String input = theMain.scanner.nextLine();
             // split line by space
             String[] inputs = input.split(" ");
@@ -70,13 +70,13 @@ public class Main {
                     // restart
                     theMain.restart(inputs);
                     break;
-                default:
-                    // wrong input
-                    theMain.wrongInput(inputs);
-                    break;
                 case "e":
                     // exit
                     System.exit(0);
+                    break;
+                default:
+                    // wrong input
+                    theMain.wrongInput(inputs);
                     break;
             }
         }

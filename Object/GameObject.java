@@ -5,7 +5,7 @@ package Object;
  */
 public abstract class GameObject {
     private CoordinateInt coordinate;
-    private CoordinateInt size;
+    private CoordinateInt size; // rectangle
 
     public CoordinateInt getCoordinate() {
         return new CoordinateInt(coordinate);
