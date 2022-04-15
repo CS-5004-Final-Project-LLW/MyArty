@@ -5,6 +5,7 @@ import java.util.Random;
 import Object.Bullet;
 import Object.Cannon;
 import Object.CoordinateInt;
+import Object.GameObject;
 import Object.Target;
 
 public class API {
@@ -79,8 +80,7 @@ public class API {
         ArrayList<CoordinateInt> traces = gameRepository.getCannon().getShootTrace(angleDegree,
                 powerPercentage, gameRepository.getCannon(), screen.getScreenSize());
 
-        // System.out.println(traces.toString());
-
+        /* Display traces of bullets */
         for (CoordinateInt coordinate : traces) {
             screen.clearBuffer();
             screen.addObject(gameRepository.getCannon());
@@ -88,6 +88,7 @@ public class API {
             screen.addObject(new Bullet(coordinate));
             screen.printOut();
             // sleep for a while
+
             try {
                 Thread.sleep(SPEED_OF_SHOW_MILLISECOND);
             } catch (InterruptedException ex) {
@@ -96,13 +97,55 @@ public class API {
             }
         }
 
+        /* Display the last frame */
         boolean isHit = gameRepository.getCannon().getShootResult(angleDegree, powerPercentage,
                 gameRepository.getTarget(), screen.getScreenSize());
         screen.clearBuffer();
         screen.addObject(gameRepository.getCannon());
-        // if hit, remove the target
+
+        /* if hit, remove the target */
         if (!isHit) {
-            screen.addObject(gameRepository.getTarget());
+            GameObject target = gameRepository.getTarget();
+
+            /*-
+             * Randomly remove the x position of target
+             * dx from -2 to 2
+             */
+            int x = target.getX() + new Random().nextInt(-2, 3);
+
+            /* Avoid the target moving out of the screen or designated position */
+            int upperBoundX = screen.getScreenSize().x - 2;
+            if (x > upperBoundX) {
+                x = upperBoundX;
+            }
+
+            int lowerBoundX = screen.getScreenSize().x / 2 + 3;
+            if (x < lowerBoundX) {
+                x = lowerBoundX;
+            }
+
+            /*-
+             * Randomly remove the y position of target
+             * dy from -2 to 2
+             */
+            int y = target.getY() + new Random().nextInt(-2, 3);
+
+            /* Avoid the target moving out of the screen or designated position */
+            int upperBoundY = 5;
+            if (y > upperBoundY) {
+                y = upperBoundY;
+            }
+
+            int lowerBoundY = 1;
+            if (y < lowerBoundY) {
+                y = lowerBoundY;
+            }
+
+            /* Set x, y postion */
+            target.setCoordinate(new CoordinateInt(x, y));
+
+            // add target
+            screen.addObject(target);
         }
         screen.printOut();
     }
