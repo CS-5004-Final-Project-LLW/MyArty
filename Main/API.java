@@ -52,7 +52,7 @@ public class API {
     private Target generateTarget() {
         int midX = screen.getScreenSize().x / 2;
         // x should be at the right screen
-        int x = midX + new Random().nextInt(midX - 2);
+        int x = midX + 3 + new Random().nextInt(midX - 4);
         int y = 1;
         Target target = new Target(new CoordinateInt(x, y));
         return target;
