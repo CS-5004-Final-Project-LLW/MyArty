@@ -14,8 +14,20 @@ public class API {
     private final static int SCREEN_SIZE_Y = 30;
     // interval between frames
     private final static int SPEED_OF_SHOW_MILLISECOND = 500;
+    private String userName = "";
 
-    public API() {
+    public String getUserName() {
+        return userName;
+    }
+
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+
+    public API(String userName) {
+        this.userName = userName;
         // create a screen
         screen = new Screen(new CoordinateInt(SCREEN_SIZE_X, SCREEN_SIZE_Y));
         // create a cannon
