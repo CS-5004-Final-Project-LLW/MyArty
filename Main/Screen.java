@@ -95,7 +95,7 @@ public class Screen {
         return sb.toString();
     }
 
-    public static String getColorfulString(char[] charArray, Color color) {
+    public static String colorString(char[] charArray, Color color) {
         return colorString(new String(charArray), color);
     }
 
@@ -115,7 +115,7 @@ public class Screen {
             }
 
             // print colorful characters
-            System.out.println("Life: " + getColorfulString(heartArr, Color.RED_BOLD));
+            System.out.println("Life: " + colorString(heartArr, Color.RED_BOLD));
 
         } else if (life <= 0) {
             System.out.println("Game over. Please try again\n");
