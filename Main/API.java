@@ -16,6 +16,11 @@ public class API {
     // interval between frames
     private final static int SPEED_OF_SHOW_MILLISECOND = 500;
     private String userName = "";
+    private int life;
+
+    public int getLife() {
+        return life;
+    }
 
     public String getUserName() {
         return userName;
@@ -25,7 +30,7 @@ public class API {
     public void setUserName(String userName) {
         this.userName = userName;
     }
-
+   
 
     public API(String userName) {
         this.userName = userName;
@@ -39,7 +44,9 @@ public class API {
         gameRepository = new Repository(cannon, target);
         // show welcome
         showInit();
-    }
+        // life counter
+        life = 5;
+    } 
 
 
     /**
@@ -82,6 +89,22 @@ public class API {
         screen.printOut();
     }
 
+    // life counter
+    public void heartArr(int life){
+        char[] heartArr = {'♥','♥','♥','♥','♥'};
+        if(life <5 && life>0){
+            for (int i=4;i>=life;i--){
+                heartArr[i]='♡';
+            }
+            System.out.print("Life:");
+            System.out.print(Color.RED_BOLD);
+            System.out.printf(new String(heartArr) + "\n");  
+            System.out.print(Color.RESET);
+        } else if (life<=0){
+            System.out.println("Game over. Please try again\n");
+        
+        }
+    }
 
     /**
      * @param angleDegree between 0 to 90
@@ -158,9 +181,9 @@ public class API {
 
             // add target
             screen.addObject(target);
+            life--;
         }
         screen.printOut();
+        heartArr(life);
     }
-
-
 }

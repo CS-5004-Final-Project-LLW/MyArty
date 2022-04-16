@@ -67,7 +67,7 @@ public class Main {
             // prompt user input and display game instructions
             System.out.println("Game instructions: ");
             System.out.println("Enter \"e\" or \"exit\" to exit the game");
-            System.out.println("Enter \"r\" or \"restart\" to restart the game");
+            System.out.println("Enter \"r\" or \"rest art\" to restart the game");
             System.out.println(
                     "Enter \"s\" angle power or just angle power (separated by space) to start to play! ");
             System.out.println(
