@@ -1,12 +1,12 @@
-package com.company.Main;
+package Main;
 
 import java.util.ArrayList;
 import java.util.Random;
-import com.company.Object.Bullet;
-import com.company.Object.Cannon;
-import com.company.Object.CoordinateInt;
-import com.company.Object.GameObject;
-import com.company. Object.Target;
+import Object.Bullet;
+import Object.Cannon;
+import Object.CoordinateInt;
+import Object.GameObject;
+import Object.Target;
 
 public class API {
     private Repository gameRepository;

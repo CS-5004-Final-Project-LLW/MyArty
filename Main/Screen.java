@@ -1,7 +1,7 @@
-package com.company.Main;
+package Main;
 
-import com.company.Object.CoordinateInt;
-import com.company.Object.GameObject;
+import Object.CoordinateInt;
+import Object.GameObject;
 import java.util.Arrays;
 
 
