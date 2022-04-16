@@ -59,19 +59,21 @@ public class Main {
         System.exit(0);
     }
 
+    private static final String[] welcomeMessages = {"Game instructions: ",
+            "* Exit: enter \"e\" or \"exit\" to exit the game",
+            "* Restart: enter \"r\" or \"restart\" to restart the game",
+            "* Shoot: enter \"s\" angle power or just angle power (separated by space) to start to play! ",
+            "* Angle range from 0 to 90 degree.", "* Shooting power range from 0 to 100."};
+
 
     public static void main(String[] args) {
         Main theMain = new Main();
 
         while (true) {
             // prompt user input and display game instructions
-            System.out.println("Game instructions: ");
-            System.out.println("* Exit: enter \"e\" or \"exit\" to exit the game");
-            System.out.println("* Restart: enter \"r\" or \"restart\" to restart the game");
-            System.out.println(
-                    "* Shoot: enter \"s\" angle power or just angle power (separated by space) to start to play! ");
-            System.out.println("* Angle range from 0 to 90 degree.");
-            System.out.println("* Shooting power range from 0 to 100.");
+            for (String welcomeMessage : Main.welcomeMessages) {
+                System.out.println(welcomeMessage);
+            }
 
             // read a line
             String input = theMain.scanner.nextLine();

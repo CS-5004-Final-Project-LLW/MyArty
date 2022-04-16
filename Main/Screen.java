@@ -8,6 +8,8 @@ import java.util.Arrays;
 public class Screen {
     private final CoordinateInt screenSize;
     private int[][] buffer;
+    private static final char heartChar = '♥';
+    private static final char notHeartChar = '♡';
 
     public CoordinateInt getScreenSize() {
         return screenSize;
@@ -85,22 +87,38 @@ public class Screen {
         printGrass();
     }
 
+    private static String getColorfulString(String string, Color color) {
+        StringBuffer sb = new StringBuffer();
+        sb.append(color);
+        sb.append(new String(string));
+        sb.append(Color.RESET);
+        return sb.toString();
+    }
+
+    private static String getColorfulString(char[] charArray, Color color) {
+        return getColorfulString(new String(charArray), color);
+    }
+
     // life counter
     public void showRemainedLife(int life) {
-        char[] heartArr = {'♥', '♥', '♥', '♥', '♥'};
         if (life < 5 && life > 0) {
-            for (int i = 4; i >= life; i--) {
-                heartArr[i] = '♡';
+            char[] heartArr = new char[5];
+
+            // print '♥'
+            for (int i = 0; i < life; i++) {
+                heartArr[i] = heartChar;
             }
-            StringBuffer sb = new StringBuffer();
-            sb.append("Life:");
-            sb.append(Color.RED_BOLD);
-            sb.append(new String(heartArr));
-            sb.append(Color.RESET);
-            System.out.println(sb.toString());
+
+            // print '♡'
+            for (int i = life; i < 5; i++) {
+                heartArr[i] = notHeartChar;
+            }
+
+            // print colorful characters
+            System.out.println("Life: " + getColorfulString(heartArr, Color.RED_BOLD));
+
         } else if (life <= 0) {
             System.out.println("Game over. Please try again\n");
-
         }
     }
 }
