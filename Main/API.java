@@ -1,12 +1,12 @@
-package Main;
+package com.company.Main;
 
 import java.util.ArrayList;
 import java.util.Random;
-import Object.Bullet;
-import Object.Cannon;
-import Object.CoordinateInt;
-import Object.GameObject;
-import Object.Target;
+import com.company.Object.Bullet;
+import com.company.Object.Cannon;
+import com.company.Object.CoordinateInt;
+import com.company.Object.GameObject;
+import com.company. Object.Target;
 
 public class API {
     private Repository gameRepository;
@@ -71,9 +71,10 @@ public class API {
      */
     private Target generateTarget() {
         int midX = screen.getScreenSize().x / 2;
+        int midY = screen.getScreenSize().y /2;
         // x should be at the right screen
         int x = midX + 3 + new Random().nextInt(midX - 4);
-        int y = 1;
+        int y = 1 + new Random().nextInt(midY +1);;
         Target target = new Target(new CoordinateInt(x, y));
         return target;
     }

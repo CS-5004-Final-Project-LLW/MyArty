@@ -1,7 +1,8 @@
-package Main;
+package com.company.Main;
 
-import Object.CoordinateInt;
-import Object.GameObject;
+import com.company.Object.CoordinateInt;
+import com.company.Object.GameObject;
+import java.util.Arrays;
 
 
 public class Screen {
@@ -53,9 +54,21 @@ public class Screen {
         this.buffer = new int[screenSize.x][screenSize.y];
     }
 
+    private void printGrass() {
+        System.out.println(Color.GREEN_BOLD_BRIGHT);
+        String [] grass = new String[screenSize.x];
+        Arrays.fill(grass,"▲");
+        for(int i =0;i<screenSize.x;i++) {
+            System.out.print(grass[i]);
+        }
+        System.out.println("");
+        System.out.print(Color.RESET);
+    }
+
     public void printOut() {
         StringBuffer sb = new StringBuffer('\n');
         for (int j = screenSize.y - 1; j >= 0; j--) {
+            sb.append('\n');
             for (int i = 0; i < screenSize.x; i++) {
                 if (buffer[i][j] == 1) {
                     // black dot
@@ -66,10 +79,10 @@ public class Screen {
                 }
             }
             // wrap
-            sb.append('\n');
         }
-        System.out.println(sb.toString());
-    }
 
+        System.out.print(sb);
+        printGrass();
+    }
 
 }
