@@ -87,7 +87,7 @@ public class Screen {
         printGrass();
     }
 
-    private static String getColorfulString(String string, Color color) {
+    public static String colorString(String string, Color color) {
         StringBuffer sb = new StringBuffer();
         sb.append(color);
         sb.append(new String(string));
@@ -95,8 +95,8 @@ public class Screen {
         return sb.toString();
     }
 
-    private static String getColorfulString(char[] charArray, Color color) {
-        return getColorfulString(new String(charArray), color);
+    public static String getColorfulString(char[] charArray, Color color) {
+        return colorString(new String(charArray), color);
     }
 
     // life counter

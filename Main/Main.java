@@ -55,21 +55,31 @@ public class Main {
     }
 
     private void exitGame() {
+
         System.out.println("Thank you for playing!");
         System.exit(0);
     }
 
     private static final String[] welcomeMessages = {"Game instructions: ",
-            "* Exit: enter \"e\" or \"exit\" to exit the game",
-            "* Restart: enter \"r\" or \"restart\" to restart the game",
-            "* Shoot: enter \"s\" angle power or just angle power (separated by space) to start to play! ",
-            "* Angle range from 0 to 90 degree.", "* Shooting power range from 0 to 100."};
+            "* Exit: enter " + Screen.colorString("e", Color.RED_BOLD) + " or "
+                    + Screen.colorString("exit", Color.RED_BOLD),
+            "* Restart: enter " + Screen.colorString("r", Color.BLUE_BOLD) + " or "
+                    + Screen.colorString("restart", Color.BLUE_BOLD),
+            "* Shoot: enter " + Screen.colorString("s angle power", Color.GREEN_BOLD) + " or just "
+                    + Screen.colorString("angle power", Color.GREEN_BOLD) + " (separated by space)",
+            "  * Angle range from 0 to 90 degree.", "  * Power range from 0 to 100."};
 
 
     public static void main(String[] args) {
+        // add one line at first
+        System.out.println();
+
         Main theMain = new Main();
 
         while (true) {
+            // add one line at first
+            System.out.println();
+
             // prompt user input and display game instructions
             for (String welcomeMessage : Main.welcomeMessages) {
                 System.out.println(welcomeMessage);
