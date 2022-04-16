@@ -56,9 +56,9 @@ public class Screen {
 
     private void printGrass() {
         System.out.println(Color.GREEN_BOLD_BRIGHT);
-        String [] grass = new String[screenSize.x];
-        Arrays.fill(grass,"▲");
-        for(int i =0;i<screenSize.x;i++) {
+        String[] grass = new String[screenSize.x];
+        Arrays.fill(grass, "▲");
+        for (int i = 0; i < screenSize.x; i++) {
             System.out.print(grass[i]);
         }
         System.out.println("");
@@ -85,4 +85,22 @@ public class Screen {
         printGrass();
     }
 
+    // life counter
+    public void showRemainedLife(int life) {
+        char[] heartArr = {'♥', '♥', '♥', '♥', '♥'};
+        if (life < 5 && life > 0) {
+            for (int i = 4; i >= life; i--) {
+                heartArr[i] = '♡';
+            }
+            StringBuffer sb = new StringBuffer();
+            sb.append("Life:");
+            sb.append(Color.RED_BOLD);
+            sb.append(new String(heartArr));
+            sb.append(Color.RESET);
+            System.out.println(sb.toString());
+        } else if (life <= 0) {
+            System.out.println("Game over. Please try again\n");
+
+        }
+    }
 }

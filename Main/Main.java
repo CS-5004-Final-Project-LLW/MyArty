@@ -66,12 +66,12 @@ public class Main {
         while (true) {
             // prompt user input and display game instructions
             System.out.println("Game instructions: ");
-            System.out.println("Enter \"e\" or \"exit\" to exit the game");
-            System.out.println("Enter \"r\" or \"rest art\" to restart the game");
+            System.out.println("* Exit: enter \"e\" or \"exit\" to exit the game");
+            System.out.println("* Restart: enter \"r\" or \"restart\" to restart the game");
             System.out.println(
-                    "Enter \"s\" angle power or just angle power (separated by space) to start to play! ");
-            System.out.println(
-                    "Angle range from 0 to 90 degree and Shooting power range from 0 to 100;");
+                    "* Shoot: enter \"s\" angle power or just angle power (separated by space) to start to play! ");
+            System.out.println("* Angle range from 0 to 90 degree.");
+            System.out.println("* Shooting power range from 0 to 100.");
 
             // read a line
             String input = theMain.scanner.nextLine();
