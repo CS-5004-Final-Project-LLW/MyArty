@@ -71,5 +71,22 @@ public class Screen {
         System.out.println(sb.toString());
     }
 
+    // life counter
+    public void showRemainedLife(int life) {
+        char[] heartArr = {'♥', '♥', '♥', '♥', '♥'};
+        if (life < 5 && life > 0) {
+            for (int i = 4; i >= life; i--) {
+                heartArr[i] = '♡';
+            }
+            StringBuffer sb = new StringBuffer();
+            sb.append("Life:");
+            sb.append(Color.RED_BOLD);
+            sb.append(new String(heartArr));
+            sb.append(Color.RESET);
+            System.out.println(sb.toString());
+        } else if (life <= 0) {
+            System.out.println("Game over. Please try again\n");
 
+        }
+    }
 }
