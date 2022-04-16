@@ -30,7 +30,7 @@ public class API {
     public void setUserName(String userName) {
         this.userName = userName;
     }
-   
+
 
     public API(String userName) {
         this.userName = userName;
@@ -46,7 +46,7 @@ public class API {
         showInit();
         // life counter
         life = 5;
-    } 
+    }
 
 
     /**
@@ -90,19 +90,19 @@ public class API {
     }
 
     // life counter
-    public void heartArr(int life){
-        char[] heartArr = {'♥','♥','♥','♥','♥'};
-        if(life <5 && life>0){
-            for (int i=4;i>=life;i--){
-                heartArr[i]='♡';
+    public void heartArr(int life) {
+        char[] heartArr = {'♥', '♥', '♥', '♥', '♥'};
+        if (life < 5 && life > 0) {
+            for (int i = 4; i >= life; i--) {
+                heartArr[i] = '♡';
             }
             System.out.print("Life:");
             System.out.print(Color.RED_BOLD);
-            System.out.printf(new String(heartArr) + "\n");  
+            System.out.printf(new String(heartArr) + "\n");
             System.out.print(Color.RESET);
-        } else if (life<=0){
+        } else if (life <= 0) {
             System.out.println("Game over. Please try again\n");
-        
+
         }
     }
 
@@ -183,7 +183,9 @@ public class API {
             screen.addObject(target);
             life--;
         }
+        // print out all from buffer
         screen.printOut();
+        // display remained lives
         heartArr(life);
     }
 }
