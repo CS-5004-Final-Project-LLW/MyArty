@@ -37,5 +37,34 @@ public abstract class GameObject {
     }
 
 
+    /**
+     * @param screenSize
+     * @return boolean {@code ture} if the coordinate is valid according to the screen size
+     */
+    public boolean isValid(CoordinateInt screenSize) {
+        return coordinate.x >= 0 && coordinate.x < screenSize.x && coordinate.y >= 0
+                && coordinate.y < screenSize.y;
+    }
+
+
+    /**
+     * Change the coordiante to a valid one
+     * 
+     * @param screenSize
+     */
+    public void legalizeCoordinate(CoordinateInt screenSize) {
+        if (coordinate.x < 0) {
+            coordinate.x = 0;
+        }
+        if (coordinate.x > screenSize.x - 1) {
+            coordinate.x = screenSize.x - 1;
+        }
+        if (coordinate.y < 0) {
+            coordinate.y = 0;
+        }
+        if (coordinate.y > screenSize.y - 1) {
+            coordinate.y = screenSize.y - 1;
+        }
+    }
 
 }
