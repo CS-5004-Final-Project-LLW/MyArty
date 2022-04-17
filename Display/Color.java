@@ -1,5 +1,5 @@
-package Main;
-enum Color {
+package Display;
+public enum Color {
     //Color end string, color reset
     RESET("\033[0m"),
 

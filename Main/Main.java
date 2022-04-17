@@ -2,6 +2,8 @@ package Main;
 
 import java.util.Locale;
 import java.util.Scanner;
+import Display.Color;
+import Display.Screen;
 
 /**
  * The entrance of the program
@@ -32,7 +34,7 @@ public class Main {
 
     private void shoot(String[] inputs) {
         if (inputs.length != 4) {
-            // wrong input if the input does not contain exactly 3 words
+            // wrong input if the input does not contain exactly 4 words
             wrongInput(inputs);
             return;
         }
@@ -47,8 +49,11 @@ public class Main {
             wrongInput(inputs);
             return;
         }
+
+        String isSkip = inputs[3];
+
         // perform shooting
-            gameAPI.shoot(angleDegree, powerPercentage, inputs[3]);
+        gameAPI.shoot(angleDegree, powerPercentage, isSkip);
     }
 
     // wrong input promot user to re-entry
@@ -69,7 +74,10 @@ public class Main {
                     + Screen.colorString("restart", Color.BLUE_BOLD),
             "* Shoot: enter " + Screen.colorString("s angle power", Color.GREEN_BOLD) + " or just "
                     + Screen.colorString("angle power", Color.GREEN_BOLD) + " (separated by space)",
-            "  * Angle range from 0 to 90 degree.", "  * Power range from 0 to 100."};
+            "  * Angle range from 0 to 90 degree.", "  * Power range from 0 to 100.",
+            "  * Add " + Screen.colorString("y", Color.RED_BOLD) + " or "
+                    + Screen.colorString("Y", Color.RED_BOLD)
+                    + " to skip animation, if not, just ignore"};
 
 
     public static void main(String[] args) {
@@ -81,16 +89,6 @@ public class Main {
         while (true) {
             // add one line at first
             System.out.println();
-
-            // prompt user input and display game instructions
-            System.out.println("Game instructions: ");
-            System.out.println("* Exit: enter \"e\" or \"exit\" to exit the game");
-            System.out.println("* Restart: enter \"r\" or \"restart\" to restart the game");
-            System.out.println(
-                    "* Shoot: enter \"s\" angle power or just angle power (separated by space) to start to play! ");
-            System.out.println("* Angle range from 0 to 90 degree.");
-            System.out.println("* Shooting power range from 0 to 100.");
-            System.out.println("* Add \"y\" or \"Y\"to skip animation, if not, just ignore");
 
             for (String welcomeMessage : Main.welcomeMessages) {
                 System.out.println(welcomeMessage);
@@ -131,18 +129,19 @@ public class Main {
                 newInputs2[2] = inputs[2];
                 newInputs2[3] = "n";
                 theMain.shoot(newInputs2);
-        
+
             } else if (inputs.length == 4 && inputs[0].toLowerCase(Locale.ENGLISH).equals("s")) {
-            // Normal shoot case contains 4 inputs with the first one being "s" and last ont being "y"
-            // the rest are angle and power
+                // Normal shoot case contains 4 inputs with the first one being "s" and last ont
+                // being "y"
+                // the rest are angle and power
                 theMain.shoot(inputs);
-                
+
             } else {
                 // Wrong answer, simply ask user to re-input
                 theMain.wrongInput(inputs);
 
             }
         }
-            
+
     }
 }

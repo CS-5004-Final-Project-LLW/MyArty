@@ -2,9 +2,10 @@ package Main;
 
 import java.util.ArrayList;
 import java.util.Random;
+import Coordinate.CoordinateInt;
+import Display.Screen;
 import Object.Bullet;
 import Object.Cannon;
-import Object.CoordinateInt;
 import Object.GameObject;
 import Object.Target;
 
@@ -17,7 +18,7 @@ public class API {
     private final static int SPEED_OF_SHOW_MILLISECOND = 500;
     private String userName = "";
     private int life = 5;
-  
+
 
     public int getLife() {
         return life;
@@ -104,23 +105,20 @@ public class API {
 
         /* Display traces of bullets */
         // check skip
-
-        if ("y".equals(isSkip) || "Y".equals(isSkip)){
-            
-        }else {
-            for (int i= 0; i<traces.size();i++) {
+        if (!isSkip.equals("y") && !isSkip.equals("Y")) {
+            for (int i = 0; i < traces.size(); i++) {
                 screen.clearBuffer();
                 // display traces of shadow
-                if (i > 3){
-                    screen.addObject(new Bullet(traces.get(i-1)));
-                    screen.addObject(new Bullet(traces.get(i-2)));
-                    screen.addObject(new Bullet(traces.get(i-3)));
-                } 
+                if (i > 3) {
+                    screen.addObject(new Bullet(traces.get(i - 1)));
+                    screen.addObject(new Bullet(traces.get(i - 2)));
+                    screen.addObject(new Bullet(traces.get(i - 3)));
+                }
                 screen.addObject(gameRepository.getCannon());
                 screen.addObject(gameRepository.getTarget());
                 screen.addObject(new Bullet(traces.get(i)));
                 screen.printOut();
-                
+
                 // sleep for a while
 
                 try {
@@ -129,7 +127,7 @@ public class API {
                     // catch keyboard interrupt
                     Thread.currentThread().interrupt();
                 }
-        
+
             }
         }
 
@@ -143,16 +141,10 @@ public class API {
         if (!isHit) {
             GameObject target = gameRepository.getTarget();
 
-            /*-
-             * Randomly remove the x position of target
-             * dx from -2 to 2
-             */
+            // Randomly remove the x position of target with dx from -2 to 2
             int x = target.getX() + new Random().nextInt(-2, 3);
 
-            /*-
-             * Randomly remove the y position of target
-             * dy from -2 to 2
-             */
+            // Randomly remove the y position of target with dy from -2 to 2
             int y = target.getY() + new Random().nextInt(-2, 3);
 
             /* Set x, y postion */
@@ -160,14 +152,14 @@ public class API {
 
             // add target
             screen.addObject(target);
+
+            // lives minus one because of failure
             life--;
         }
         // print out all from buffer
         screen.printOut();
 
-        
         // display remained lives
         screen.showRemainedLife(life);
-        
     }
 }

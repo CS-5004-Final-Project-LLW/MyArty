@@ -1,5 +1,7 @@
 package Object;
 
+import Coordinate.CoordinateInt;
+
 /**
  * A class for bullet
  */

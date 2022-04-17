@@ -1,4 +1,4 @@
-package Object;
+package Coordinate;
 /**
  * A class for storing coordinate x and y
  */

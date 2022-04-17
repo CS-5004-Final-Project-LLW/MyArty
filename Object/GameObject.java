@@ -1,5 +1,7 @@
 package Object;
 
+import Coordinate.CoordinateInt;
+
 /**
  * An abstarct class for GameObject like Cannon, Target, Bullet and so on
  */

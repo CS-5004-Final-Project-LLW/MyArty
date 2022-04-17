@@ -1,6 +1,8 @@
 package Object;
 
 import java.util.ArrayList;
+import Coordinate.CoordinateDouble;
+import Coordinate.CoordinateInt;
 
 /**
  * A class for Cannon
