@@ -13,6 +13,8 @@ public class Main {
     // for user input
     Scanner scanner = new Scanner(System.in);
 
+    public boolean isSkip = false;
+
     public Main() {
         start();
     }
@@ -29,7 +31,7 @@ public class Main {
     }
 
     private void shoot(String[] inputs) {
-        if (inputs.length != 3) {
+        if (inputs.length != 4) {
             // wrong input if the input does not contain exactly 3 words
             wrongInput(inputs);
             return;
@@ -46,7 +48,7 @@ public class Main {
             return;
         }
         // perform shooting
-        gameAPI.shoot(angleDegree, powerPercentage);
+            gameAPI.shoot(angleDegree, powerPercentage, inputs[3]);
     }
 
     // wrong input promot user to re-entry
@@ -81,6 +83,15 @@ public class Main {
             System.out.println();
 
             // prompt user input and display game instructions
+            System.out.println("Game instructions: ");
+            System.out.println("* Exit: enter \"e\" or \"exit\" to exit the game");
+            System.out.println("* Restart: enter \"r\" or \"restart\" to restart the game");
+            System.out.println(
+                    "* Shoot: enter \"s\" angle power or just angle power (separated by space) to start to play! ");
+            System.out.println("* Angle range from 0 to 90 degree.");
+            System.out.println("* Shooting power range from 0 to 100.");
+            System.out.println("* Add \"y\" or \"Y\"to skip animation, if not, just ignore");
+
             for (String welcomeMessage : Main.welcomeMessages) {
                 System.out.println(welcomeMessage);
             }
@@ -104,22 +115,34 @@ public class Main {
             } else if (inputs.length == 2) {
                 // shoot case with only two user input angle and power.
                 // Number parsing error is handled inside the shoot method
-                String[] newInputs = new String[3];
+                String[] newInputs = new String[4];
                 newInputs[0] = "s";
                 newInputs[1] = inputs[0];
                 newInputs[2] = inputs[1];
+                newInputs[3] = "n";
                 theMain.shoot(newInputs);
 
             } else if (inputs.length == 3 && inputs[0].toLowerCase(Locale.ENGLISH).equals("s")) {
                 // Normal shoot case contains 3 inputs with the first one being "s"
                 // the rest are angle and power
+                String[] newInputs2 = new String[4];
+                newInputs2[0] = inputs[0];
+                newInputs2[1] = inputs[1];
+                newInputs2[2] = inputs[2];
+                newInputs2[3] = "n";
+                theMain.shoot(newInputs2);
+        
+            } else if (inputs.length == 4 && inputs[0].toLowerCase(Locale.ENGLISH).equals("s")) {
+            // Normal shoot case contains 4 inputs with the first one being "s" and last ont being "y"
+            // the rest are angle and power
                 theMain.shoot(inputs);
-
+                
             } else {
                 // Wrong answer, simply ask user to re-input
                 theMain.wrongInput(inputs);
 
             }
         }
+            
     }
 }

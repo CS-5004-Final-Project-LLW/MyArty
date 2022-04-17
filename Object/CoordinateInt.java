@@ -21,4 +21,9 @@ public class CoordinateInt extends Coordinate<Integer> {
     public CoordinateInt(CoordinateDouble other) {
         super(other.x.intValue(), other.y.intValue());
     }
+
+    @Override
+    public String toString(){
+        return x + ", " + y;
+    }
 }
