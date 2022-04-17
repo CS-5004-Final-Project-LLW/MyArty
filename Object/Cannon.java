@@ -1,6 +1,7 @@
 package Object;
 
 import java.util.ArrayList;
+import Main.Screen;
 
 /**
  * A class for Cannon
@@ -16,6 +17,12 @@ public class Cannon extends GameObject {
 
     public Cannon(CoordinateInt coordinate, CoordinateInt screenSize) {
         super(coordinate, new CoordinateInt(3, 3), screenSize);
+    }
+
+    @Override
+    protected void createBoundary() {
+        setBoundary_min(new CoordinateInt(1, 1));
+        setBoundary_max(new CoordinateInt(getScreenSize().x / 2 - 1, getScreenSize().y / 2 - 1));
     }
 
 
@@ -126,6 +133,8 @@ public class Cannon extends GameObject {
         // Therefore, t = (x - x0) / * (v * cos(θ))
         // calculate the time when the bullet is at the same x value with target
         double t = (x - x0) / v / Math.cos(theta);
+
+        // TODO: need a careful design
         double y = y0 + h + v * Math.sin(theta) * t - GRAVITY * t * t / 2;
 
         // return true if the y value of the bullet is between the top and botton line of the target

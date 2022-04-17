@@ -13,4 +13,9 @@ public class Bullet extends GameObject {
     public Bullet(CoordinateInt coordinate, CoordinateInt screenSize) {
         super(coordinate, new CoordinateInt(1, 1), screenSize);
     }
+
+    @Override
+    public void createBoundary() {
+        createDefaultBoundary();
+    }
 }

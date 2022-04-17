@@ -134,33 +134,11 @@ public class API {
              */
             int x = target.getX() + new Random().nextInt(-2, 3);
 
-            /* Avoid the target moving out of the screen or designated position */
-            int upperBoundX = screen.getScreenSize().x - 2;
-            if (x > upperBoundX) {
-                x = upperBoundX;
-            }
-
-            int lowerBoundX = screen.getScreenSize().x / 2 + 3;
-            if (x < lowerBoundX) {
-                x = lowerBoundX;
-            }
-
             /*-
              * Randomly remove the y position of target
              * dy from -2 to 2
              */
             int y = target.getY() + new Random().nextInt(-2, 3);
-
-            /* Avoid the target moving out of the screen or designated position */
-            int upperBoundY = 5;
-            if (y > upperBoundY) {
-                y = upperBoundY;
-            }
-
-            int lowerBoundY = 1;
-            if (y < lowerBoundY) {
-                y = lowerBoundY;
-            }
 
             /* Set x, y postion */
             target.setCoordinate(new CoordinateInt(x, y));
