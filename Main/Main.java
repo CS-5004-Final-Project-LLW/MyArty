@@ -13,6 +13,8 @@ public class Main {
     // for user input
     Scanner scanner = new Scanner(System.in);
 
+    public boolean isSkip = false;
+
     public Main() {
         start();
     }
@@ -29,7 +31,7 @@ public class Main {
     }
 
     private void shoot(String[] inputs) {
-        if (inputs.length != 3) {
+        if (inputs.length != 4) {
             // wrong input if the input does not contain exactly 3 words
             wrongInput(inputs);
             return;
@@ -46,7 +48,7 @@ public class Main {
             return;
         }
         // perform shooting
-        gameAPI.shoot(angleDegree, powerPercentage);
+            gameAPI.shoot(angleDegree, powerPercentage, inputs[3]);
     }
 
     // wrong input promot user to re-entry
@@ -55,15 +57,31 @@ public class Main {
     }
 
     private void exitGame() {
+
         System.out.println("Thank you for playing!");
         System.exit(0);
     }
 
+    private static final String[] welcomeMessages = {"Game instructions: ",
+            "* Exit: enter " + Screen.colorString("e", Color.RED_BOLD) + " or "
+                    + Screen.colorString("exit", Color.RED_BOLD),
+            "* Restart: enter " + Screen.colorString("r", Color.BLUE_BOLD) + " or "
+                    + Screen.colorString("restart", Color.BLUE_BOLD),
+            "* Shoot: enter " + Screen.colorString("s angle power", Color.GREEN_BOLD) + " or just "
+                    + Screen.colorString("angle power", Color.GREEN_BOLD) + " (separated by space)",
+            "  * Angle range from 0 to 90 degree.", "  * Power range from 0 to 100."};
+
 
     public static void main(String[] args) {
+        // add one line at first
+        System.out.println();
+
         Main theMain = new Main();
 
         while (true) {
+            // add one line at first
+            System.out.println();
+
             // prompt user input and display game instructions
             System.out.println("Game instructions: ");
             System.out.println("* Exit: enter \"e\" or \"exit\" to exit the game");
@@ -72,6 +90,11 @@ public class Main {
                     "* Shoot: enter \"s\" angle power or just angle power (separated by space) to start to play! ");
             System.out.println("* Angle range from 0 to 90 degree.");
             System.out.println("* Shooting power range from 0 to 100.");
+            System.out.println("* Add \"y\" or \"Y\"to skip animation, if not, just ignore");
+
+            for (String welcomeMessage : Main.welcomeMessages) {
+                System.out.println(welcomeMessage);
+            }
 
             // read a line
             String input = theMain.scanner.nextLine();
@@ -92,22 +115,34 @@ public class Main {
             } else if (inputs.length == 2) {
                 // shoot case with only two user input angle and power.
                 // Number parsing error is handled inside the shoot method
-                String[] newInputs = new String[3];
+                String[] newInputs = new String[4];
                 newInputs[0] = "s";
                 newInputs[1] = inputs[0];
                 newInputs[2] = inputs[1];
+                newInputs[3] = "n";
                 theMain.shoot(newInputs);
 
             } else if (inputs.length == 3 && inputs[0].toLowerCase(Locale.ENGLISH).equals("s")) {
                 // Normal shoot case contains 3 inputs with the first one being "s"
                 // the rest are angle and power
+                String[] newInputs2 = new String[4];
+                newInputs2[0] = inputs[0];
+                newInputs2[1] = inputs[1];
+                newInputs2[2] = inputs[2];
+                newInputs2[3] = "n";
+                theMain.shoot(newInputs2);
+        
+            } else if (inputs.length == 4 && inputs[0].toLowerCase(Locale.ENGLISH).equals("s")) {
+            // Normal shoot case contains 4 inputs with the first one being "s" and last ont being "y"
+            // the rest are angle and power
                 theMain.shoot(inputs);
-
+                
             } else {
                 // Wrong answer, simply ask user to re-input
                 theMain.wrongInput(inputs);
 
             }
         }
+            
     }
 }

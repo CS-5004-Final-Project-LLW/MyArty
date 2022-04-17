@@ -2,11 +2,14 @@ package Main;
 
 import Object.CoordinateInt;
 import Object.GameObject;
+import java.util.Arrays;
 
 
 public class Screen {
     private final CoordinateInt screenSize;
     private int[][] buffer;
+    private static final char heartChar = '♥';
+    private static final char notHeartChar = '♡';
 
     public CoordinateInt getScreenSize() {
         return screenSize;
@@ -53,9 +56,21 @@ public class Screen {
         this.buffer = new int[screenSize.x][screenSize.y];
     }
 
+    private void printGrass() {
+        System.out.println(Color.GREEN_BOLD_BRIGHT);
+        String[] grass = new String[screenSize.x];
+        Arrays.fill(grass, "▲");
+        for (int i = 0; i < screenSize.x; i++) {
+            System.out.print(grass[i]);
+        }
+        System.out.println("");
+        System.out.print(Color.RESET);
+    }
+
     public void printOut() {
         StringBuffer sb = new StringBuffer('\n');
         for (int j = screenSize.y - 1; j >= 0; j--) {
+            sb.append('\n');
             for (int i = 0; i < screenSize.x; i++) {
                 if (buffer[i][j] == 1) {
                     // black dot
@@ -66,27 +81,44 @@ public class Screen {
                 }
             }
             // wrap
-            sb.append('\n');
         }
-        System.out.println(sb.toString());
+
+        System.out.print(sb);
+        printGrass();
+    }
+
+    public static String colorString(String string, Color color) {
+        StringBuffer sb = new StringBuffer();
+        sb.append(color);
+        sb.append(new String(string));
+        sb.append(Color.RESET);
+        return sb.toString();
+    }
+
+    public static String colorString(char[] charArray, Color color) {
+        return colorString(new String(charArray), color);
     }
 
     // life counter
     public void showRemainedLife(int life) {
-        char[] heartArr = {'♥', '♥', '♥', '♥', '♥'};
         if (life < 5 && life > 0) {
-            for (int i = 4; i >= life; i--) {
-                heartArr[i] = '♡';
+            char[] heartArr = new char[5];
+
+            // print '♥'
+            for (int i = 0; i < life; i++) {
+                heartArr[i] = heartChar;
             }
-            StringBuffer sb = new StringBuffer();
-            sb.append("Life:");
-            sb.append(Color.RED_BOLD);
-            sb.append(new String(heartArr));
-            sb.append(Color.RESET);
-            System.out.println(sb.toString());
+
+            // print '♡'
+            for (int i = life; i < 5; i++) {
+                heartArr[i] = notHeartChar;
+            }
+
+            // print colorful characters
+            System.out.println("Life: " + colorString(heartArr, Color.RED_BOLD));
+
         } else if (life <= 0) {
             System.out.println("Game over. Please try again\n");
-
         }
     }
 }
