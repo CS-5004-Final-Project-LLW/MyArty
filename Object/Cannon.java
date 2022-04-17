@@ -10,12 +10,12 @@ public class Cannon extends GameObject {
     private static double GRAVITY = 0.5;
     private static double VELOCITY_SCALE = 0.01;
 
-    public Cannon(CoordinateInt coordinate, CoordinateInt size) {
-        super(coordinate, size);
+    public Cannon(CoordinateInt coordinate, CoordinateInt size, CoordinateInt screenSize) {
+        super(coordinate, size, screenSize);
     }
 
-    public Cannon(CoordinateInt coordinate) {
-        super(coordinate, new CoordinateInt(3, 3));
+    public Cannon(CoordinateInt coordinate, CoordinateInt screenSize) {
+        super(coordinate, new CoordinateInt(3, 3), screenSize);
     }
 
 

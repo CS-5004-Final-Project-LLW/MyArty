@@ -5,11 +5,12 @@ package Object;
  */
 public class Bullet extends GameObject {
 
-    public Bullet(CoordinateInt coordinate, CoordinateInt size) {
-        super(coordinate, size);
+
+    public Bullet(CoordinateInt coordinate, CoordinateInt size, CoordinateInt screenSize) {
+        super(coordinate, size, screenSize);
     }
 
-    public Bullet(CoordinateInt coordinate) {
-        super(coordinate, new CoordinateInt(1, 1));
+    public Bullet(CoordinateInt coordinate, CoordinateInt screenSize) {
+        super(coordinate, new CoordinateInt(1, 1), screenSize);
     }
 }

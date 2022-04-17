@@ -57,7 +57,7 @@ public class API {
         // x should be at the left screen
         int x = 1 + new Random().nextInt(midX - 3);
         int y = 1;
-        Cannon cannon = new Cannon(new CoordinateInt(x, y));
+        Cannon cannon = new Cannon(new CoordinateInt(x, y), screen.getScreenSize());
         return cannon;
     }
 
@@ -69,10 +69,11 @@ public class API {
      */
     private Target generateTarget() {
         int midX = screen.getScreenSize().x / 2;
+        int midY = screen.getScreenSize().y / 2;
         // x should be at the right screen
         int x = midX + 3 + new Random().nextInt(midX - 4);
-        int y = 1;
-        Target target = new Target(new CoordinateInt(x, y));
+        int y = 1 + new Random().nextInt(midY + 1);;
+        Target target = new Target(new CoordinateInt(x, y), screen.getScreenSize());
         return target;
     }
 
@@ -105,7 +106,7 @@ public class API {
             screen.clearBuffer();
             screen.addObject(gameRepository.getCannon());
             screen.addObject(gameRepository.getTarget());
-            screen.addObject(new Bullet(coordinate));
+            screen.addObject(new Bullet(coordinate, screen.getScreenSize()));
             screen.printOut();
             // sleep for a while
 
