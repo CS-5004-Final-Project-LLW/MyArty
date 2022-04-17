@@ -116,10 +116,6 @@ public class Main {
             } else if (inputs.length == 4 && inputs[0].toLowerCase(Locale.ENGLISH).equals("s")) {
             // Normal shoot case contains 4 inputs with the first one being "s" and last ont being "y"
             // the rest are angle and power
-                // if("y".equals(inputs[3])){
-                //     isSkip = false;
-                // }
-                // theMain.setisSkip(true);
                 theMain.shoot(inputs);
                 
             } else {
