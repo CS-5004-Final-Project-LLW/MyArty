@@ -74,7 +74,10 @@ public class Main {
                     + Screen.colorString("restart", Color.BLUE_BOLD),
             "* Shoot: enter " + Screen.colorString("s angle power", Color.GREEN_BOLD) + " or just "
                     + Screen.colorString("angle power", Color.GREEN_BOLD) + " (separated by space)",
-            "  * Angle range from 0 to 90 degree.", "  * Power range from 0 to 100."};
+            "  * Angle range from 0 to 90 degree.", "  * Power range from 0 to 100.",
+            "  * Add " + Screen.colorString("y", Color.RED_BOLD) + " or "
+                    + Screen.colorString("Y", Color.RED_BOLD)
+                    + " to skip animation, if not, just ignore"};
 
 
     public static void main(String[] args) {
@@ -86,16 +89,6 @@ public class Main {
         while (true) {
             // add one line at first
             System.out.println();
-
-            // prompt user input and display game instructions
-            System.out.println("Game instructions: ");
-            System.out.println("* Exit: enter \"e\" or \"exit\" to exit the game");
-            System.out.println("* Restart: enter \"r\" or \"restart\" to restart the game");
-            System.out.println(
-                    "* Shoot: enter \"s\" angle power or just angle power (separated by space) to start to play! ");
-            System.out.println("* Angle range from 0 to 90 degree.");
-            System.out.println("* Shooting power range from 0 to 100.");
-            System.out.println("* Add \"y\" or \"Y\"to skip animation, if not, just ignore");
 
             for (String welcomeMessage : Main.welcomeMessages) {
                 System.out.println(welcomeMessage);
