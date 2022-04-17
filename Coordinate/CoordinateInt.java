@@ -1,4 +1,4 @@
-package Object;
+package Coordinate;
 
 /**
  * A class for coordinate storing with Integer type

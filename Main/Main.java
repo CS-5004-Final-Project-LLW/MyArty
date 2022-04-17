@@ -2,6 +2,8 @@ package Main;
 
 import java.util.Locale;
 import java.util.Scanner;
+import Display.Color;
+import Display.Screen;
 
 /**
  * The entrance of the program
@@ -32,7 +34,7 @@ public class Main {
 
     private void shoot(String[] inputs) {
         if (inputs.length != 4) {
-            // wrong input if the input does not contain exactly 3 words
+            // wrong input if the input does not contain exactly 4 words
             wrongInput(inputs);
             return;
         }
@@ -47,8 +49,11 @@ public class Main {
             wrongInput(inputs);
             return;
         }
+
+        String isSkip = inputs[3];
+
         // perform shooting
-            gameAPI.shoot(angleDegree, powerPercentage, inputs[3]);
+        gameAPI.shoot(angleDegree, powerPercentage, isSkip);
     }
 
     // wrong input promot user to re-entry
@@ -131,18 +136,19 @@ public class Main {
                 newInputs2[2] = inputs[2];
                 newInputs2[3] = "n";
                 theMain.shoot(newInputs2);
-        
+
             } else if (inputs.length == 4 && inputs[0].toLowerCase(Locale.ENGLISH).equals("s")) {
-            // Normal shoot case contains 4 inputs with the first one being "s" and last ont being "y"
-            // the rest are angle and power
+                // Normal shoot case contains 4 inputs with the first one being "s" and last ont
+                // being "y"
+                // the rest are angle and power
                 theMain.shoot(inputs);
-                
+
             } else {
                 // Wrong answer, simply ask user to re-input
                 theMain.wrongInput(inputs);
 
             }
         }
-            
+
     }
 }

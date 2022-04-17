@@ -1,8 +1,8 @@
-package Main;
+package Display;
 
-import Object.CoordinateInt;
 import Object.GameObject;
 import java.util.Arrays;
+import Coordinate.CoordinateInt;
 
 
 public class Screen {
