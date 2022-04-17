@@ -17,6 +17,7 @@ public class API {
     private final static int SPEED_OF_SHOW_MILLISECOND = 500;
     private String userName = "";
     private int life = 5;
+  
 
     public int getLife() {
         return life;
@@ -96,32 +97,39 @@ public class API {
      * @param angleDegree between 0 to 90
      * @param powerPercentage between 1 to 100
      */
-    public void shoot(double angleDegree, double powerPercentage) {
+    public void shoot(double angleDegree, double powerPercentage, String isSkip) {
         // create an arraylist for storing traces of bullets
         ArrayList<CoordinateInt> traces = gameRepository.getCannon().getShootTrace(angleDegree,
                 powerPercentage, gameRepository.getCannon(), screen.getScreenSize());
 
         /* Display traces of bullets */
-        // for (CoordinateInt coordinate : traces) {
-        for (int i= 0; i<traces.size();i++) {
-            screen.clearBuffer();
-            // display traces of shadow
-            if (i > 3){
-                screen.addObject(new Bullet(traces.get(i-1)));
-                screen.addObject(new Bullet(traces.get(i-2)));
-                screen.addObject(new Bullet(traces.get(i-3)));
-            } 
-            screen.addObject(gameRepository.getCannon());
-            screen.addObject(gameRepository.getTarget());
-            screen.addObject(new Bullet(traces.get(i)));
-            screen.printOut();
-            // sleep for a while
+        // check skip
 
-            try {
-                Thread.sleep(SPEED_OF_SHOW_MILLISECOND);
-            } catch (InterruptedException ex) {
-                // catch keyboard interrupt
-                Thread.currentThread().interrupt();
+        if ("y".equals(isSkip) || "Y".equals(isSkip)){
+            
+        }else {
+            for (int i= 0; i<traces.size();i++) {
+                screen.clearBuffer();
+                // display traces of shadow
+                if (i > 3){
+                    screen.addObject(new Bullet(traces.get(i-1)));
+                    screen.addObject(new Bullet(traces.get(i-2)));
+                    screen.addObject(new Bullet(traces.get(i-3)));
+                } 
+                screen.addObject(gameRepository.getCannon());
+                screen.addObject(gameRepository.getTarget());
+                screen.addObject(new Bullet(traces.get(i)));
+                screen.printOut();
+                
+                // sleep for a while
+
+                try {
+                    Thread.sleep(SPEED_OF_SHOW_MILLISECOND);
+                } catch (InterruptedException ex) {
+                    // catch keyboard interrupt
+                    Thread.currentThread().interrupt();
+                }
+        
             }
         }
 
@@ -179,9 +187,9 @@ public class API {
         // print out all from buffer
         screen.printOut();
 
-        if (!isHit) {
-            // display remained lives
-            screen.showRemainedLife(life);
-        }
+        
+        // display remained lives
+        screen.showRemainedLife(life);
+        
     }
 }
