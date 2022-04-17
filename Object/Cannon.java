@@ -1,7 +1,6 @@
 package Object;
 
 import java.util.ArrayList;
-import Main.Screen;
 
 /**
  * A class for Cannon

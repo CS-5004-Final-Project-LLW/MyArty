@@ -44,8 +44,13 @@ public abstract class GameObject {
 
 
     protected void createDefaultBoundary() {
-        setBoundary_min(new CoordinateInt(0, 0));
-        setBoundary_max(new CoordinateInt(screenSize.x - 1, screenSize.y - 1));
+        if (screenSize != null) {
+            setBoundary_min(new CoordinateInt(0, 0));
+            setBoundary_max(new CoordinateInt(screenSize.x - 1, screenSize.y - 1));
+        } else {
+            setBoundary_max(null);
+            setBoundary_max(null);
+        }
     }
 
 
@@ -55,7 +60,7 @@ public abstract class GameObject {
 
     public void setCoordinate(CoordinateInt coordinate) {
         this.coordinate = new CoordinateInt(coordinate);
-        legalizeCoordinate(screenSize);
+        legalizeCoordinate();
     }
 
     public CoordinateInt getSize() {
@@ -72,8 +77,10 @@ public abstract class GameObject {
 
         /* generate proper boundary for object */
         createBoundary();
-        assert (boundary_max.x >= boundary_min.x);
-        assert (boundary_max.y >= boundary_min.y);
+        if (boundary_max != null && boundary_min != null) {
+            assert (boundary_max.x >= boundary_min.x);
+            assert (boundary_max.y >= boundary_min.y);
+        }
 
         /* set coordinate and size */
         setCoordinate(coordinate);
@@ -88,49 +95,40 @@ public abstract class GameObject {
         return coordinate.y;
     }
 
-    public void legalizeCoordinate(CoordinateInt screenSize) {
-        if (coordinate.x < boundary_min.x) {
-            coordinate.x = boundary_min.x;
-        }
-        if (coordinate.x > boundary_max.x) {
-            coordinate.x = boundary_max.x;
-        }
-        if (coordinate.y < boundary_min.y) {
-            coordinate.y = boundary_min.y;
-        }
-        if (coordinate.y > boundary_max.y) {
-            coordinate.y = boundary_max.y;
-        }
-    }
-
-    /**
-     * @param screenSize
-     * @return boolean {@code ture} if the coordinate is valid according to the screen size
-     */
-    public boolean isValid(CoordinateInt screenSize) {
-        return coordinate.x >= 0 && coordinate.x < screenSize.x && coordinate.y >= 0
-                && coordinate.y < screenSize.y;
-    }
-
-
     /**
      * Change the coordiante to a valid one
      * 
      * @param screenSize
      */
-    public void legalizeCoordinate(CoordinateInt screenSize) {
-        if (coordinate.x < 0) {
-            coordinate.x = 0;
+    public void legalizeCoordinate() {
+        if (boundary_min != null) {
+            if (coordinate.x < boundary_min.x) {
+                coordinate.x = boundary_min.x;
+            }
+            if (coordinate.y < boundary_min.y) {
+                coordinate.y = boundary_min.y;
+            }
         }
-        if (coordinate.x > screenSize.x - 1) {
-            coordinate.x = screenSize.x - 1;
-        }
-        if (coordinate.y < 0) {
-            coordinate.y = 0;
-        }
-        if (coordinate.y > screenSize.y - 1) {
-            coordinate.y = screenSize.y - 1;
+        if (boundary_max != null) {
+            if (coordinate.x > boundary_max.x) {
+                coordinate.x = boundary_max.x;
+            }
+
+            if (coordinate.y > boundary_max.y) {
+                coordinate.y = boundary_max.y;
+            }
         }
     }
+
+    // /**
+    // * @param screenSize
+    // * @return boolean {@code ture} if the coordinate is valid according to the screen size
+    // */
+    // public boolean isValid(CoordinateInt screenSize) {
+    // return coordinate.x >= 0 && coordinate.x < screenSize.x && coordinate.y >= 0
+    // && coordinate.y < screenSize.y;
+    // }
+
+
 
 }
