@@ -102,11 +102,18 @@ public class API {
                 powerPercentage, gameRepository.getCannon(), screen.getScreenSize());
 
         /* Display traces of bullets */
-        for (CoordinateInt coordinate : traces) {
+        // for (CoordinateInt coordinate : traces) {
+        for (int i= 0; i<traces.size();i++) {
             screen.clearBuffer();
+            // display traces of shadow
+            if (i > 3){
+                screen.addObject(new Bullet(traces.get(i-1)));
+                screen.addObject(new Bullet(traces.get(i-2)));
+                screen.addObject(new Bullet(traces.get(i-3)));
+            } 
             screen.addObject(gameRepository.getCannon());
             screen.addObject(gameRepository.getTarget());
-            screen.addObject(new Bullet(coordinate));
+            screen.addObject(new Bullet(traces.get(i)));
             screen.printOut();
             // sleep for a while
 
