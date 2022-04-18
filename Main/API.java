@@ -87,9 +87,9 @@ public class API {
         // clear buffer
         screen.clearBuffer();
         // add cannon
-        screen.addObject(gameRepository.getCannon(),/*type=*/3 );
+        screen.addObject(gameRepository.getCannon(), /* type= */3);
         // add target
-        screen.addObject(gameRepository.getTarget(),/*type=*/4);
+        screen.addObject(gameRepository.getTarget(), /* type= */4);
         // print all
         screen.printOut();
         // display remained lives
@@ -118,9 +118,10 @@ public class API {
                     screen.addObject(new Bullet(traces.get(i - 2)),/*type=*/1);
                     screen.addObject(new Bullet(traces.get(i - 3)),/*type=*/1);
                 }
-                screen.addObject(gameRepository.getCannon(),/*type=*/3);
-                screen.addObject(gameRepository.getTarget(),/*type=*/4);
-                screen.addObject(new Bullet(traces.get(i)),/*type=*/2);
+
+                screen.addObject(gameRepository.getCannon(), /* type= */3);
+                screen.addObject(gameRepository.getTarget(), /* type= */4);
+                screen.addObject(new Bullet(traces.get(i)), /* type= */2);
                 screen.printOut();
 
                 // sleep for a while
@@ -139,7 +140,7 @@ public class API {
         boolean isHit = gameRepository.getCannon().getShootResult(angleDegree, powerPercentage,
                 gameRepository.getTarget(), screen.getScreenSize());
         screen.clearBuffer();
-        screen.addObject(gameRepository.getCannon(),/*type=*/3);
+        screen.addObject(gameRepository.getCannon(), /* type= */3);
 
         /* if hit, remove the target */
         if (!isHit) {
