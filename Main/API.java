@@ -2,6 +2,7 @@ package Main;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 import Coordinate.CoordinateInt;
 import Display.Screen;
 import Object.Bullet;
@@ -18,6 +19,7 @@ public class API {
     // interval between frames
     private final static int SPEED_OF_SHOW_MILLISECOND = 500;
     private String userName = "";
+    private Scanner keyboard;
     private int life = 5;
     private int score = 0;
 
@@ -39,8 +41,9 @@ public class API {
     }
 
 
-    public API(String userName) {
+    public API(String userName, Scanner scanner) {
         this.userName = userName;
+        this.keyboard = scanner;
         // create a screen
         screen = new Screen(new CoordinateInt(SCREEN_SIZE_X, SCREEN_SIZE_Y));
         // create a cannon
@@ -162,38 +165,56 @@ public class API {
             // lives minus one because of failure
             life--;
         } else {
+            /* Remove target */
+            screen.clearBuffer();
+            screen.addObject(gameRepository.getCannon(), /* type= */3);
+            screen.printOut();
 
-            // Press enter key to continue game
-            System.out.println("Well done! +10 points.");
-            System.out.println("Press " + Screen.colorString("Enter", Color.RED_BOLD)+ " key to continue.");
-
-            try{
-                System.in.read();
-            }  
-            
-            catch(Exception e){
-            } 
-
-            // create a new target
-            Target targetNew = generateTarget();
-
-            gameRepository.setTarget(targetNew);
-
-            // add target
-            screen.addObject(targetNew,4);
+            /* Display congraduate messages */
+            String oneMoreLife = (life < 5) ? " and +1 life" : "";
+            System.out.println("Well done! +10 points" + oneMoreLife + ".");
+            System.out.println("Press " + Screen.colorString("Enter", Color.RED_BOLD)
+                    + " key to start a new round.");
 
             // score increase ten because of hit
             score += 10;
 
             // lives plus one because of success
-            if (life < 5){
+            if (life < 5) {
                 life++;
             }
+
+            screen.showRemainedLife(life);
+            // Press enter key to continue game
+            try {
+                keyboard.nextLine();
+            }
+
+            catch (Exception e) {
+            }
+
+            /* create a new cannon */
+            Cannon newCannon = generateCannon();
+            gameRepository.setCannon(newCannon);
+
+            /* create a new target */
+            Target targetNew = generateTarget();
+            gameRepository.setTarget(targetNew);
+
+            /* Redraw screen frame */
+            screen.clearBuffer();
+            screen.addObject(gameRepository.getCannon(), /* type= */3);
+            screen.addObject(gameRepository.getTarget(), /* type= */4);
         }
         // print out all from buffer
         screen.printOut();
 
         // display remained lives
         screen.showRemainedLife(life);
+    }
+
+    public void showExitMessages() {
+        System.out.printf("Your total score is %d\n", getScore());
+        System.out.println("Thank you for playing!");
     }
 }
