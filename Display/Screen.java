@@ -39,7 +39,7 @@ public class Screen {
     public void addObject(GameObject gameObject, int type) {
         CoordinateInt size = gameObject.getSize();
         CoordinateInt coordinate = gameObject.getCoordinate();
-        
+
         int sizeX = size.x;
         int sizeY = size.y;
         int coorX = coordinate.x;
@@ -102,7 +102,7 @@ public class Screen {
         }
 
         String s = sb.toString();
-        for (char c : s.toCharArray() ) {
+        for (char c : s.toCharArray()) {
             switch (c) {
                 case '◼':
                     // trace bullet
@@ -141,6 +141,10 @@ public class Screen {
 
     public static String colorString(char[] charArray, Color color) {
         return colorString(new String(charArray), color);
+    }
+
+    public static String colorString(char cha, Color color) {
+        return colorString(String.valueOf(cha), color);
     }
 
     // life counter
