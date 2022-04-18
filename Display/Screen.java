@@ -3,7 +3,6 @@ package Display;
 import Object.GameObject;
 import java.util.Arrays;
 import Coordinate.CoordinateInt;
-import Main.Main;
 
 
 public class Screen {
