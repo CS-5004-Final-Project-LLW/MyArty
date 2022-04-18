@@ -83,9 +83,9 @@ public class API {
         // clear buffer
         screen.clearBuffer();
         // add cannon
-        screen.addObject(gameRepository.getCannon());
+        screen.addObject(gameRepository.getCannon(),/*type=*/3 );
         // add target
-        screen.addObject(gameRepository.getTarget());
+        screen.addObject(gameRepository.getTarget(),/*type=*/4);
         // print all
         screen.printOut();
         // display remained lives
@@ -110,13 +110,13 @@ public class API {
                 screen.clearBuffer();
                 // display traces of shadow
                 if (i > 3) {
-                    screen.addObject(new Bullet(traces.get(i - 1)));
-                    screen.addObject(new Bullet(traces.get(i - 2)));
-                    screen.addObject(new Bullet(traces.get(i - 3)));
+                    screen.addObject(new Bullet(traces.get(i - 1)),/*type=*/1);
+                    screen.addObject(new Bullet(traces.get(i - 2)),/*type=*/1);
+                    screen.addObject(new Bullet(traces.get(i - 3)),/*type=*/1);
                 }
-                screen.addObject(gameRepository.getCannon());
-                screen.addObject(gameRepository.getTarget());
-                screen.addObject(new Bullet(traces.get(i)));
+                screen.addObject(gameRepository.getCannon(),/*type=*/3);
+                screen.addObject(gameRepository.getTarget(),/*type=*/4);
+                screen.addObject(new Bullet(traces.get(i)),/*type=*/2);
                 screen.printOut();
 
                 // sleep for a while
@@ -135,7 +135,7 @@ public class API {
         boolean isHit = gameRepository.getCannon().getShootResult(angleDegree, powerPercentage,
                 gameRepository.getTarget(), screen.getScreenSize());
         screen.clearBuffer();
-        screen.addObject(gameRepository.getCannon());
+        screen.addObject(gameRepository.getCannon(),/*type=*/3);
 
         /* if hit, remove the target */
         if (!isHit) {
@@ -151,7 +151,7 @@ public class API {
             target.setCoordinate(new CoordinateInt(x, y));
 
             // add target
-            screen.addObject(target);
+            screen.addObject(target,4);
 
             // lives minus one because of failure
             life--;

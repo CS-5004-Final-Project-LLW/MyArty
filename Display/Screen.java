@@ -31,12 +31,15 @@ public class Screen {
         buffer[x][y] = value;
     }
 
-    public void addObject(GameObject gameObject) {
+    // type defines an game object type to distinguish the printed char
+    // 1 trace of bullet
+    // 2 bullet current
+    // 3 cannon
+    // 4 target
+    public void addObject(GameObject gameObject, int type) {
         CoordinateInt size = gameObject.getSize();
         CoordinateInt coordinate = gameObject.getCoordinate();
-
-        // System.out.println("addObject " + size.toString() + " " + coordinate.toString());
-
+        
         int sizeX = size.x;
         int sizeY = size.y;
         int coorX = coordinate.x;
@@ -46,7 +49,7 @@ public class Screen {
         int topLeftY = coorY - (sizeY - 1) / 2;
         for (int i = topLeftX; i < topLeftX + sizeX; i++) {
             for (int j = topLeftY; j < topLeftY + sizeY; j++) {
-                paintPoint(new CoordinateInt(i, j), 1);
+                paintPoint(new CoordinateInt(i, j), type);
             }
         }
     }
@@ -72,18 +75,59 @@ public class Screen {
         for (int j = screenSize.y - 1; j >= 0; j--) {
             sb.append('\n');
             for (int i = 0; i < screenSize.x; i++) {
-                if (buffer[i][j] == 1) {
-                    // black dot
-                    sb.append('◼');
-                } else {
-                    // white dot
-                    sb.append('◻');
+                // 1 trace of bullet
+                // 2 bullet current
+                // 3 cannon
+                // 4 target
+                switch (buffer[i][j]) {
+                    case 1:
+                        // trace bullet
+                        sb.append('◼');
+                        break;
+                    case 2:
+                        // bullet current
+                        sb.append('▶');
+                        break;
+                    case 3:
+                        sb.append('✪');
+                        break;
+                    case 4:
+                        sb.append('⬢');
+                        break;
+                    default:
+                        sb.append('◻');
                 }
             }
             // wrap
         }
 
-        System.out.print(sb);
+        String s = sb.toString();
+        for (char c : s.toCharArray() ) {
+            switch (c) {
+                case '◼':
+                    // trace bullet
+                    System.out.print(c);
+                    break;
+                case '▶':
+                    System.out.print(Color.RED_BRIGHT);
+                    System.out.print(c);
+                    System.out.print(Color.RESET);
+                    // bullet current
+                    break;
+                case '✪':
+                    System.out.print(Color.BLUE_BRIGHT);
+                    System.out.print(c);
+                    System.out.print(Color.RESET);
+                    break;
+                case '⬢':
+                    System.out.print(Color.YELLOW_BRIGHT);
+                    System.out.print(c);
+                    System.out.print(Color.RESET);
+                    break;
+                default:
+                    System.out.print(c);
+            }
+        }
         printGrass();
     }
 
