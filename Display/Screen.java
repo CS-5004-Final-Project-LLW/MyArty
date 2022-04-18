@@ -60,14 +60,16 @@ public class Screen {
     }
 
     private void printGrass() {
-        System.out.println(Color.GREEN_BOLD_BRIGHT);
-        String[] grass = new String[screenSize.x];
-        Arrays.fill(grass, "▲");
+        StringBuffer sb = new StringBuffer();
+
+        sb.append(Color.GREEN_BOLD_BRIGHT);
         for (int i = 0; i < screenSize.x; i++) {
-            System.out.print(grass[i]);
+            sb.append("▲");
         }
-        System.out.println("");
-        System.out.print(Color.RESET);
+        sb.append('\n');
+        sb.append(Color.RESET);
+
+        System.out.println(sb.toString());
     }
 
     public void printOut() {
