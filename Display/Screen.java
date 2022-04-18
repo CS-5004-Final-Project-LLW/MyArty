@@ -3,7 +3,6 @@ package Display;
 import Object.GameObject;
 import java.util.Arrays;
 import Coordinate.CoordinateInt;
-import Main.Main;
 
 
 public class Screen {
@@ -74,6 +73,7 @@ public class Screen {
     public void printOut() {
         StringBuffer sb = new StringBuffer('\n');
         for (int j = screenSize.y - 1; j >= 0; j--) {
+            // wrap
             sb.append('\n');
             for (int i = 0; i < screenSize.x; i++) {
                 // 1 trace of bullet
@@ -99,36 +99,9 @@ public class Screen {
                         sb.append('◻');
                 }
             }
-            // wrap
         }
-
         System.out.println(sb.toString());
-        // for (char c : s.toCharArray()) {
-        // switch (c) {
-        // case '◼':
-        // // trace bullet
-        // System.out.print(c);
-        // break;
-        // case '▶':
-        // System.out.print(Color.RED_BRIGHT);
-        // System.out.print(c);
-        // System.out.print(Color.RESET);
-        // // bullet current
-        // break;
-        // case '✪':
-        // System.out.print(Color.BLUE_BRIGHT);
-        // System.out.print(c);
-        // System.out.print(Color.RESET);
-        // break;
-        // case '⬢':
-        // System.out.print(Color.YELLOW_BRIGHT);
-        // System.out.print(c);
-        // System.out.print(Color.RESET);
-        // break;
-        // default:
-        // System.out.print(c);
-        // }
-        // }
+
         printGrass();
     }
 
