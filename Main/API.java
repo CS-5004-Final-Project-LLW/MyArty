@@ -141,7 +141,7 @@ public class API {
         screen.clearBuffer();
         screen.addObject(gameRepository.getCannon(),/*type=*/3);
 
-        /* if hit, remove the target */
+        /* if not hit, remove the target */
         if (!isHit) {
             GameObject target = gameRepository.getTarget();
 
@@ -160,8 +160,22 @@ public class API {
             // lives minus one because of failure
             life--;
         } else {
+
+            // create a new target
+            Target targetNew = generateTarget();
+
+            gameRepository.setTarget(targetNew);
+
+            // add target
+            screen.addObject(targetNew,4);
+
             // score increase ten because of hit
             score += 10;
+
+            // lives plus one because of failure
+            if (life < 5){
+                life++;
+            }
         }
         // print out all from buffer
         screen.printOut();
