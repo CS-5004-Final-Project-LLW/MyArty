@@ -87,13 +87,13 @@ public class Screen {
                         break;
                     case 2:
                         // bullet current
-                        sb.append('▶');
+                        sb.append(Screen.colorString('▶', Color.RED_BRIGHT));
                         break;
                     case 3:
-                        sb.append('✪');
+                        sb.append(Screen.colorString('✪', Color.BLUE_BRIGHT));
                         break;
                     case 4:
-                        sb.append('⬢');
+                        sb.append(Screen.colorString('⬢', Color.YELLOW_BRIGHT));
                         break;
                     default:
                         sb.append('◻');
@@ -102,33 +102,33 @@ public class Screen {
             // wrap
         }
 
-        String s = sb.toString();
-        for (char c : s.toCharArray()) {
-            switch (c) {
-                case '◼':
-                    // trace bullet
-                    System.out.print(c);
-                    break;
-                case '▶':
-                    System.out.print(Color.RED_BRIGHT);
-                    System.out.print(c);
-                    System.out.print(Color.RESET);
-                    // bullet current
-                    break;
-                case '✪':
-                    System.out.print(Color.BLUE_BRIGHT);
-                    System.out.print(c);
-                    System.out.print(Color.RESET);
-                    break;
-                case '⬢':
-                    System.out.print(Color.YELLOW_BRIGHT);
-                    System.out.print(c);
-                    System.out.print(Color.RESET);
-                    break;
-                default:
-                    System.out.print(c);
-            }
-        }
+        System.out.println(sb.toString());
+        // for (char c : s.toCharArray()) {
+        // switch (c) {
+        // case '◼':
+        // // trace bullet
+        // System.out.print(c);
+        // break;
+        // case '▶':
+        // System.out.print(Color.RED_BRIGHT);
+        // System.out.print(c);
+        // System.out.print(Color.RESET);
+        // // bullet current
+        // break;
+        // case '✪':
+        // System.out.print(Color.BLUE_BRIGHT);
+        // System.out.print(c);
+        // System.out.print(Color.RESET);
+        // break;
+        // case '⬢':
+        // System.out.print(Color.YELLOW_BRIGHT);
+        // System.out.print(c);
+        // System.out.print(Color.RESET);
+        // break;
+        // default:
+        // System.out.print(c);
+        // }
+        // }
         printGrass();
     }
 
