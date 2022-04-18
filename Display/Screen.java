@@ -1,9 +1,7 @@
 package Display;
 
 import Object.GameObject;
-import java.util.Arrays;
 import Coordinate.CoordinateInt;
-
 
 public class Screen {
     private final CoordinateInt screenSize;
@@ -125,23 +123,24 @@ public class Screen {
 
     // life counter
     public void showRemainedLife(int life) {
-        if (life < 5 && life > 0) {
-            char[] heartArr = new char[5];
+        if (life > 0) {
+            StringBuffer sb = new StringBuffer();
 
             // print '♥'
             for (int i = 0; i < life; i++) {
-                heartArr[i] = heartChar;
+                sb.append(heartChar);
             }
 
             // print '♡'
             for (int i = life; i < 5; i++) {
-                heartArr[i] = notHeartChar;
+                sb.append(notHeartChar);
             }
 
             // print colorful characters
-            System.out.println("Life: " + colorString(heartArr, Color.RED_BOLD));
+            System.out.println(
+                    (life > 1 ? "Lives:" : "Life:") + colorString(sb.toString(), Color.RED_BOLD));
 
-        } else if (life <= 0) {
+        } else {
             System.out.println("Game over. ");
         }
     }
