@@ -11,11 +11,9 @@ import Display.Screen;
 public class Main {
 
     // for game control
-    API gameAPI;
+    static API gameAPI;
     // for user input
     Scanner scanner = new Scanner(System.in);
-
-    public boolean isSkip = false;
 
     public Main() {
         start();
@@ -61,7 +59,7 @@ public class Main {
         System.out.println("Wrong input.");
     }
 
-    private void exitGame() {
+    public void exitGame() {
 
         System.out.println("Thank you for playing!");
         System.exit(0);
@@ -87,6 +85,10 @@ public class Main {
         Main theMain = new Main();
 
         while (true) {
+            if (gameAPI.getLife() <= 0) {
+                theMain.exitGame();
+            }
+
             // add one line at first
             System.out.println();
 

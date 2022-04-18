@@ -3,6 +3,7 @@ package Display;
 import Object.GameObject;
 import java.util.Arrays;
 import Coordinate.CoordinateInt;
+import Main.Main;
 
 
 public class Screen {
@@ -162,7 +163,7 @@ public class Screen {
             System.out.println("Life: " + colorString(heartArr, Color.RED_BOLD));
 
         } else if (life <= 0) {
-            System.out.println("Game over. Please try again\n");
+            System.out.println("Game over. ");
         }
     }
 }
