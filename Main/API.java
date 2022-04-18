@@ -8,6 +8,7 @@ import Object.Bullet;
 import Object.Cannon;
 import Object.GameObject;
 import Object.Target;
+import Display.*;
 
 public class API {
     private Repository gameRepository;
@@ -162,6 +163,17 @@ public class API {
             life--;
         } else {
 
+            // Press enter key to continue game
+            System.out.println("Well done! +10 points.");
+            System.out.println("Press " + Screen.colorString("Enter", Color.RED_BOLD)+ " key to continue.");
+
+            try{
+                System.in.read();
+            }  
+            
+            catch(Exception e){
+            } 
+
             // create a new target
             Target targetNew = generateTarget();
 
@@ -173,7 +185,7 @@ public class API {
             // score increase ten because of hit
             score += 10;
 
-            // lives plus one because of failure
+            // lives plus one because of success
             if (life < 5){
                 life++;
             }
