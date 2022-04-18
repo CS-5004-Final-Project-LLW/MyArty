@@ -4,11 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 import Coordinate.CoordinateInt;
-import Display.Screen;
-import Object.Bullet;
-import Object.Cannon;
-import Object.GameObject;
-import Object.Target;
+import Object.*;
 import Display.*;
 
 public class API {
@@ -120,7 +116,7 @@ public class API {
                 /* display traces of shadow */
                 final int shadowLength = Math.min(3, i);
                 for (int j = 1; j <= shadowLength; j++) {
-                    screen.addObject(new Bullet(traces.get(i - j)), /* type= */1);
+                    screen.addObject(new BulletShadow(traces.get(i - j)), /* type= */1);
                 }
 
                 screen.addObject(gameRepository.getCannon(), /* type= */3);
