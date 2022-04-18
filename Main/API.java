@@ -18,10 +18,14 @@ public class API {
     private final static int SPEED_OF_SHOW_MILLISECOND = 500;
     private String userName = "";
     private int life = 5;
-
+    private int score = 0;
 
     public int getLife() {
         return life;
+    }
+
+    public int getScore() {
+        return score;
     }
 
     public String getUserName() {
@@ -155,6 +159,9 @@ public class API {
 
             // lives minus one because of failure
             life--;
+        } else {
+            // score increase ten because of hit
+            score += 10;
         }
         // print out all from buffer
         screen.printOut();

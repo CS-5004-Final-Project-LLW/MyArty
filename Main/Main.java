@@ -60,7 +60,7 @@ public class Main {
     }
 
     public void exitGame() {
-
+        System.out.printf("Your total score is %d\n", gameAPI.getScore());
         System.out.println("Thank you for playing!");
         System.exit(0);
     }
