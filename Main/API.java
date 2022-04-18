@@ -112,11 +112,11 @@ public class API {
         if (!isSkip.equals("y") && !isSkip.equals("Y")) {
             for (int i = 0; i < traces.size(); i++) {
                 screen.clearBuffer();
-                // display traces of shadow
-                if (i > 3) {
-                    screen.addObject(new Bullet(traces.get(i - 1)),/*type=*/1);
-                    screen.addObject(new Bullet(traces.get(i - 2)),/*type=*/1);
-                    screen.addObject(new Bullet(traces.get(i - 3)),/*type=*/1);
+
+                /* display traces of shadow */
+                final int shadowLength = Math.min(3, i);
+                for (int j = 1; j <= shadowLength; j++) {
+                    screen.addObject(new Bullet(traces.get(i - j)), /* type= */1);
                 }
 
                 screen.addObject(gameRepository.getCannon(), /* type= */3);
@@ -156,7 +156,7 @@ public class API {
             target.setCoordinate(new CoordinateInt(x, y));
 
             // add target
-            screen.addObject(target,4);
+            screen.addObject(target, 4);
 
             // lives minus one because of failure
             life--;
