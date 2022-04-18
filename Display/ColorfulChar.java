@@ -1,5 +1,31 @@
 package Display;
 
 public class ColorfulChar {
-    // TODO: write a class only for display buffer
+    String colorfulChar;
+
+    /**
+     * Generate a "char" with color
+     * 
+     * @param cha
+     * @param color
+     */
+    public ColorfulChar(char cha, Color color) {
+        colorfulChar = Screen.colorString(cha, color);
+    }
+
+    /**
+     * Generate a "char" without color
+     * 
+     * @param cha
+     */
+    public ColorfulChar(char cha) {
+        colorfulChar = String.valueOf(cha);
+    }
+
+    @Override
+    public String toString() {
+        return colorfulChar;
+    }
+
+
 }
