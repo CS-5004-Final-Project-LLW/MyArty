@@ -1,16 +1,22 @@
 package Object;
 
 import Coordinate.CoordinateInt;
+import Display.ColorfulChar;
 
 /**
  * An abstarct class for GameObject like Cannon, Target, Bullet and so on
  */
 public abstract class GameObject {
     private CoordinateInt coordinate;
-    private CoordinateInt size; // rectangle
+    private final CoordinateInt size; // rectangle
     private CoordinateInt screenSize;
     private CoordinateInt boundary_min;
     private CoordinateInt boundary_max;
+    protected final ColorfulChar[][] appearance;
+
+    public ColorfulChar getAppearance(int x, int y) {
+        return appearance[x][y];
+    }
 
     // subclass must impletment it to set a proper rectangle boundary for the object itself
     protected abstract void createBoundary();
@@ -69,11 +75,11 @@ public abstract class GameObject {
         return new CoordinateInt(size);
     }
 
-    public void setSize(CoordinateInt size) {
-        this.size = new CoordinateInt(size);
-    }
+    protected abstract CoordinateInt generateSize();
 
-    public GameObject(CoordinateInt coordinate, CoordinateInt size, CoordinateInt screenSize) {
+    protected abstract ColorfulChar[][] generateAppearance();
+
+    public GameObject(CoordinateInt coordinate, CoordinateInt screenSize) {
         /* set screen size at the beginning */
         this.screenSize = screenSize;
 
@@ -86,7 +92,8 @@ public abstract class GameObject {
 
         /* set coordinate and size */
         setCoordinate(coordinate);
-        setSize(size);
+        size = generateSize();
+        appearance = generateAppearance();
     }
 
     public int getX() {
@@ -96,14 +103,6 @@ public abstract class GameObject {
     public int getY() {
         return coordinate.y;
     }
-
-    // public void setX(CoordinateInt x) {
-    //     this.x = x;
-    // }
-
-    // public void setY(CoordinateInt y) {
-    //     this.y = y;
-    // }
 
     /**
      * Change the coordiante to a valid one
@@ -129,16 +128,5 @@ public abstract class GameObject {
             }
         }
     }
-
-    // /**
-    // * @param screenSize
-    // * @return boolean {@code ture} if the coordinate is valid according to the screen size
-    // */
-    // public boolean isValid(CoordinateInt screenSize) {
-    // return coordinate.x >= 0 && coordinate.x < screenSize.x && coordinate.y >= 0
-    // && coordinate.y < screenSize.y;
-    // }
-
-
 
 }

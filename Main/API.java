@@ -89,9 +89,9 @@ public class API {
         // clear buffer
         screen.clearBuffer();
         // add cannon
-        screen.addObject(gameRepository.getCannon(), /* type= */3);
+        screen.addObject(gameRepository.getCannon());
         // add target
-        screen.addObject(gameRepository.getTarget(), /* type= */4);
+        screen.addObject(gameRepository.getTarget());
         // print all
         screen.printOut();
         // display remained lives
@@ -118,12 +118,12 @@ public class API {
                 /* display traces of shadow */
                 final int shadowLength = Math.min(3, i);
                 for (int j = 1; j <= shadowLength; j++) {
-                    screen.addObject(new BulletShadow(traces.get(i - j)), /* type= */1);
+                    screen.addObject(new BulletShadow(traces.get(i - j)));
                 }
 
-                screen.addObject(gameRepository.getCannon(), /* type= */3);
-                screen.addObject(gameRepository.getTarget(), /* type= */4);
-                screen.addObject(new Bullet(traces.get(i)), /* type= */2);
+                screen.addObject(gameRepository.getCannon());
+                screen.addObject(gameRepository.getTarget());
+                screen.addObject(new Bullet(traces.get(i)));
                 screen.printOut();
 
                 /* display explosion */
@@ -151,7 +151,7 @@ public class API {
         boolean isHit = gameRepository.getCannon().getShootResult(angleDegree, powerPercentage,
                 gameRepository.getTarget(), screen.getScreenSize());
         screen.clearBuffer();
-        screen.addObject(gameRepository.getCannon(), /* type= */3);
+        screen.addObject(gameRepository.getCannon());
 
         /* if not hit, remove the target */
         if (!isHit) {
@@ -167,20 +167,20 @@ public class API {
             target.setCoordinate(new CoordinateInt(x, y));
 
             // add target
-            screen.addObject(target, 4);
+            screen.addObject(target);
 
             // lives minus one because of failure
             life--;
         } else {
             /* Remove target */
             screen.clearBuffer();
-            screen.addObject(gameRepository.getCannon(), /* type= */3);
+            screen.addObject(gameRepository.getCannon());
             screen.printOut();
 
             /* Display congraduate messages */
             String oneMoreLife = (life < 5) ? " and +1 life" : "";
             System.out.println("Well done! +10 points" + oneMoreLife + ".");
-            System.out.println("Press " + Screen.colorString("Enter", Color.RED_BOLD)
+            System.out.println("Press " + ColorfulChar.colorString("Enter", Color.RED_BOLD)
                     + " key to start a new round.");
 
             // score increase ten because of hit
@@ -209,8 +209,8 @@ public class API {
 
             /* Redraw screen frame */
             screen.clearBuffer();
-            screen.addObject(gameRepository.getCannon(), /* type= */3);
-            screen.addObject(gameRepository.getTarget(), /* type= */4);
+            screen.addObject(gameRepository.getCannon());
+            screen.addObject(gameRepository.getTarget());
         }
         // print out all from buffer
         screen.printOut();
@@ -236,7 +236,9 @@ public class API {
                 int[] point = queue.poll();
                 int x = point[0];
                 int y = point[1];
-                screen.addObject(new Explosion (new CoordinateInt(x,y), screen.getScreenSize()), /* type= */5);
+                // screen.addObject(new Explosion (new CoordinateInt(x,y), screen.getScreenSize()), /* type= */5);
+                screen.addObject(new Explosion (new CoordinateInt(x,y), screen.getScreenSize()));
+
                 for (int[]d : dirs){
                     int newX = x + d[0];
                     int newY = y + d[1];

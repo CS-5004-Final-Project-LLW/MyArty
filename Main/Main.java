@@ -3,7 +3,7 @@ package Main;
 import java.util.Locale;
 import java.util.Scanner;
 import Display.Color;
-import Display.Screen;
+import Display.ColorfulChar;
 
 /**
  * The entrance of the program
@@ -65,15 +65,15 @@ public class Main {
     }
 
     private static final String[] welcomeMessages = {"Game instructions: ",
-            "* Exit: enter " + Screen.colorString("e", Color.RED_BOLD) + " or "
-                    + Screen.colorString("exit", Color.RED_BOLD),
-            "* Restart: enter " + Screen.colorString("r", Color.BLUE_BOLD) + " or "
-                    + Screen.colorString("restart", Color.BLUE_BOLD),
-            "* Shoot: enter " + Screen.colorString("s angle power", Color.GREEN_BOLD) + " or just "
-                    + Screen.colorString("angle power", Color.GREEN_BOLD) + " (separated by space)",
+            "* Exit: enter " + ColorfulChar.colorString("e", Color.RED_BOLD) + " or "
+                    + ColorfulChar.colorString("exit", Color.RED_BOLD),
+            "* Restart: enter " + ColorfulChar.colorString("r", Color.BLUE_BOLD) + " or "
+                    + ColorfulChar.colorString("restart", Color.BLUE_BOLD),
+            "* Shoot: enter " + ColorfulChar.colorString("s angle power", Color.GREEN_BOLD) + " or just "
+                    + ColorfulChar.colorString("angle power", Color.GREEN_BOLD) + " (separated by space)",
             "  * Angle range from 0 to 90 degree.", "  * Power range from 0 to 100.",
-            "  * Add " + Screen.colorString("y", Color.RED_BOLD) + " or "
-                    + Screen.colorString("Y", Color.RED_BOLD)
+            "  * Add " + ColorfulChar.colorString("y", Color.RED_BOLD) + " or "
+                    + ColorfulChar.colorString("Y", Color.RED_BOLD)
                     + " to skip animation, if not, just ignore"};
 
 

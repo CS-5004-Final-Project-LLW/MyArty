@@ -1,6 +1,7 @@
 package Object;
 
 import Coordinate.CoordinateInt;
+import Display.ColorfulChar;
 
 /**
  * A class for bullet
@@ -8,16 +9,23 @@ import Coordinate.CoordinateInt;
 public class BulletShadow extends GameObject {
 
 
-    public BulletShadow(CoordinateInt coordinate, CoordinateInt size, CoordinateInt screenSize) {
-        super(coordinate, size, screenSize);
-    }
-
-    public BulletShadow(CoordinateInt coordinate, CoordinateInt size) {
-        super(coordinate, size, null);
+    public BulletShadow(CoordinateInt coordinate, CoordinateInt screenSize) {
+        super(coordinate, screenSize);
     }
 
     public BulletShadow(CoordinateInt coordinate) {
-        super(coordinate, new CoordinateInt(1, 1), null);
+        super(coordinate, null);
+    }
+
+
+    @Override
+    protected ColorfulChar[][] generateAppearance() {
+        return new ColorfulChar[][] {{new ColorfulChar('◼')}};
+    }
+
+    @Override
+    protected CoordinateInt generateSize() {
+        return new CoordinateInt(1, 1);
     }
 
     @Override
