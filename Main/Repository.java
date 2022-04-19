@@ -26,8 +26,6 @@ public class Repository {
         this.target = target;
     }
 
-
-
     public Repository(Cannon cannon, Target target) {
         setCannon(cannon);
         setTarget(target);

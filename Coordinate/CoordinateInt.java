@@ -21,8 +21,16 @@ public class CoordinateInt extends Coordinate<Integer> {
     public CoordinateInt(CoordinateDouble other) {
         super(other.x.intValue(), other.y.intValue());
     }
+    
+    public Integer getX(){
+        return x;
+    }
 
-    @Override
+    public Integer getY(){
+        return y;
+    }
+
+     @Override
     public String toString(){
         return x + ", " + y;
     }

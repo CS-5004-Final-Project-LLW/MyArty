@@ -1,6 +1,8 @@
 package Display;
 
+// import Object.Coordinate;
 import Object.GameObject;
+
 import Coordinate.CoordinateInt;
 
 public class Screen {
@@ -116,4 +118,5 @@ public class Screen {
             System.out.println("Game over. ");
         }
     }
+   
 }

@@ -6,6 +6,8 @@ import java.util.Scanner;
 import Coordinate.CoordinateInt;
 import Object.*;
 import Display.*;
+import java.util.*;
+import java.util.LinkedList;
 
 public class API {
     private Repository gameRepository;
@@ -124,6 +126,15 @@ public class API {
                 screen.addObject(new Bullet(traces.get(i)));
                 screen.printOut();
 
+                /* display explosion */
+                if (i == traces.size() - 1) {
+                    Coordinate.CoordinateInt temp = traces.get(i);
+                    int explosionX = temp.getX();
+                    int explosionY = temp.getY();
+                    explosionPrint (temp, explosionX, explosionY);
+                    
+                }
+
                 // sleep for a while
 
                 try {
@@ -180,7 +191,6 @@ public class API {
                 life++;
             }
 
-            screen.showRemainedLife(life);
             // Press enter key to continue game
             try {
                 keyboard.nextLine();
@@ -213,4 +223,34 @@ public class API {
         System.out.printf("Your total score is %d\n", getScore());
         System.out.println("Thank you for playing!");
     }
+
+    public void explosionPrint (Coordinate.CoordinateInt coordinate,int explosionX,int explosionY) {
+        Queue<int[]> queue = new LinkedList<>();
+        int m = screen.getScreenSize().x;
+        int n = screen.getScreenSize().y;
+        queue.offer(new int[]{explosionX,explosionY}); 
+        int[][]dirs = {{-1,0},{1,0},{0,-1},{0,1}}; 
+        for (int i=0;i<4;i++){
+            int size = queue.size();
+            for (int j=0; j<size; j++){
+                int[] point = queue.poll();
+                int x = point[0];
+                int y = point[1];
+                // screen.addObject(new Explosion (new CoordinateInt(x,y), screen.getScreenSize()), /* type= */5);
+                screen.addObject(new Explosion (new CoordinateInt(x,y), screen.getScreenSize()));
+
+                for (int[]d : dirs){
+                    int newX = x + d[0];
+                    int newY = y + d[1];
+                    if (newX >= 0 && newX<m && newY>=0 && newY<n){
+                        queue.offer(new int[]{newX, newY});
+                    }
+                }    
+            }
+        }
+        screen.printOut();
+        
+    }
 }
+
+
