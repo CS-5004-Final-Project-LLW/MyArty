@@ -236,9 +236,7 @@ public class API {
                 int[] point = queue.poll();
                 int x = point[0];
                 int y = point[1];
-                coordinate.setX(x);
-                coordinate.setY(y);
-                screen.addObject(gameRepository.getExplosion(), /* type= */5);
+                screen.addObject(new Explosion (new CoordinateInt(x,y), screen.getScreenSize()), /* type= */5);
                 for (int[]d : dirs){
                     int newX = x + d[0];
                     int newY = y + d[1];
