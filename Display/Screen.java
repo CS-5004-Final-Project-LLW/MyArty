@@ -5,7 +5,7 @@ import Coordinate.CoordinateInt;
 
 public class Screen {
     private final CoordinateInt screenSize;
-    private int[][] buffer;
+    private ColorfulChar[][] buffer;
     private static final char heartChar = '♥';
     private static final char notHeartChar = '♡';
 
@@ -15,10 +15,10 @@ public class Screen {
 
     public Screen(CoordinateInt screenSize) {
         this.screenSize = screenSize;
-        this.buffer = new int[screenSize.x][screenSize.y];
+        this.buffer = new ColorfulChar[screenSize.x][screenSize.y];
     }
 
-    private void paintPoint(CoordinateInt dot, int value) {
+    private void paintPoint(CoordinateInt dot, ColorfulChar coloredChar) {
         int x = dot.x;
         int y = dot.y;
         if (x < 0 || x >= screenSize.x || y < 0 || y >= screenSize.y) {
@@ -26,7 +26,7 @@ public class Screen {
         }
 
         // paint buffer
-        buffer[x][y] = value;
+        buffer[x][y] = coloredChar;
     }
 
     // type defines an game object type to distinguish the printed char
@@ -47,14 +47,19 @@ public class Screen {
         int topLeftY = coorY - (sizeY - 1) / 2;
         for (int i = topLeftX; i < topLeftX + sizeX; i++) {
             for (int j = topLeftY; j < topLeftY + sizeY; j++) {
-                paintPoint(new CoordinateInt(i, j), type);
+                paintPoint(new CoordinateInt(i, j), typeToChar(type));
             }
         }
     }
 
     public void clearBuffer() {
         // create a new buffer
-        this.buffer = new int[screenSize.x][screenSize.y];
+        this.buffer = new ColorfulChar[screenSize.x][screenSize.y];
+        for (int i = 0; i < screenSize.x; i++) {
+            for (int j = 0; j < screenSize.y; j++) {
+                this.buffer[i][j] = new ColorfulChar(' ');
+            }
+        }
     }
 
     private void printGrass() {
@@ -70,36 +75,33 @@ public class Screen {
         System.out.println(sb.toString());
     }
 
+    private ColorfulChar typeToChar(int type) {
+        switch (type) {
+            case 1:
+                // trace bullet
+                return new ColorfulChar('◼');
+            case 2:
+                // bullet current
+                return new ColorfulChar('▶', Color.RED_BRIGHT);
+            case 3:
+                return new ColorfulChar('✪', Color.BLUE_BRIGHT);
+            case 4:
+                return new ColorfulChar('⬢', Color.YELLOW_BRIGHT);
+            default:
+                return new ColorfulChar('◻');
+        }
+    }
+
     public void printOut() {
         StringBuffer sb = new StringBuffer('\n');
         for (int j = screenSize.y - 1; j >= 0; j--) {
             // wrap
             sb.append('\n');
             for (int i = 0; i < screenSize.x; i++) {
-                // 1 trace of bullet
-                // 2 bullet current
-                // 3 cannon
-                // 4 target
-                switch (buffer[i][j]) {
-                    case 1:
-                        // trace bullet
-                        sb.append('◼');
-                        break;
-                    case 2:
-                        // bullet current
-                        sb.append(Screen.colorString('▶', Color.RED_BRIGHT));
-                        break;
-                    case 3:
-                        sb.append(Screen.colorString('✪', Color.BLUE_BRIGHT));
-                        break;
-                    case 4:
-                        sb.append(Screen.colorString('⬢', Color.YELLOW_BRIGHT));
-                        break;
-                    default:
-                        sb.append('◻');
-                }
+                sb.append(buffer[i][j]);
             }
         }
+
         System.out.println(sb.toString());
 
         printGrass();
