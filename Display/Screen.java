@@ -1,10 +1,9 @@
 package Display;
 
+// import Object.Coordinate;
 import Object.GameObject;
-import java.util.Arrays;
-import Coordinate.CoordinateInt;
-import Main.Main;
 
+import Coordinate.CoordinateInt;
 
 public class Screen {
     private final CoordinateInt screenSize;
@@ -40,7 +39,7 @@ public class Screen {
     public void addObject(GameObject gameObject, int type) {
         CoordinateInt size = gameObject.getSize();
         CoordinateInt coordinate = gameObject.getCoordinate();
-        
+
         int sizeX = size.x;
         int sizeY = size.y;
         int coorX = coordinate.x;
@@ -61,25 +60,29 @@ public class Screen {
     }
 
     private void printGrass() {
-        System.out.println(Color.GREEN_BOLD_BRIGHT);
-        String[] grass = new String[screenSize.x];
-        Arrays.fill(grass, "▲");
+        StringBuffer sb = new StringBuffer();
+
+        sb.append(Color.GREEN_BOLD_BRIGHT);
         for (int i = 0; i < screenSize.x; i++) {
-            System.out.print(grass[i]);
+            sb.append("▲");
         }
-        System.out.println("");
-        System.out.print(Color.RESET);
+        sb.append('\n');
+        sb.append(Color.RESET);
+
+        System.out.println(sb.toString());
     }
 
     public void printOut() {
         StringBuffer sb = new StringBuffer('\n');
         for (int j = screenSize.y - 1; j >= 0; j--) {
+            // wrap
             sb.append('\n');
             for (int i = 0; i < screenSize.x; i++) {
                 // 1 trace of bullet
                 // 2 bullet current
                 // 3 cannon
                 // 4 target
+                // 5 explosion
                 switch (buffer[i][j]) {
                     case 1:
                         // trace bullet
@@ -87,48 +90,23 @@ public class Screen {
                         break;
                     case 2:
                         // bullet current
-                        sb.append('▶');
+                        sb.append(Screen.colorString('▶', Color.RED_BRIGHT));
                         break;
                     case 3:
-                        sb.append('✪');
+                        sb.append(Screen.colorString('✪', Color.BLUE_BRIGHT));
                         break;
                     case 4:
-                        sb.append('⬢');
+                        sb.append(Screen.colorString('⬢', Color.YELLOW_BRIGHT));
                         break;
+                    case 5:
+                        sb.append(Screen.colorString('·', Color.RED_BRIGHT));
                     default:
                         sb.append('◻');
                 }
             }
-            // wrap
         }
+        System.out.println(sb.toString());
 
-        String s = sb.toString();
-        for (char c : s.toCharArray() ) {
-            switch (c) {
-                case '◼':
-                    // trace bullet
-                    System.out.print(c);
-                    break;
-                case '▶':
-                    System.out.print(Color.RED_BRIGHT);
-                    System.out.print(c);
-                    System.out.print(Color.RESET);
-                    // bullet current
-                    break;
-                case '✪':
-                    System.out.print(Color.BLUE_BRIGHT);
-                    System.out.print(c);
-                    System.out.print(Color.RESET);
-                    break;
-                case '⬢':
-                    System.out.print(Color.YELLOW_BRIGHT);
-                    System.out.print(c);
-                    System.out.print(Color.RESET);
-                    break;
-                default:
-                    System.out.print(c);
-            }
-        }
         printGrass();
     }
 
@@ -144,26 +122,32 @@ public class Screen {
         return colorString(new String(charArray), color);
     }
 
+    public static String colorString(char cha, Color color) {
+        return colorString(String.valueOf(cha), color);
+    }
+
     // life counter
     public void showRemainedLife(int life) {
-        if (life < 5 && life > 0) {
-            char[] heartArr = new char[5];
+        if (life > 0) {
+            StringBuffer sb = new StringBuffer();
 
             // print '♥'
             for (int i = 0; i < life; i++) {
-                heartArr[i] = heartChar;
+                sb.append(heartChar);
             }
 
             // print '♡'
             for (int i = life; i < 5; i++) {
-                heartArr[i] = notHeartChar;
+                sb.append(notHeartChar);
             }
 
             // print colorful characters
-            System.out.println("Life: " + colorString(heartArr, Color.RED_BOLD));
+            System.out.println(
+                    (life > 1 ? "Lives:" : "Life:") + colorString(sb.toString(), Color.RED_BOLD));
 
-        } else if (life <= 0) {
+        } else {
             System.out.println("Game over. ");
         }
     }
+   
 }

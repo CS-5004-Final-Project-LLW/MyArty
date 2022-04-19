@@ -11,9 +11,9 @@ import Display.Screen;
 public class Main {
 
     // for game control
-    static API gameAPI;
+    private API gameAPI;
     // for user input
-    Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
 
     public Main() {
         start();
@@ -23,11 +23,11 @@ public class Main {
         // Request username input
         System.out.println("Please enter the user name: ");
         String userName = scanner.nextLine();
-        gameAPI = new API(userName);
+        gameAPI = new API(userName, scanner);
     }
 
     private void restart(String[] inputs) {
-        gameAPI = new API(gameAPI.getUserName());
+        gameAPI = new API(gameAPI.getUserName(), scanner);
     }
 
     private void shoot(String[] inputs) {
@@ -60,8 +60,7 @@ public class Main {
     }
 
     public void exitGame() {
-        System.out.printf("Your total score is %d\n", gameAPI.getScore());
-        System.out.println("Thank you for playing!");
+        gameAPI.showExitMessages();
         System.exit(0);
     }
 
@@ -85,7 +84,7 @@ public class Main {
         Main theMain = new Main();
 
         while (true) {
-            if (gameAPI.getLife() <= 0) {
+            if (theMain.gameAPI.getLife() <= 0) {
                 theMain.exitGame();
             }
 

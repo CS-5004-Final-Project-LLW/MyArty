@@ -97,6 +97,14 @@ public abstract class GameObject {
         return coordinate.y;
     }
 
+    // public void setX(CoordinateInt x) {
+    //     this.x = x;
+    // }
+
+    // public void setY(CoordinateInt y) {
+    //     this.y = y;
+    // }
+
     /**
      * Change the coordiante to a valid one
      * 

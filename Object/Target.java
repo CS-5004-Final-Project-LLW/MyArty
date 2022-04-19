@@ -18,6 +18,6 @@ public class Target extends GameObject {
     @Override
     protected void createBoundary() {
         setBoundary_min(new CoordinateInt(getScreenSize().x / 2 + 1, 1));
-        setBoundary_max(new CoordinateInt(getScreenSize().x - 1, getScreenSize().y / 2 - 1));
+        setBoundary_max(new CoordinateInt(getScreenSize().x - 2, getScreenSize().y / 2 - 1));
     }
 }
