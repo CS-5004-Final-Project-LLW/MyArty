@@ -8,6 +8,7 @@ public class Screen {
     private ColorfulChar[][] buffer;
     private static final char heartChar = '♥';
     private static final char notHeartChar = '♡';
+    public static final ColorfulChar nullChar = new ColorfulChar(' ');
 
     public CoordinateInt getScreenSize() {
         return screenSize;
@@ -92,22 +93,6 @@ public class Screen {
         printGrass();
     }
 
-    public static String colorString(String string, Color color) {
-        StringBuffer sb = new StringBuffer();
-        sb.append(color);
-        sb.append(new String(string));
-        sb.append(Color.RESET);
-        return sb.toString();
-    }
-
-    public static String colorString(char[] charArray, Color color) {
-        return colorString(new String(charArray), color);
-    }
-
-    public static String colorString(char cha, Color color) {
-        return colorString(String.valueOf(cha), color);
-    }
-
     // life counter
     public void showRemainedLife(int life) {
         if (life > 0) {
@@ -124,8 +109,8 @@ public class Screen {
             }
 
             // print colorful characters
-            System.out.println(
-                    (life > 1 ? "Lives:" : "Life:") + colorString(sb.toString(), Color.RED_BOLD));
+            System.out.println((life > 1 ? "Lives:" : "Life:")
+                    + ColorfulChar.colorString(sb.toString(), Color.RED_BOLD));
 
         } else {
             System.out.println("Game over. ");

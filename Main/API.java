@@ -169,7 +169,7 @@ public class API {
             /* Display congraduate messages */
             String oneMoreLife = (life < 5) ? " and +1 life" : "";
             System.out.println("Well done! +10 points" + oneMoreLife + ".");
-            System.out.println("Press " + Screen.colorString("Enter", Color.RED_BOLD)
+            System.out.println("Press " + ColorfulChar.colorString("Enter", Color.RED_BOLD)
                     + " key to start a new round.");
 
             // score increase ten because of hit
