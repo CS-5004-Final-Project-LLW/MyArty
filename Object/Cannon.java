@@ -3,6 +3,8 @@ package Object;
 import java.util.ArrayList;
 import Coordinate.CoordinateDouble;
 import Coordinate.CoordinateInt;
+import Display.Color;
+import Display.ColorfulChar;
 
 /**
  * A class for Cannon
@@ -12,18 +14,37 @@ public class Cannon extends GameObject {
     private static double GRAVITY = 0.5;
     private static double VELOCITY_SCALE = 0.01;
 
-    public Cannon(CoordinateInt coordinate, CoordinateInt size, CoordinateInt screenSize) {
-        super(coordinate, size, screenSize);
-    }
 
     public Cannon(CoordinateInt coordinate, CoordinateInt screenSize) {
-        super(coordinate, new CoordinateInt(3, 3), screenSize);
+        super(coordinate, screenSize);
     }
+
+    // public Cannon(CoordinateInt coordinate) {
+    // super(coordinate, null);
+    // }
+
 
     @Override
     protected void createBoundary() {
         setBoundary_min(new CoordinateInt(1, 1));
         setBoundary_max(new CoordinateInt(getScreenSize().x / 2 - 1, getScreenSize().y / 2 - 1));
+    }
+
+    @Override
+    protected ColorfulChar[][] generateAppearance() {
+        ColorfulChar[][] appearance = new ColorfulChar[3][3];
+        for (int i = 0; i < appearance.length; i++) {
+            for (int j = 0; j < appearance[i].length; j++) {
+                appearance[i][j] = new ColorfulChar('✪', Color.BLUE_BRIGHT);
+            }
+        }
+        return appearance;
+    }
+
+
+    @Override
+    protected CoordinateInt generateSize() {
+        return new CoordinateInt(3, 3);
     }
 
 

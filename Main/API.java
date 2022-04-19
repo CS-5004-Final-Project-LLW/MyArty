@@ -87,9 +87,9 @@ public class API {
         // clear buffer
         screen.clearBuffer();
         // add cannon
-        screen.addObject(gameRepository.getCannon(), /* type= */3);
+        screen.addObject(gameRepository.getCannon());
         // add target
-        screen.addObject(gameRepository.getTarget(), /* type= */4);
+        screen.addObject(gameRepository.getTarget());
         // print all
         screen.printOut();
         // display remained lives
@@ -116,12 +116,12 @@ public class API {
                 /* display traces of shadow */
                 final int shadowLength = Math.min(3, i);
                 for (int j = 1; j <= shadowLength; j++) {
-                    screen.addObject(new BulletShadow(traces.get(i - j)), /* type= */1);
+                    screen.addObject(new BulletShadow(traces.get(i - j)));
                 }
 
-                screen.addObject(gameRepository.getCannon(), /* type= */3);
-                screen.addObject(gameRepository.getTarget(), /* type= */4);
-                screen.addObject(new Bullet(traces.get(i)), /* type= */2);
+                screen.addObject(gameRepository.getCannon());
+                screen.addObject(gameRepository.getTarget());
+                screen.addObject(new Bullet(traces.get(i)));
                 screen.printOut();
 
                 // sleep for a while
@@ -140,7 +140,7 @@ public class API {
         boolean isHit = gameRepository.getCannon().getShootResult(angleDegree, powerPercentage,
                 gameRepository.getTarget(), screen.getScreenSize());
         screen.clearBuffer();
-        screen.addObject(gameRepository.getCannon(), /* type= */3);
+        screen.addObject(gameRepository.getCannon());
 
         /* if not hit, remove the target */
         if (!isHit) {
@@ -156,14 +156,14 @@ public class API {
             target.setCoordinate(new CoordinateInt(x, y));
 
             // add target
-            screen.addObject(target, 4);
+            screen.addObject(target);
 
             // lives minus one because of failure
             life--;
         } else {
             /* Remove target */
             screen.clearBuffer();
-            screen.addObject(gameRepository.getCannon(), /* type= */3);
+            screen.addObject(gameRepository.getCannon());
             screen.printOut();
 
             /* Display congraduate messages */
@@ -199,8 +199,8 @@ public class API {
 
             /* Redraw screen frame */
             screen.clearBuffer();
-            screen.addObject(gameRepository.getCannon(), /* type= */3);
-            screen.addObject(gameRepository.getTarget(), /* type= */4);
+            screen.addObject(gameRepository.getCannon());
+            screen.addObject(gameRepository.getTarget());
         }
         // print out all from buffer
         screen.printOut();

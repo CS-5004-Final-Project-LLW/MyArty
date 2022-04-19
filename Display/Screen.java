@@ -34,7 +34,7 @@ public class Screen {
     // 2 bullet current
     // 3 cannon
     // 4 target
-    public void addObject(GameObject gameObject, int type) {
+    public void addObject(GameObject gameObject) {
         CoordinateInt size = gameObject.getSize();
         CoordinateInt coordinate = gameObject.getCoordinate();
 
@@ -47,7 +47,8 @@ public class Screen {
         int topLeftY = coorY - (sizeY - 1) / 2;
         for (int i = topLeftX; i < topLeftX + sizeX; i++) {
             for (int j = topLeftY; j < topLeftY + sizeY; j++) {
-                paintPoint(new CoordinateInt(i, j), typeToChar(type));
+                paintPoint(new CoordinateInt(i, j),
+                        gameObject.getAppearance(i - topLeftX, j - topLeftY));
             }
         }
     }
@@ -75,22 +76,6 @@ public class Screen {
         System.out.println(sb.toString());
     }
 
-    private ColorfulChar typeToChar(int type) {
-        switch (type) {
-            case 1:
-                // trace bullet
-                return new ColorfulChar('◼');
-            case 2:
-                // bullet current
-                return new ColorfulChar('▶', Color.RED_BRIGHT);
-            case 3:
-                return new ColorfulChar('✪', Color.BLUE_BRIGHT);
-            case 4:
-                return new ColorfulChar('⬢', Color.YELLOW_BRIGHT);
-            default:
-                return new ColorfulChar('◻');
-        }
-    }
 
     public void printOut() {
         StringBuffer sb = new StringBuffer('\n');
