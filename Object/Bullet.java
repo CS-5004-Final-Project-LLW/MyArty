@@ -33,4 +33,16 @@ public class Bullet extends GameObject {
         createDefaultBoundary();
     }
 
+    @Override
+    public void draw() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public boolean update() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
 }

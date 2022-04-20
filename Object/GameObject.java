@@ -123,4 +123,8 @@ public abstract class GameObject {
         }
     }
 
+    public abstract boolean update();
+
+    public abstract void draw();
+
 }

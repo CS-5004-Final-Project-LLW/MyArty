@@ -35,4 +35,16 @@ public class Target extends GameObject {
     protected CoordinateInt generateSize() {
         return new CoordinateInt(3, 3);
     }
+
+    @Override
+    public void draw() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public boolean update() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 }

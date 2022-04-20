@@ -160,4 +160,15 @@ public class Cannon extends GameObject {
         return Math.abs(y * screenSize.y - target.getY()) <= target.getSize().y;
     }
 
+    @Override
+    public void draw() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public boolean update() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 }

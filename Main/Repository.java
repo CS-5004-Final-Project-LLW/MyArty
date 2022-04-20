@@ -14,7 +14,7 @@ public class Repository {
         return cannon;
     }
 
-    public void setCannon(Cannon cannon) {
+    void setCannon(Cannon cannon) {
         this.cannon = cannon;
     }
 
@@ -22,7 +22,7 @@ public class Repository {
         return target;
     }
 
-    public void setTarget(Target target) {
+    void setTarget(Target target) {
         this.target = target;
     }
 
