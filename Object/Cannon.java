@@ -19,16 +19,13 @@ public class Cannon extends GameObject {
         super(coordinate, screenSize);
     }
 
-    // public Cannon(CoordinateInt coordinate) {
-    // super(coordinate, null);
-    // }
-
 
     @Override
     protected void createBoundary() {
         setBoundary_min(new CoordinateInt(1, 1));
         setBoundary_max(new CoordinateInt(getScreenSize().x / 2 - 1, getScreenSize().y / 2 - 1));
     }
+
 
     @Override
     protected ColorfulChar[][] generateAppearance() {

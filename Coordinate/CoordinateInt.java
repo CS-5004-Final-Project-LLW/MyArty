@@ -4,7 +4,7 @@ package Coordinate;
  * A class for coordinate storing with Integer type
  */
 public class CoordinateInt extends Coordinate<Integer> {
-    
+
     public CoordinateInt(Integer x, Integer y) {
         super(x, y);
     }
@@ -21,17 +21,9 @@ public class CoordinateInt extends Coordinate<Integer> {
     public CoordinateInt(CoordinateDouble other) {
         super(other.x.intValue(), other.y.intValue());
     }
-    
-    public Integer getX(){
-        return x;
-    }
 
-    public Integer getY(){
-        return y;
-    }
-
-     @Override
-    public String toString(){
+    @Override
+    public String toString() {
         return x + ", " + y;
     }
 }

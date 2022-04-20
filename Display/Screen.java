@@ -32,11 +32,6 @@ public class Screen {
         buffer[x][y] = coloredChar;
     }
 
-    // type defines an game object type to distinguish the printed char
-    // 1 trace of bullet
-    // 2 bullet current
-    // 3 cannon
-    // 4 target
     public void addObject(GameObject gameObject) {
         CoordinateInt size = gameObject.getSize();
         CoordinateInt coordinate = gameObject.getCoordinate();
@@ -118,5 +113,5 @@ public class Screen {
             System.out.println("Game over. ");
         }
     }
-   
+
 }

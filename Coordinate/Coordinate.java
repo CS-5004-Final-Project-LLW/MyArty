@@ -1,11 +1,11 @@
 package Coordinate;
+
 /**
  * A class for storing coordinate x and y
  */
 public class Coordinate<T> {
     public T x;
     public T y;
-
 
     public Coordinate(T x, T y) {
         this.x = x;

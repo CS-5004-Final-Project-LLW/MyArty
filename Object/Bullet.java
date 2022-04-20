@@ -9,7 +9,6 @@ import Display.ColorfulChar;
  */
 public class Bullet extends GameObject {
 
-
     public Bullet(CoordinateInt coordinate, CoordinateInt screenSize) {
         super(coordinate, screenSize);
     }

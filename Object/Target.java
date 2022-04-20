@@ -13,10 +13,6 @@ public class Target extends GameObject {
         super(coordinate, screenSize);
     }
 
-    // public Target(CoordinateInt coordinate) {
-    // super(coordinate, null);
-    // }
-
     @Override
     protected void createBoundary() {
         setBoundary_min(new CoordinateInt(getScreenSize().x / 2 + 1, 1));

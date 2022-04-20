@@ -30,7 +30,4 @@ public class Repository {
         setCannon(cannon);
         setTarget(target);
     }
-
-
-
 }

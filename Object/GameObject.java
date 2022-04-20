@@ -25,7 +25,6 @@ public abstract class GameObject {
         return screenSize;
     }
 
-
     public void setScreenSize(CoordinateInt screenSize) {
         this.screenSize = screenSize;
     }
@@ -34,22 +33,17 @@ public abstract class GameObject {
         return boundary_min;
     }
 
-
     public void setBoundary_min(CoordinateInt boundary_min) {
         this.boundary_min = boundary_min;
     }
-
 
     public CoordinateInt getBoundary_max() {
         return boundary_max;
     }
 
-
     public void setBoundary_max(CoordinateInt boundary_max) {
         this.boundary_max = boundary_max;
     }
-
-
 
     protected void createDefaultBoundary() {
         if (screenSize != null) {

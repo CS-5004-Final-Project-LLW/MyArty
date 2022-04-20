@@ -3,7 +3,6 @@ package Display;
 public class ColorfulChar {
     String colorfulChar;
 
-
     /**
      * Generate a "char" with color
      * 

@@ -126,24 +126,18 @@ public class API {
                 screen.addObject(new Bullet(traces.get(i)));
                 screen.printOut();
 
-                /* display explosion */
+                /* display explosion at the last point of traces */
                 if (i == traces.size() - 1) {
-                    Coordinate.CoordinateInt temp = traces.get(i);
-                    int explosionX = temp.getX();
-                    int explosionY = temp.getY();
-                    explosionPrint (temp, explosionX, explosionY);
-                    
+                    explosionPrint(traces.get(i));
                 }
 
-                // sleep for a while
-
+                /* sleep for a while */
                 try {
                     Thread.sleep(SPEED_OF_SHOW_MILLISECOND);
                 } catch (InterruptedException ex) {
                     // catch keyboard interrupt
                     Thread.currentThread().interrupt();
                 }
-
             }
         }
 
@@ -224,32 +218,35 @@ public class API {
         System.out.println("Thank you for playing!");
     }
 
-    public void explosionPrint (Coordinate.CoordinateInt coordinate,int explosionX,int explosionY) {
+    // TODO: should bullet explode at the right edge of the screen?
+    public void explosionPrint(Coordinate.CoordinateInt coordinate) {
+        final int explosionX = coordinate.x;
+        final int explosionY = coordinate.y;
+        final int M = screen.getScreenSize().x;
+        final int N = screen.getScreenSize().y;
+        final int explosionRange = 4;
+
         Queue<int[]> queue = new LinkedList<>();
-        int m = screen.getScreenSize().x;
-        int n = screen.getScreenSize().y;
-        queue.offer(new int[]{explosionX,explosionY}); 
-        int[][]dirs = {{-1,0},{1,0},{0,-1},{0,1}}; 
-        for (int i=0;i<4;i++){
-            int size = queue.size();
-            for (int j=0; j<size; j++){
+        queue.offer(new int[] {explosionX, explosionY});
+        int[][] dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+        for (int i = 0; i < explosionRange; i++) {
+            int size = queue.size(); // TODO: variable `size` is never updated
+            for (int j = 0; j < size; j++) {
                 int[] point = queue.poll();
                 int x = point[0];
                 int y = point[1];
-                // screen.addObject(new Explosion (new CoordinateInt(x,y), screen.getScreenSize()), /* type= */5);
-                screen.addObject(new Explosion (new CoordinateInt(x,y), screen.getScreenSize()));
-
-                for (int[]d : dirs){
+                screen.addObject(new Explosion(new CoordinateInt(x, y)));
+                for (int[] d : dirs) {
                     int newX = x + d[0];
                     int newY = y + d[1];
-                    if (newX >= 0 && newX<m && newY>=0 && newY<n){
-                        queue.offer(new int[]{newX, newY});
+                    if (newX >= 0 && newX < M && newY >= 0 && newY < N) {
+                        queue.offer(new int[] {newX, newY});
                     }
-                }    
+                }
             }
         }
         screen.printOut();
-        
+
     }
 }
 

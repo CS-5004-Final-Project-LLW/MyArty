@@ -69,8 +69,9 @@ public class Main {
                     + ColorfulChar.colorString("exit", Color.RED_BOLD),
             "* Restart: enter " + ColorfulChar.colorString("r", Color.BLUE_BOLD) + " or "
                     + ColorfulChar.colorString("restart", Color.BLUE_BOLD),
-            "* Shoot: enter " + ColorfulChar.colorString("s angle power", Color.GREEN_BOLD) + " or just "
-                    + ColorfulChar.colorString("angle power", Color.GREEN_BOLD) + " (separated by space)",
+            "* Shoot: enter " + ColorfulChar.colorString("s angle power", Color.GREEN_BOLD)
+                    + " or just " + ColorfulChar.colorString("angle power", Color.GREEN_BOLD)
+                    + " (separated by space)",
             "  * Angle range from 0 to 90 degree.", "  * Power range from 0 to 100.",
             "  * Add " + ColorfulChar.colorString("y", Color.RED_BOLD) + " or "
                     + ColorfulChar.colorString("Y", Color.RED_BOLD)
@@ -101,6 +102,7 @@ public class Main {
             // split line by space
             String[] inputs = input.split(" ");
 
+            // TODO: "45 100 y" should be acceptable
             if (inputs[0].toLowerCase(Locale.ENGLISH).equals("e")
                     || inputs[0].toLowerCase(Locale.ENGLISH).equals("exit")) {
                 // Exit case, handles both "e" and "exit" not case sensitive
