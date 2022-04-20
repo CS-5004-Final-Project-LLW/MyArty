@@ -30,6 +30,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     private BufferedImage image;
     private Graphics2D graph;
 
+    /* TODO: make a new class called InfoPanel */
     private static int angleValue = 0;
     private static int powerValue = 0;
 
