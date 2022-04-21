@@ -1,7 +1,7 @@
 package Object;
 
+import java.awt.Graphics2D;
 import Coordinate.CoordinateInt;
-import Display.ColorfulChar;
 
 /**
  * A class for bullet
@@ -9,24 +9,11 @@ import Display.ColorfulChar;
 public class BulletShadow extends GameObject {
 
 
-    public BulletShadow(CoordinateInt coordinate, CoordinateInt screenSize) {
-        super(coordinate, screenSize);
-    }
 
     public BulletShadow(CoordinateInt coordinate) {
-        super(coordinate, null);
+        super(coordinate);
     }
 
-
-    @Override
-    protected ColorfulChar[][] generateAppearance() {
-        return new ColorfulChar[][] {{new ColorfulChar('◼')}};
-    }
-
-    @Override
-    protected CoordinateInt generateSize() {
-        return new CoordinateInt(1, 1);
-    }
 
     @Override
     public void createBoundary() {
@@ -34,14 +21,14 @@ public class BulletShadow extends GameObject {
     }
 
     @Override
-    public void draw() {
+    public void draw(Graphics2D graph) {
         // TODO Auto-generated method stub
-
+        
     }
 
     @Override
     public boolean update() {
-        // TODO Auto-generated method stub
-        return false;
+        return true;
     }
+
 }

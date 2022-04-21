@@ -1,33 +1,21 @@
 package Object;
 
 import Coordinate.CoordinateInt;
-import Display.ColorfulChar;
+import Main.GUI;
+import java.awt.Graphics2D;
 
 /**
  * An abstarct class for GameObject like Cannon, Target, Bullet and so on
  */
 public abstract class GameObject {
-    private CoordinateInt coordinate;
-    private final CoordinateInt size; // rectangle
-    private CoordinateInt screenSize;
-    private CoordinateInt boundary_min;
-    private CoordinateInt boundary_max;
-    protected final ColorfulChar[][] appearance;
+    protected CoordinateInt coordinate;
+    protected CoordinateInt boundary_min;
+    protected CoordinateInt boundary_max;
 
-    public ColorfulChar getAppearance(int x, int y) {
-        return appearance[x][y];
-    }
 
     // subclass must impletment it to set a proper rectangle boundary for the object itself
     protected abstract void createBoundary();
 
-    public CoordinateInt getScreenSize() {
-        return screenSize;
-    }
-
-    public void setScreenSize(CoordinateInt screenSize) {
-        this.screenSize = screenSize;
-    }
 
     public CoordinateInt getBoundary_min() {
         return boundary_min;
@@ -46,13 +34,8 @@ public abstract class GameObject {
     }
 
     protected void createDefaultBoundary() {
-        if (screenSize != null) {
-            setBoundary_min(new CoordinateInt(0, 0));
-            setBoundary_max(new CoordinateInt(screenSize.x - 1, screenSize.y - 1));
-        } else {
-            setBoundary_max(null);
-            setBoundary_max(null);
-        }
+        setBoundary_max(new CoordinateInt(GUI.WIDTH, GUI.HEIGHT));
+        setBoundary_min(new CoordinateInt(0, 0));
     }
 
 
@@ -65,18 +48,8 @@ public abstract class GameObject {
         legalizeCoordinate();
     }
 
-    public CoordinateInt getSize() {
-        return new CoordinateInt(size);
-    }
 
-    protected abstract CoordinateInt generateSize();
-
-    protected abstract ColorfulChar[][] generateAppearance();
-
-    public GameObject(CoordinateInt coordinate, CoordinateInt screenSize) {
-        /* set screen size at the beginning */
-        this.screenSize = screenSize;
-
+    public GameObject(CoordinateInt coordinate) {
         /* generate proper boundary for object */
         createBoundary();
         if (boundary_max != null && boundary_min != null) {
@@ -86,8 +59,6 @@ public abstract class GameObject {
 
         /* set coordinate and size */
         setCoordinate(coordinate);
-        size = generateSize();
-        appearance = generateAppearance();
     }
 
     public int getX() {
@@ -125,6 +96,6 @@ public abstract class GameObject {
 
     public abstract boolean update();
 
-    public abstract void draw();
+    public abstract void draw(Graphics2D graph);
 
 }

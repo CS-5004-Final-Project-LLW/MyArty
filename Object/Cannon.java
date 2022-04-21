@@ -1,10 +1,13 @@
 package Object;
 
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import Coordinate.CoordinateDouble;
 import Coordinate.CoordinateInt;
-import Display.Color;
-import Display.ColorfulChar;
+import Main.GUI;
+import Main.Info;
+import Main.Repo;
+import java.awt.Color;
 
 /**
  * A class for Cannon
@@ -13,35 +16,18 @@ public class Cannon extends GameObject {
     /* A special number for gravity after a whole-night testing */
     private static double GRAVITY = 0.5;
     private static double VELOCITY_SCALE = 0.01;
+    CoordinateInt size;
 
 
-    public Cannon(CoordinateInt coordinate, CoordinateInt screenSize) {
-        super(coordinate, screenSize);
+    public Cannon(CoordinateInt coordinate) {
+        super(coordinate);
     }
 
 
     @Override
     protected void createBoundary() {
-        setBoundary_min(new CoordinateInt(1, 1));
-        setBoundary_max(new CoordinateInt(getScreenSize().x / 2 - 1, getScreenSize().y / 2 - 1));
-    }
-
-
-    @Override
-    protected ColorfulChar[][] generateAppearance() {
-        ColorfulChar[][] appearance = new ColorfulChar[3][3];
-        for (int i = 0; i < appearance.length; i++) {
-            for (int j = 0; j < appearance[i].length; j++) {
-                appearance[i][j] = new ColorfulChar('✪', Color.BLUE_BRIGHT);
-            }
-        }
-        return appearance;
-    }
-
-
-    @Override
-    protected CoordinateInt generateSize() {
-        return new CoordinateInt(3, 3);
+        setBoundary_min(new CoordinateInt(1, GUI.HEIGHT / 2));
+        setBoundary_max(new CoordinateInt(GUI.WIDTH / 2 - 1, GUI.HEIGHT - 100));
     }
 
 
@@ -157,18 +143,26 @@ public class Cannon extends GameObject {
         double y = y0 + h + v * Math.sin(theta) * t - GRAVITY * t * t / 2;
 
         // return true if the y value of the bullet is between the top and botton line of the target
-        return Math.abs(y * screenSize.y - target.getY()) <= target.getSize().y;
+        // return Math.abs(y * screenSize.y - target.getY()) <= target.size.y;
+        return false;
     }
 
-    @Override
-    public void draw() {
-        // TODO Auto-generated method stub
-
-    }
 
     @Override
     public boolean update() {
-        // TODO Auto-generated method stub
-        return false;
+        if (Repo.fireButton.isPressed()) {
+            Repo.bullets.add(new Bullet(new CoordinateInt(getX() + 200, getY() - 200)));
+        }
+        return true;
     }
+
+
+    @Override
+    public void draw(Graphics2D graph) {
+        graph.setColor(Color.black);
+        graph.fillOval(getX(), getY(), GUI.WIDTH / 8, GUI.WIDTH / 8);
+
+    }
+
+
 }

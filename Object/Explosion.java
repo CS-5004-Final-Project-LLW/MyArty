@@ -1,8 +1,7 @@
 package Object;
 
+import java.awt.Graphics2D;
 import Coordinate.CoordinateInt;
-import Display.Color;
-import Display.ColorfulChar;
 
 /**
  * A class for Explosion
@@ -10,17 +9,7 @@ import Display.ColorfulChar;
 public class Explosion extends GameObject {
 
     public Explosion(CoordinateInt coordinate) {
-        super(coordinate, null);
-    }
-
-    @Override
-    protected ColorfulChar[][] generateAppearance() {
-        return new ColorfulChar[][] {{new ColorfulChar('*', Color.RED_BRIGHT)}};
-    }
-
-    @Override
-    protected CoordinateInt generateSize() {
-        return new CoordinateInt(1, 1);
+        super(coordinate);
     }
 
 
@@ -30,7 +19,7 @@ public class Explosion extends GameObject {
     }
 
     @Override
-    public void draw() {
+    public void draw(Graphics2D graph) {
         // TODO Auto-generated method stub
 
     }
@@ -40,4 +29,5 @@ public class Explosion extends GameObject {
         // TODO Auto-generated method stub
         return false;
     }
+
 }

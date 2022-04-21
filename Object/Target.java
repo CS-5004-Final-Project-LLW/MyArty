@@ -1,50 +1,36 @@
 package Object;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import Coordinate.CoordinateInt;
-import Display.Color;
-import Display.ColorfulChar;
+import Main.GUI;
 
 /**
  * A class for Target
  */
 public class Target extends GameObject {
 
-    public Target(CoordinateInt coordinate, CoordinateInt screenSize) {
-        super(coordinate, screenSize);
+    public Target(CoordinateInt coordinate) {
+        super(coordinate);
     }
 
     @Override
     protected void createBoundary() {
-        setBoundary_min(new CoordinateInt(getScreenSize().x / 2 + 1, 1));
-        setBoundary_max(new CoordinateInt(getScreenSize().x - 2, getScreenSize().y / 2 - 1));
-    }
-
-    @Override
-    protected ColorfulChar[][] generateAppearance() {
-        ColorfulChar[][] appearance = new ColorfulChar[3][3];
-        for (int i = 0; i < appearance.length; i++) {
-            for (int j = 0; j < appearance[i].length; j++) {
-                appearance[i][j] = new ColorfulChar('⬢', Color.YELLOW_BRIGHT);
-            }
-        }
-        return appearance;
+        setBoundary_min(new CoordinateInt(GUI.WIDTH / 2 + 100, GUI.HEIGHT / 2 + 100));
+        setBoundary_max(new CoordinateInt(GUI.WIDTH - 100, GUI.HEIGHT - 100));
     }
 
 
     @Override
-    protected CoordinateInt generateSize() {
-        return new CoordinateInt(3, 3);
-    }
-
-    @Override
-    public void draw() {
-        // TODO Auto-generated method stub
+    public void draw(Graphics2D graph) {
+        graph.setColor(Color.BLACK);
+        graph.fillOval(getX(), getY(), 100, 100);
 
     }
 
     @Override
     public boolean update() {
-        // TODO Auto-generated method stub
-        return false;
+        return true;
     }
+
 }

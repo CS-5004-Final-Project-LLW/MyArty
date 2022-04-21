@@ -2,11 +2,13 @@ package Main;
 
 import javax.swing.JPanel;
 import Coordinate.CoordinateInt;
+import Object.Bullet;
+import Object.Button;
 import Object.Cannon;
+import Object.GameObject;
 import Object.Target;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -30,60 +32,6 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     private BufferedImage image;
     private Graphics2D graph;
 
-    /* TODO: make a new class called InfoPanel */
-    private static int angleValue = 0;
-    private static int powerValue = 0;
-
-    private static boolean dragging = false;
-    private static boolean clicking = false;
-    private static int cursorX = 0;
-    private static int cursorY = 0;
-
-    private Repository repo;
-
-    public static boolean isDragging() {
-        return dragging;
-    }
-
-
-    public static boolean isClicking() {
-        return clicking;
-    }
-
-
-    public static int getCursorX() {
-        return cursorX;
-    }
-
-
-    public static int getCursorY() {
-        return cursorY;
-    }
-
-
-    public static void setCursorY(int cursorY) {
-        GUI.cursorY = cursorY;
-    }
-
-
-    public int getAngleValue() {
-        return angleValue;
-    }
-
-
-    void setAngleValue(int angleValue) {
-        GUI.angleValue = angleValue;
-    }
-
-
-    public int getPowerValue() {
-        return powerValue;
-    }
-
-
-    void setPowerValue(int powerValue) {
-        GUI.powerValue = powerValue;
-    }
 
 
     public GUI(int WIDTH, int HEIGHT, int fps) {
@@ -97,10 +45,13 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
         addMouseMotionListener(this);
         addMouseListener(this);
 
-        Cannon cannon = generateCannon();
-        Target target = generateTarget();
+        Repo.cannon = generateCannon();
+        Repo.target = generateTarget();
+        Repo.fireButton = generateButton();
+    }
 
-        repo = new Repository(cannon, target);
+    private Button generateButton() {
+        return new Button(new CoordinateInt(300, 300), 100, 100);
     }
 
     /**
@@ -109,11 +60,10 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
      * @return Cannon
      */
     private Cannon generateCannon() {
-        int midX = WIDTH / 2;
         // x should be at the left screen
-        int x = 1 + new Random().nextInt(midX - 3);
-        int y = 1;
-        Cannon cannon = new Cannon(new CoordinateInt(x, y), new CoordinateInt(WIDTH, HEIGHT));
+        int x = new Random().nextInt(WIDTH * 3 / 10);
+        int y = HEIGHT * 4 / 5;
+        Cannon cannon = new Cannon(new CoordinateInt(x, y));
         return cannon;
     }
 
@@ -127,9 +77,9 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
         int midX = WIDTH / 2;
         int midY = HEIGHT / 2;
         // x should be at the right screen
-        int x = midX + 3 + new Random().nextInt(midX - 4);
-        int y = 1 + new Random().nextInt(midY + 1);;
-        Target target = new Target(new CoordinateInt(x, y), new CoordinateInt(WIDTH, HEIGHT));
+        int x = WIDTH - new Random().nextInt(midX * 3 / 5);
+        int y = HEIGHT - new Random().nextInt(midY * 3 / 5);;
+        Target target = new Target(new CoordinateInt(x, y));
         return target;
     }
 
@@ -166,21 +116,32 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
 
     }
 
+
     private void updateAll() {
-        repo.getCannon().update();
-        repo.getTarget().update();
+        Repo.cannon.update();
+        Repo.target.update();
+        for (Bullet bullet : Repo.bullets) {
+            // if update() return false, remove the object itself
+            if (!bullet.update()) {
+                Repo.bullets.remove(bullet);
+            }
+        }
+        Repo.fireButton.update();
     }
 
 
     private void drawAll() {
-        // Background and grass
+        // Background
         graph.setColor(new Color(197, 234, 243));
         graph.fillRect(0, 0, WIDTH, HEIGHT);
 
         // Game objects
-        repo.getCannon().draw();
-        repo.getTarget().draw();
-
+        Repo.cannon.draw(graph);
+        Repo.target.draw(graph);
+        for (Bullet bullet : Repo.bullets) {
+            bullet.draw(graph);
+        }
+        Repo.fireButton.draw(graph);
 
     }
 
@@ -203,22 +164,22 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        clicking = true;
+        Info.setClicking(true);
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        dragging = true;
-        cursorX = e.getX();
-        cursorY = e.getY();
+        Info.setDragging(true);
+        Info.setCursorX(e.getX());
+        Info.setCursorY(e.getY());
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        dragging = false;
-        clicking = false;
-        cursorX = e.getX();
-        cursorY = e.getY();
+        Info.setClicking(false);
+        Info.setDragging(false);
+        Info.setCursorX(e.getX());
+        Info.setCursorY(e.getY());
     }
 
 
