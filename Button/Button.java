@@ -1,9 +1,10 @@
-package Object;
+package Button;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 import Coordinate.CoordinateInt;
 import Main.Info;
+import Object.GameObject;
 
 public abstract class Button extends GameObject {
 
@@ -22,7 +23,9 @@ public abstract class Button extends GameObject {
     }
 
     @Override
-    public abstract boolean update();
+    public boolean update() {
+        return true;
+    }
 
     @Override
     public void draw(Graphics2D graph) {

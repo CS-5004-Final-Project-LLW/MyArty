@@ -12,6 +12,8 @@ public class Info {
     private static int cursorX = 0;
     private static int cursorY = 0;
 
+    public static boolean restart;
+
     public static int getAngleValue() {
         return angleValue;
     }

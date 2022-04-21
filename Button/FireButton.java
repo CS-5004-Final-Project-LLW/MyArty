@@ -1,4 +1,4 @@
-package Object;
+package Button;
 
 import Coordinate.CoordinateInt;
 

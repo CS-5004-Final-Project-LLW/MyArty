@@ -1,13 +1,11 @@
 package Main;
 
 import javax.swing.JPanel;
+import Button.Button;
+import Button.FireButton;
+import Button.RestartButton;
 import Coordinate.CoordinateInt;
-import Object.Bullet;
-import Object.Button;
-import Object.Cannon;
-import Object.FireButton;
-import Object.GameObject;
-import Object.Target;
+import Object.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -18,6 +16,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
 
 public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionListener {
@@ -47,12 +46,20 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
         addMouseMotionListener(this);
         addMouseListener(this);
 
-        Repo.cannon = generateCannon();
-        Repo.target = generateTarget();
-        Repo.fireButton = generateButton();
+        restart();
 
         printDebugInfo();
     }
+
+    private void restart() {
+        Repo.cannon = generateCannon();
+        Repo.target = generateTarget();
+        Repo.fireButton = generateFireButton();
+        Repo.restartButton = generateRestartButton();
+        Repo.bullets = new HashSet<>();
+
+    }
+
 
     private void printDebugInfo() {
         DebugInfo debugInfo = new DebugInfo();
@@ -64,8 +71,12 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
         return fps;
     }
 
-    private Button generateButton() {
+    private Button generateFireButton() {
         return new FireButton(new CoordinateInt(300, 300), 100, 100);
+    }
+
+    private Button generateRestartButton() {
+        return new RestartButton(new CoordinateInt(600, 100), 100, 100);
     }
 
     /**
@@ -136,6 +147,12 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     }
 
     private void updateAll() {
+        /* Restart */
+        if (Info.restart) {
+            Info.restart = false;
+            restart();
+        }
+
         /* Update cannon */
         updateObject(Repo.cannon);
 
@@ -156,8 +173,9 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
             Repo.target = null;
         }
 
-        /* Update firebutton */
+        /* Update buttons */
         updateObject(Repo.fireButton);
+        updateObject(Repo.restartButton);
     }
 
     private void drawObject(GameObject object, Graphics2D graph) {
@@ -179,6 +197,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
             drawObject(bullet, graph);
         }
         drawObject(Repo.fireButton, graph);
+        drawObject(Repo.restartButton, graph);
 
     }
 
