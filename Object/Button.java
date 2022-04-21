@@ -18,8 +18,7 @@ public class Button extends GameObject {
 
     @Override
     protected void createBoundary() {
-        setBoundary_max(null);
-        setBoundary_min(null);
+        createNullBoundary();
     }
 
     @Override

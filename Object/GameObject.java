@@ -37,7 +37,10 @@ public abstract class GameObject {
         setBoundary_max(new CoordinateInt(GUI.WIDTH, GUI.HEIGHT));
         setBoundary_min(new CoordinateInt(0, 0));
     }
-
+    protected void createNullBoundary() {
+        setBoundary_max(null);
+        setBoundary_min(null);
+    }
 
     public CoordinateInt getCoordinate() {
         return new CoordinateInt(coordinate);

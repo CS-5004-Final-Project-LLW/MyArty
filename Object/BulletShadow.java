@@ -17,7 +17,7 @@ public class BulletShadow extends GameObject {
 
     @Override
     public void createBoundary() {
-        createDefaultBoundary();
+        createNullBoundary();
     }
 
     @Override

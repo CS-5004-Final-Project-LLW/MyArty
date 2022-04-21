@@ -26,8 +26,8 @@ public class Cannon extends GameObject {
 
     @Override
     protected void createBoundary() {
-        setBoundary_min(new CoordinateInt(1, GUI.HEIGHT / 2));
-        setBoundary_max(new CoordinateInt(GUI.WIDTH / 2 - 1, GUI.HEIGHT - 100));
+        setBoundary_min(new CoordinateInt(GUI.WIDTH, GUI.HEIGHT / 2));
+        setBoundary_max(new CoordinateInt(GUI.WIDTH / 2 - 100, GUI.HEIGHT - 100));
     }
 
 

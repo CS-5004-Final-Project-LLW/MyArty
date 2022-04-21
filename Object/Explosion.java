@@ -15,7 +15,7 @@ public class Explosion extends GameObject {
 
     @Override
     protected void createBoundary() {
-        createDefaultBoundary();
+        createNullBoundary();
     }
 
     @Override
