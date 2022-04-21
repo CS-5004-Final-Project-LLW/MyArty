@@ -17,16 +17,24 @@ public class Cannon extends GameObject {
     private static double GRAVITY = 0.5;
     private static double VELOCITY_SCALE = 0.01;
     CoordinateInt size;
+    private int width = GUI.WIDTH / 8;
+    private int height = GUI.HEIGHT / 8;
 
 
     public Cannon(CoordinateInt coordinate) {
         super(coordinate);
     }
 
+    public Cannon(CoordinateInt coordinate, int width, int height) {
+        super(coordinate);
+        this.width = width;
+        this.height = height;
+    }
+
 
     @Override
     protected void createBoundary() {
-        setBoundary_min(new CoordinateInt(GUI.WIDTH, GUI.HEIGHT / 2));
+        setBoundary_min(new CoordinateInt(100, GUI.HEIGHT / 2));
         setBoundary_max(new CoordinateInt(GUI.WIDTH / 2 - 100, GUI.HEIGHT - 100));
     }
 
@@ -151,7 +159,8 @@ public class Cannon extends GameObject {
     @Override
     public boolean update() {
         if (Repo.fireButton.isPressed()) {
-            Repo.bullets.add(new Bullet(new CoordinateInt(getX() + 200, getY() - 200)));
+            CoordinateInt bulletPoint = new CoordinateInt(getX(), getY());
+            Repo.bullets.add(new Bullet(bulletPoint, Info.getPowerValue(), Info.getAngleValue()));
         }
         return true;
     }
@@ -160,8 +169,7 @@ public class Cannon extends GameObject {
     @Override
     public void draw(Graphics2D graph) {
         graph.setColor(Color.black);
-        graph.fillOval(getX(), getY(), GUI.WIDTH / 8, GUI.WIDTH / 8);
-
+        graph.fillOval(getX(), getY(), width, height);
     }
 
 

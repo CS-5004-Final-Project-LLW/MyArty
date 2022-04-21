@@ -9,7 +9,6 @@ import Coordinate.CoordinateInt;
 public class BulletShadow extends GameObject {
 
 
-
     public BulletShadow(CoordinateInt coordinate) {
         super(coordinate);
     }
@@ -23,7 +22,7 @@ public class BulletShadow extends GameObject {
     @Override
     public void draw(Graphics2D graph) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override

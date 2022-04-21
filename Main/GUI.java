@@ -24,7 +24,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     /* NOTE: WIDTH and HEIGHT must be capitalized and static */
     public static int WIDTH;
     public static int HEIGHT;
-    private int fps = 60;
+    private static int fps = 60;
 
     private Thread workingThread;
     private boolean running;
@@ -48,6 +48,10 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
         Repo.cannon = generateCannon();
         Repo.target = generateTarget();
         Repo.fireButton = generateButton();
+    }
+
+    public static int getFps() {
+        return fps;
     }
 
     private Button generateButton() {
@@ -83,7 +87,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
         return target;
     }
 
-            
+
 
     @Override
     public void run() {
@@ -102,6 +106,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
             updateAll();
             drawAll();
             showAll();
+            clearMouseStatus();
             // ---- main thread end ---- //
 
             usedTime = (System.nanoTime() - startTime) / 1000000;
@@ -151,6 +156,11 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
         tempGraph.dispose();
     }
 
+    private void clearMouseStatus() {
+        Info.setClicking(false);
+        Info.setDragging(false);
+    }
+
 
 
     @Override
@@ -176,8 +186,8 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        Info.setClicking(false);
-        Info.setDragging(false);
+        // Info.setClicking(false);
+        // Info.setDragging(false);
         Info.setCursorX(e.getX());
         Info.setCursorY(e.getY());
     }
