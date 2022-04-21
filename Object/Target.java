@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import Coordinate.CoordinateInt;
 import Main.GUI;
+import Main.Repo;
 
 /**
  * A class for Target
@@ -30,6 +31,14 @@ public class Target extends GameObject {
 
     @Override
     public boolean update() {
+        for (Bullet bullet : Repo.bullets) {
+            double distanceX = getX() + 50 - bullet.getX();
+            double distanceY = getY() + 50 - bullet.getY();
+            if (Math.sqrt(distanceX * distanceX + distanceY * distanceY) <= 100) {
+                Repo.bullets.remove(bullet);
+                return false;
+            }
+        }
         return true;
     }
 

@@ -5,10 +5,10 @@ import java.awt.Graphics2D;
 import Coordinate.CoordinateInt;
 import Main.Info;
 
-public class Button extends GameObject {
+public abstract class Button extends GameObject {
 
-    private int width;
-    private int height;
+    protected int width;
+    protected int height;
 
     public Button(CoordinateInt coordinate, int width, int height) {
         super(coordinate);
@@ -22,9 +22,7 @@ public class Button extends GameObject {
     }
 
     @Override
-    public boolean update() {
-        return true;
-    }
+    public abstract boolean update();
 
     @Override
     public void draw(Graphics2D graph) {

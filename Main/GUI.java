@@ -5,6 +5,7 @@ import Coordinate.CoordinateInt;
 import Object.Bullet;
 import Object.Button;
 import Object.Cannon;
+import Object.FireButton;
 import Object.GameObject;
 import Object.Target;
 import java.awt.Color;
@@ -17,7 +18,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 
 public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionListener {
@@ -65,7 +65,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     }
 
     private Button generateButton() {
-        return new Button(new CoordinateInt(300, 300), 100, 100);
+        return new FireButton(new CoordinateInt(300, 300), 100, 100);
     }
 
     /**
@@ -131,21 +131,39 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
 
     }
 
+    private boolean updateObject(GameObject object) {
+        return object != null && object.update();
+    }
 
     private void updateAll() {
-        Repo.cannon.update();
-        Repo.target.update();
+        /* Update cannon */
+        updateObject(Repo.cannon);
+
+        /* Update bullets */
         ArrayList<Bullet> removedBullet = new ArrayList<>();
         for (Bullet bullet : Repo.bullets) {
             // if update() return false, remove the object itself
-            if (!bullet.update()) {
+            if (!updateObject(bullet)) {
                 removedBullet.add(bullet);
             }
         }
         for (Bullet bulletToRemoved : removedBullet) {
             Repo.bullets.remove(bulletToRemoved);
         }
-        Repo.fireButton.update();
+
+        /* Update target */
+        if (!updateObject(Repo.target)) {
+            Repo.target = null;
+        }
+
+        /* Update firebutton */
+        updateObject(Repo.fireButton);
+    }
+
+    private void drawObject(GameObject object, Graphics2D graph) {
+        if (object != null) {
+            object.draw(graph);
+        }
     }
 
 
@@ -155,12 +173,12 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
         graph.fillRect(0, 0, WIDTH, HEIGHT);
 
         // Game objects
-        Repo.cannon.draw(graph);
-        Repo.target.draw(graph);
+        drawObject(Repo.cannon, graph);
+        drawObject(Repo.target, graph);
         for (Bullet bullet : Repo.bullets) {
-            bullet.draw(graph);
+            drawObject(bullet, graph);
         }
-        Repo.fireButton.draw(graph);
+        drawObject(Repo.fireButton, graph);
 
     }
 
