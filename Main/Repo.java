@@ -5,7 +5,7 @@ import Object.Bullet;
 import Object.Button;
 import Object.Cannon;
 import Object.Target;
-import java.util.ArrayList;
+import java.util.HashSet;
 
 
 /**
@@ -15,7 +15,7 @@ public class Repo {
     public static Cannon cannon;
     public static Target target;
     public static Button fireButton;
-    public static ArrayList<Bullet> bullets = new ArrayList<>();
+    public static HashSet<Bullet> bullets = new HashSet<>();
 
 
 }

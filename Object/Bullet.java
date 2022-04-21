@@ -57,8 +57,11 @@ public class Bullet extends GameObject {
         speedY += GRAVITY * timeInterval;
         // System.out.println(xPercent + " " + yPercent + " " + +coordinate.x + " " + coordinate.y
         // + " " + speedY);
-        return true;
+        return coordinate.x >= -100 && coordinate.x <= GUI.WIDTH + 100 && coordinate.y >= -100
+                && coordinate.y <= GUI.HEIGHT + 100;
     }
+
+
 
 
 }

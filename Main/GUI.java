@@ -135,11 +135,15 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     private void updateAll() {
         Repo.cannon.update();
         Repo.target.update();
+        ArrayList<Bullet> removedBullet = new ArrayList<>();
         for (Bullet bullet : Repo.bullets) {
             // if update() return false, remove the object itself
             if (!bullet.update()) {
-                Repo.bullets.remove(bullet);
+                removedBullet.add(bullet);
             }
+        }
+        for (Bullet bulletToRemoved : removedBullet) {
+            Repo.bullets.remove(bulletToRemoved);
         }
         Repo.fireButton.update();
     }
