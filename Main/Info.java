@@ -60,5 +60,12 @@ public class Info {
         Info.cursorY = cursorY;
     }
 
+    public static String getDebugInfo() {
+        return "Angle value:" + angleValue + ", Power value:" + powerValue + ", Dragging:"
+                + dragging + ", Clicking:" + clicking + ", CursorX:" + cursorX + ", CursorY:"
+                + cursorY;
+    }
+
+
 
 }

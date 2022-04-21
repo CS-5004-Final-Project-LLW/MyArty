@@ -16,6 +16,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -28,6 +29,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
 
     private Thread workingThread;
     private boolean running;
+    private Thread debugThread;
 
     private BufferedImage image;
     private Graphics2D graph;
@@ -38,7 +40,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
         super();
         GUI.WIDTH = WIDTH;
         GUI.HEIGHT = HEIGHT;
-        this.fps = fps;
+        GUI.fps = fps;
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setFocusable(true);
         requestFocus();
@@ -48,6 +50,14 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
         Repo.cannon = generateCannon();
         Repo.target = generateTarget();
         Repo.fireButton = generateButton();
+
+        printDebugInfo();
+    }
+
+    private void printDebugInfo() {
+        DebugInfo debugInfo = new DebugInfo();
+        debugThread = new Thread(debugInfo);
+        debugThread.start();
     }
 
     public static int getFps() {
