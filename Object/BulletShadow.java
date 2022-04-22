@@ -20,10 +20,7 @@ public class BulletShadow extends GameObject {
     }
 
     @Override
-    public void draw(Graphics2D graph) {
-        // TODO Auto-generated method stub
-
-    }
+    public void draw(Graphics2D graph) {}
 
     @Override
     public boolean update() {

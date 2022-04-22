@@ -15,8 +15,8 @@ public abstract class Slider extends GameObject {
 
     protected boolean grapped = false;
     protected double percentage;
-    protected int sliderWidth = 20;
-    protected int sliderHeight = 50;
+    protected int barWidth = 15;
+    protected int barHeight = 50;
     protected String words;
 
     public Slider(CoordinateInt coordinate, int width, int height) {
@@ -32,17 +32,19 @@ public abstract class Slider extends GameObject {
     }
 
     private boolean isCursorInside() {
-        return Info.getCursorX() > getX() && Info.getCursorX() < getX() + width
-                && Info.getCursorY() > getY() && Info.getCursorY() < getY() + height;
+        return Info.getCursorX() > getX() - barWidth / 2
+                && Info.getCursorX() < getX() + width + barWidth / 2
+                && Info.getCursorY() > getY() + height / 2 - barHeight / 2
+                && Info.getCursorY() < getY() + height / 2 + barHeight / 2;
     }
 
 
     @Override
     public boolean update() {
-        if (Info.isDragging() && isCursorInside()) {
+        if ((Info.isPressed() || Info.isDragging()) && isCursorInside()) {
             grapped = true;
         }
-        if (!Info.isDragging()) {
+        if (!(Info.isPressed() || Info.isDragging())) {
             grapped = false;
         }
 
@@ -61,8 +63,9 @@ public abstract class Slider extends GameObject {
         graph.fillRect(getX(), getY(), width, height);
 
         graph.setColor(Color.BLACK);
-        graph.fillRect((int) (percentage * width) + getX(), getY() - (sliderHeight / 3),
-                sliderWidth, sliderHeight);
+        int barX = (int) (percentage * width) + getX() - barWidth / 2;
+        int barY = getY() + height / 2 - barHeight / 2;
+        graph.fillRect(barX, barY, barWidth, barHeight);
 
         graph.setColor(Color.BLACK);
         Font f = new Font("Calibri", Font.BOLD, 25);

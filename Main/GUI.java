@@ -1,8 +1,6 @@
 package Main;
 
 import javax.swing.JPanel;
-import Button.Button;
-import Button.FireButton;
 import Button.RestartButton;
 import Coordinate.CoordinateInt;
 import Object.*;
@@ -47,19 +45,22 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
         addMouseMotionListener(this);
         addMouseListener(this);
 
-        restart();
+        start();
 
         printDebugInfo();
     }
 
-    private void restart() {
-        Repo.cannon = generateCannon();
-        Repo.target = generateTarget();
-        Repo.fireButton = new FireButton(new CoordinateInt(300, 300), 100, 100);
+    private void start() {
+        createObject();
+        // Repo.fireButton = new FireButton(new CoordinateInt(300, 300), 100, 100);
         Repo.restartButton = new RestartButton(new CoordinateInt(600, 100), 100, 100);
         Repo.powerSlider = new PowerSlider(new CoordinateInt(500, 200), 100, 20);
-        Repo.bullets = new HashSet<>();
+    }
 
+    private void createObject() {
+        Repo.cannon = generateCannon();
+        Repo.target = generateTarget();
+        Repo.bullets = new HashSet<>();
     }
 
 
@@ -144,7 +145,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
         /* Restart */
         if (Info.restart) {
             Info.restart = false;
-            restart();
+            createObject();
         }
 
         /* Update cannon */
@@ -208,6 +209,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     private void clearMouseStatus() {
         Info.setClicking(false);
         Info.setDragging(false);
+        Info.setPressed(false);
     }
 
 
@@ -235,21 +237,23 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        // Info.setClicking(false);
-        // Info.setDragging(false);
         Info.setCursorX(e.getX());
         Info.setCursorY(e.getY());
     }
 
 
     @Override
-    public void mouseEntered(MouseEvent e) {}
+    public void mouseEntered(MouseEvent e) {
+
+    }
 
     @Override
     public void mouseExited(MouseEvent e) {}
 
     @Override
-    public void mousePressed(MouseEvent e) {}
+    public void mousePressed(MouseEvent e) {
+        Info.setPressed(true);
+    }
 
     @Override
     public void mouseReleased(MouseEvent e) {}

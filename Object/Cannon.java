@@ -27,6 +27,15 @@ public class Cannon extends GameObject {
         this.height = height;
     }
 
+    /**
+     * Convert degree angle to radian
+     * 
+     * @param degree
+     * @return double radian
+     */
+    private double RadianToDegree(double radian) {
+        return radian / Math.PI * 180;
+    }
 
     @Override
     protected void createBoundary() {
@@ -38,10 +47,27 @@ public class Cannon extends GameObject {
 
     @Override
     public boolean update() {
-        if (Repo.fireButton.isPressed()) {
-            CoordinateInt bulletPoint = new CoordinateInt(getX(), getY());
+
+        int centerX = getX() + width / 2;
+        int centerY = getY() + height / 2;
+
+        /* Update angle */
+        double dy = Info.getCursorY() - centerY;
+        double dx = Info.getCursorX() - centerX;
+
+        if (dx == 0) {
+            dx = 1;
+        }
+        double radian = Math.atan2(-dy, dx);
+        Info.angleValue = (int) RadianToDegree(radian);
+
+        /* Create bullets */
+        int range = 400;
+        if (Info.isPressed() && Math.sqrt(dx * dx + dy * dy) < range) {
+            CoordinateInt bulletPoint = new CoordinateInt(centerX, centerY);
             Repo.bullets.add(new Bullet(bulletPoint, Info.powerValue, Info.angleValue));
         }
+
         return true;
     }
 

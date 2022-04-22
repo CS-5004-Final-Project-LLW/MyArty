@@ -10,8 +10,8 @@ public class MainGame {
         JFrame mainWindow = new JFrame();
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainWindow.setContentPane(new GUI(width, height, fps));
-        mainWindow.pack();
         mainWindow.setVisible(true);
         mainWindow.setResizable(false);
+        mainWindow.pack();
     }
 }

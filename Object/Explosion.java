@@ -20,14 +20,12 @@ public class Explosion extends GameObject {
 
     @Override
     public void draw(Graphics2D graph) {
-        // TODO Auto-generated method stub
 
     }
 
     @Override
     public boolean update() {
-        // TODO Auto-generated method stub
-        return false;
+        return true;
     }
 
 }

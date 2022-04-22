@@ -6,12 +6,23 @@ package Main;
 public class Info {
     private static boolean dragging = false;
     private static boolean clicking = false;
+    private static boolean pressed = false;
     private static int cursorX = 0;
     private static int cursorY = 0;
 
     public static int angleValue = 45;
     public static int powerValue = 50;
     public static boolean restart;
+
+    public static boolean isPressed() {
+        return pressed;
+    }
+
+
+    static void setPressed(boolean pressed) {
+        Info.pressed = pressed;
+    }
+
 
     public static boolean isDragging() {
         return dragging;
