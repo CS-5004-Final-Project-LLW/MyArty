@@ -40,7 +40,7 @@ public class Cannon extends GameObject {
     public boolean update() {
         if (Repo.fireButton.isPressed()) {
             CoordinateInt bulletPoint = new CoordinateInt(getX(), getY());
-            Repo.bullets.add(new Bullet(bulletPoint, Info.getPowerValue(), Info.getAngleValue()));
+            Repo.bullets.add(new Bullet(bulletPoint, Info.powerValue, Info.angleValue));
         }
         return true;
     }

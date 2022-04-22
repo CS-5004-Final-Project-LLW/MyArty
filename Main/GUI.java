@@ -6,6 +6,7 @@ import Button.FireButton;
 import Button.RestartButton;
 import Coordinate.CoordinateInt;
 import Object.*;
+import Slider.PowerSlider;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -54,8 +55,9 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     private void restart() {
         Repo.cannon = generateCannon();
         Repo.target = generateTarget();
-        Repo.fireButton = generateFireButton();
-        Repo.restartButton = generateRestartButton();
+        Repo.fireButton = new FireButton(new CoordinateInt(300, 300), 100, 100);
+        Repo.restartButton = new RestartButton(new CoordinateInt(600, 100), 100, 100);
+        Repo.powerSlider = new PowerSlider(new CoordinateInt(500, 200), 100, 20);
         Repo.bullets = new HashSet<>();
 
     }
@@ -69,14 +71,6 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
 
     public static int getFps() {
         return fps;
-    }
-
-    private Button generateFireButton() {
-        return new FireButton(new CoordinateInt(300, 300), 100, 100);
-    }
-
-    private Button generateRestartButton() {
-        return new RestartButton(new CoordinateInt(600, 100), 100, 100);
     }
 
     /**
@@ -176,6 +170,9 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
         /* Update buttons */
         updateObject(Repo.fireButton);
         updateObject(Repo.restartButton);
+
+        /* Update sliders */
+        updateObject(Repo.powerSlider);
     }
 
     private void drawObject(GameObject object, Graphics2D graph) {
@@ -198,6 +195,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
         }
         drawObject(Repo.fireButton, graph);
         drawObject(Repo.restartButton, graph);
+        drawObject(Repo.powerSlider, graph);
 
     }
 
