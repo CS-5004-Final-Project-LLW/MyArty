@@ -36,9 +36,10 @@ public class Target extends GameObject {
     @Override
     public boolean update() {
         for (Bullet bullet : Repo.bullets) {
-            double distanceX = getX() + 50 - bullet.getX();
-            double distanceY = getY() + 50 - bullet.getY();
-            if (Math.sqrt(distanceX * distanceX + distanceY * distanceY) <= 100) {
+            double distanceX = (getX() + width / 2) - (bullet.getX() + bullet.getRadius());
+            double distanceY = (getY() + height / 2) - (bullet.getY() + bullet.getRadius());
+            double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+            if (distance < bullet.getRadius() + (width / 2 + height / 2) / 2) {
                 Repo.bullets.remove(bullet);
                 return false;
             }
