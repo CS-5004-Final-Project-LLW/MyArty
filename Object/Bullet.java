@@ -15,14 +15,21 @@ public class Bullet extends GameObject {
     private double yPercent;
     private static double GRAVITY = 0.5;
     private static double VELOCITY_SCALE = 0.01;
+    private int radius;
 
-    public Bullet(CoordinateInt coordinate, double power, double degree) {
+    public int getRadius() {
+        return radius;
+    }
+
+
+    public Bullet(CoordinateInt coordinate, double power, double degree, int radius) {
         super(coordinate);
         xPercent = (double) coordinate.x / GUI.WIDTH;
         yPercent = (double) coordinate.y / GUI.HEIGHT;
         double velocity = VELOCITY_SCALE * power;
         this.speedX = velocity * Math.cos(degreeToRadian(degree));
-        this.speedY = -velocity * Math.sin(degreeToRadian(degree));
+        this.speedY = velocity * Math.sin(degreeToRadian(degree));
+        this.radius = radius;
     }
 
     /**
@@ -44,7 +51,7 @@ public class Bullet extends GameObject {
     @Override
     public void draw(Graphics2D graph) {
         graph.setColor(Color.GREEN);
-        graph.fillOval(getX(), getY(), 50, 50);
+        graph.fillOval(getX(), getY(), radius * 2, radius * 2);
     }
 
     @Override
@@ -60,7 +67,6 @@ public class Bullet extends GameObject {
         return coordinate.x >= -100 && coordinate.x <= GUI.WIDTH + 100 && coordinate.y >= -100
                 && coordinate.y <= GUI.HEIGHT + 100;
     }
-
 
 
 

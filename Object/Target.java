@@ -10,9 +10,13 @@ import Main.Repo;
  * A class for Target
  */
 public class Target extends GameObject {
+    private int width;
+    private int height;
 
-    public Target(CoordinateInt coordinate) {
+    public Target(CoordinateInt coordinate, int width, int height) {
         super(coordinate);
+        this.width = width;
+        this.height = height;
     }
 
     @Override
@@ -25,7 +29,7 @@ public class Target extends GameObject {
     @Override
     public void draw(Graphics2D graph) {
         graph.setColor(Color.BLACK);
-        graph.fillOval(getX(), getY(), 100, 100);
+        graph.fillOval(getX(), getY(), width, height);
 
     }
 

@@ -83,7 +83,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
         // x should be at the left screen
         int x = new Random().nextInt(WIDTH * 3 / 10);
         int y = HEIGHT * 4 / 5;
-        Cannon cannon = new Cannon(new CoordinateInt(x, y));
+        Cannon cannon = new Cannon(new CoordinateInt(x, y), 150, 150);
         return cannon;
     }
 
@@ -94,12 +94,10 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
      * @return Target
      */
     private Target generateTarget() {
-        int midX = WIDTH / 2;
-        int midY = HEIGHT / 2;
         // x should be at the right screen
-        int x = WIDTH - new Random().nextInt(midX * 3 / 5);
-        int y = HEIGHT - new Random().nextInt(midY * 3 / 5);;
-        Target target = new Target(new CoordinateInt(x, y));
+        int x = WIDTH * 9 / 10 - new Random().nextInt(WIDTH * 3 / 10);
+        int y = HEIGHT * 9 / 10 - new Random().nextInt(HEIGHT * 3 / 10);;
+        Target target = new Target(new CoordinateInt(x, y), 100, 100);
         return target;
     }
 
