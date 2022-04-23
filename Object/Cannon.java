@@ -57,9 +57,6 @@ public class Cannon extends GameObject {
         double dy = Info.getCursorY() - centerY;
         double dx = Info.getCursorX() - centerX;
 
-        // if (dx == 0) {
-        // dx = 1;
-        // }
         double radian = Math.atan2(dy, dx);
         Info.angleValue = (int) RadianToDegree(radian);
 

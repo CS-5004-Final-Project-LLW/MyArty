@@ -261,15 +261,10 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
   }
 
   @Override
-  public void mouseEntered(MouseEvent e) {
-
-  }
+  public void mouseEntered(MouseEvent e) {}
 
   @Override
-  public void mouseExited(MouseEvent e) {
-    Info.setDragging(false);
-    Info.setPressed(false);
-  }
+  public void mouseExited(MouseEvent e) {}
 
   @Override
   public void mousePressed(MouseEvent e) {

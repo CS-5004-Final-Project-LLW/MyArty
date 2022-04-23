@@ -2,6 +2,7 @@ package Main;
 
 import java.util.ArrayList;
 import java.awt.image.BufferedImage;
+
 /**
  * All getters are public and all setter are package accessed.
  */
@@ -46,14 +47,15 @@ public class Info {
     }
 
     static void setClicking(boolean clicking) {
-        if (clicking) {
-            Info.clicking = true;
-            lastClickTimeMillis = System.currentTimeMillis();
-        } else {
-            if (System.currentTimeMillis() - lastClickTimeMillis > 3 * 1000 / GUI.getFps()) {
-                Info.clicking = false;
-            }
-        }
+        // if (clicking) {
+        // Info.clicking = true;
+        // lastClickTimeMillis = System.currentTimeMillis();
+        // } else {
+        // if (System.currentTimeMillis() - lastClickTimeMillis > 3 * 1000 / GUI.getFps()) {
+        // Info.clicking = false;
+        // }
+        // }
+        Info.clicking = clicking;
     }
 
     public static int getCursorX() {

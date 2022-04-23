@@ -3,6 +3,7 @@ package Object;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import Coordinate.CoordinateInt;
+import Main.DebugInfo;
 import Main.GUI;
 import Main.Info;
 import java.awt.Image;
@@ -37,6 +38,10 @@ public class Bullet extends GameObject {
         this.speedX = velocity * Math.cos(degreeToRadian(degree));
         this.speedY = velocity * Math.sin(degreeToRadian(degree));
         this.radius = radius;
+        if (DebugInfo.isRunning()) {
+            System.out.println("New Bullet %d %d %.2f %.2f %d".formatted(coordinate.x, coordinate.y,
+                    power, degree, radius));
+        }
     }
 
     /**
@@ -59,7 +64,7 @@ public class Bullet extends GameObject {
     public void draw(Graphics2D graph) {
         BufferedImage image = Info.getBulletImage();
 
-        graph.drawImage(image,getX(),getY(),70,50,null);
+        graph.drawImage(image, getX(), getY(), 70, 50, null);
     }
 
     @Override

@@ -2,7 +2,7 @@ package Main;
 
 public class DebugInfo implements Runnable {
     private int timeIntervalMill = 1000;
-    private boolean running = false;
+    private static boolean running = false;
 
     @Override
     public void run() {
@@ -28,6 +28,10 @@ public class DebugInfo implements Runnable {
             sb.append(" ");
         }
         System.out.println(sb.toString());
+    }
+
+    public static boolean isRunning() {
+        return running;
     }
 
 
