@@ -95,7 +95,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     // x should be at the right screen
     int x = WIDTH * 9 / 10 - new Random().nextInt(WIDTH * 3 / 10);
     int y = HEIGHT * 9 / 10 - new Random().nextInt(HEIGHT * 3 / 10);
-    ;
+
     Target target = new Target(new CoordinateInt(x, y), 100, 100);
     return target;
   }
@@ -117,7 +117,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
       updateAll();
       drawAll();
       showAll();
-      clearMouseStatus();
+      // clearMouseStatus();
       // ---- main thread end ---- //
 
       usedTime = (System.nanoTime() - startTime) / 1000000;
@@ -240,6 +240,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
 
   @Override
   public void mouseExited(MouseEvent e) {
+    clearMouseStatus();
   }
 
   @Override
@@ -249,5 +250,6 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
 
   @Override
   public void mouseReleased(MouseEvent e) {
+    clearMouseStatus();
   }
 }
