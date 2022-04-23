@@ -1,8 +1,5 @@
 package Main;
 
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import Button.RestartButton;
 import Coordinate.CoordinateInt;
@@ -58,72 +55,36 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     Repo.restartButton = new RestartButton(new CoordinateInt(50, 50), 100, 100);
     Repo.powerSlider = new PowerSlider(new CoordinateInt(50, 150), 100, 20);
   }
-    /* NOTE: WIDTH and HEIGHT must be capitalized and static */
-    public static int WIDTH;
-    public static int HEIGHT;
-    private static int fps = 60;
 
-    private Thread workingThread;
-    private boolean running;
-    private Thread debugThread;
-
-    private BufferedImage image;
-    private Graphics2D graph;
+  private void createObject() {
+    Repo.cannon = generateCannon();
+    Repo.target = generateTarget();
+    Repo.bullets = new HashSet<>();
+  }
 
 
+  private void printDebugInfo() {
+    DebugInfo debugInfo = new DebugInfo();
+    debugThread = new Thread(debugInfo);
+    debugThread.start();
+  }
 
-    public GUI(int WIDTH, int HEIGHT, int fps) {
-        super();
-        GUI.WIDTH = WIDTH;
-        GUI.HEIGHT = HEIGHT;
-        GUI.fps = fps;
-        setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        setFocusable(true);
-        requestFocus();
-        addMouseMotionListener(this);
-        addMouseListener(this);
+  public static int getFps() {
+    return fps;
+  }
 
-        start();
-
-        printDebugInfo();
-    }
-
-    private void start() {
-        createObject();
-        // Repo.fireButton = new FireButton(new CoordinateInt(300, 300), 100, 100);
-        Repo.restartButton = new RestartButton(new CoordinateInt(600, 100), 100, 100);
-        Repo.powerSlider = new PowerSlider(new CoordinateInt(500, 200), 100, 20);
-    }
-
-    private void createObject() {
-        Repo.cannon = generateCannon();
-        Repo.target = generateTarget();
-        Repo.bullets = new HashSet<>();
-    }
-
-
-    private void printDebugInfo() {
-        DebugInfo debugInfo = new DebugInfo();
-        debugThread = new Thread(debugInfo);
-        debugThread.start();
-    }
-
-    public static int getFps() {
-        return fps;
-    }
-
-    /**
-     * Create a cannon at a random position of the left screen
-     * 
-     * @return Cannon
-     */
-    private Cannon generateCannon() {
-        // x should be at the left screen
-        int x = new Random().nextInt(WIDTH * 3 / 10);
-        int y = HEIGHT * 4 / 5;
-        Cannon cannon = new Cannon(new CoordinateInt(x, y), 150, 150);
-        return cannon;
-    }
+  /**
+   * Create a cannon at a random position of the left screen
+   *
+   * @return Cannon
+   */
+  private Cannon generateCannon() {
+    // x should be at the left screen
+    int x = new Random().nextInt(WIDTH * 3 / 10);
+    int y = HEIGHT * 4 / 5;
+    Cannon cannon = new Cannon(new CoordinateInt(x, y), 150, 150);
+    return cannon;
+  }
 
   /**
    * Create a target at a random position of the right screen
@@ -131,42 +92,44 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
    * @return Target
    */
   private Target generateTarget() {
-      // x should be at the right screen
-        int x = WIDTH * 9 / 10 - new Random().nextInt(WIDTH * 3 / 10);
-        int y = HEIGHT * 9 / 10 - new Random().nextInt(HEIGHT * 3 / 10);;
-        Target target = new Target(new CoordinateInt(x, y), 100, 100);
-        return target;
+    // x should be at the right screen
+    int x = WIDTH * 9 / 10 - new Random().nextInt(WIDTH * 3 / 10);
+    int y = HEIGHT * 9 / 10 - new Random().nextInt(HEIGHT * 3 / 10);
+    ;
+    Target target = new Target(new CoordinateInt(x, y), 100, 100);
+    return target;
   }
 
-    @Override
-    public void run() {
-        running = true;
-        image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-        graph = (Graphics2D) image.getGraphics();
-        graph.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+  @Override
+  public void run() {
+    running = true;
+    image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+    graph = (Graphics2D) image.getGraphics();
+    graph.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        long startTime, sleepTime, usedTime;
-        final long timePerFrame = 1000 / fps;
+    long startTime, sleepTime, usedTime;
+    final long timePerFrame = 1000 / fps;
 
-        while (running) {
-            startTime = System.nanoTime();
+    while (running) {
+      startTime = System.nanoTime();
 
-            // ------ main thread ------ //
-            updateAll();
-            drawAll();
-            showAll();
-            clearMouseStatus();
-            // ---- main thread end ---- //
+      // ------ main thread ------ //
+      updateAll();
+      drawAll();
+      showAll();
+      clearMouseStatus();
+      // ---- main thread end ---- //
 
-            usedTime = (System.nanoTime() - startTime) / 1000000;
-            sleepTime = Math.max(0, timePerFrame - usedTime);
+      usedTime = (System.nanoTime() - startTime) / 1000000;
+      sleepTime = Math.max(0, timePerFrame - usedTime);
 
-            try {
-                Thread.sleep(sleepTime);
-            } catch (InterruptedException e) {
+      try {
+        Thread.sleep(sleepTime);
+      } catch (InterruptedException e) {
 
-            }
-        }
+      }
+    }
+  }
 
   private boolean updateObject(GameObject object) {
     return object != null && object.update();
@@ -216,8 +179,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
 
   private void drawAll() {
     // Background
-      //new Color(197, 234, 243,100)
-    graph.setColor(new Color(197, 234, 243,100));
+    graph.setColor(new Color(197, 234, 243, 100));
     graph.fillRect(0, 0, WIDTH, HEIGHT);
 
     // Game objects
@@ -288,5 +250,4 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
   @Override
   public void mouseReleased(MouseEvent e) {
   }
-
 }
