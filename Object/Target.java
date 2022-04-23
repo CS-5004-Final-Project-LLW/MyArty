@@ -49,6 +49,7 @@ public class Target extends GameObject {
             double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
             if (distance < bullet.getRadius() + (width / 2 + height / 2) / 2) {
                 Repo.bullets.remove(bullet);
+                Info.restart = true;
                 return false;
             }
         }
