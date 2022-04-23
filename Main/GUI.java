@@ -16,6 +16,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 
 public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionListener {
@@ -23,14 +24,12 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
   /* NOTE: WIDTH and HEIGHT must be capitalized and static */
   public static int WIDTH;
   public static int HEIGHT;
-  private static int fps = 60;
+  private static int fps = 30;
 
   private Thread workingThread;
   private boolean running;
-  private Thread debugThread;
 
   private BufferedImage image;
-  private BufferedImage cannonImage;
   private Graphics2D graph;
 
   public GUI(int WIDTH, int HEIGHT, int fps) {
@@ -72,6 +71,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
   public static int getFps() {
     return fps;
   }
+
 
   /**
    * Create a cannon at a random position of the left screen
@@ -118,9 +118,11 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
       drawAll();
       showAll();
       // clearMouseStatus();
+      Info.setClicking(false);
       // ---- main thread end ---- //
 
       usedTime = (System.nanoTime() - startTime) / 1000000;
+      sleepTime = timePerFrame - usedTime;
       sleepTime = Math.max(0, timePerFrame - usedTime);
 
       try {
@@ -240,7 +242,8 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
 
   @Override
   public void mouseExited(MouseEvent e) {
-    clearMouseStatus();
+    Info.setDragging(false);
+    Info.setPressed(false);
   }
 
   @Override
@@ -250,6 +253,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
 
   @Override
   public void mouseReleased(MouseEvent e) {
-    clearMouseStatus();
+    Info.setDragging(false);
+    Info.setPressed(false);
   }
 }

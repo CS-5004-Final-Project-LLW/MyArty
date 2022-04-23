@@ -41,7 +41,7 @@ public class Cannon extends GameObject {
 
     @Override
     protected void createBoundary() {
-	setBoundary_min(new CoordinateInt(width, GUI.HEIGHT / 2 + height));
+        setBoundary_min(new CoordinateInt(width, GUI.HEIGHT / 2 + height));
         setBoundary_max(new CoordinateInt(GUI.WIDTH / 2 - width, GUI.HEIGHT - height));
     }
 
@@ -57,15 +57,15 @@ public class Cannon extends GameObject {
         double dy = Info.getCursorY() - centerY;
         double dx = Info.getCursorX() - centerX;
 
-        //if (dx == 0) {
-        //    dx = 1;
-        //}
+        // if (dx == 0) {
+        // dx = 1;
+        // }
         double radian = Math.atan2(dy, dx);
         Info.angleValue = (int) RadianToDegree(radian);
 
         /* Create bullets */
         int range = 400;
-        if (Info.isPressed() && Math.sqrt(dx * dx + dy * dy) < range) {
+        if (Info.isClicking() && Math.sqrt(dx * dx + dy * dy) < range) {
             CoordinateInt bulletPoint = new CoordinateInt(centerX, centerY);
             Repo.bullets.add(new Bullet(bulletPoint, Info.powerValue, Info.angleValue, 25));
         }
@@ -78,7 +78,7 @@ public class Cannon extends GameObject {
     public void draw(Graphics2D graph) {
         File cannonImageFile = new File("cannon.jpeg");
         BufferedImage image = null;
-        try{
+        try {
             image = ImageIO.read(cannonImageFile);
         } catch (IOException e) {
             System.out.println(" Image file does not exist.");
@@ -87,11 +87,13 @@ public class Cannon extends GameObject {
 
         Graphics2D graphicsImage = (Graphics2D) image.getGraphics();
         graphicsImage.setBackground(Color.BLACK);
-        graph.drawImage(image,getX(),getY(),width,height,null);
+        graph.drawImage(image, getX(), getY(), width, height, null);
     }
-    public int getHeight(){
+
+    public int getHeight() {
         return height;
     }
+
     public int getWidth() {
         return width;
     }
