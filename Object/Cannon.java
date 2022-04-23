@@ -19,13 +19,9 @@ import javax.imageio.ImageIO;
 public class Cannon extends GameObject {
     /* A special number for gravity after a whole-night testing */
     CoordinateInt size;
-    private int width ;
+    private int width;
     private int height;
 
-
-    public Cannon(CoordinateInt coordinate) {
-        super(coordinate);
-    }
 
     public Cannon(CoordinateInt coordinate, int width, int height) {
         super(coordinate);
@@ -45,8 +41,8 @@ public class Cannon extends GameObject {
 
     @Override
     protected void createBoundary() {
-	setBoundary_min(new CoordinateInt(100, GUI.HEIGHT / 2));
-        setBoundary_max(new CoordinateInt(GUI.WIDTH / 2 - 100, GUI.HEIGHT - 100))
+	setBoundary_min(new CoordinateInt(width, GUI.HEIGHT / 2 + height));
+        setBoundary_max(new CoordinateInt(GUI.WIDTH / 2 - width, GUI.HEIGHT - height));
     }
 
 
