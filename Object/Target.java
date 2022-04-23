@@ -1,9 +1,9 @@
 package Object;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import Coordinate.CoordinateInt;
 import Main.GUI;
+import Main.Info;
 import Main.Repo;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -33,14 +33,7 @@ public class Target extends GameObject {
     @Override
     public void draw(Graphics2D graph) {
 
-        File targetImageFile = new File("target.png");
-        BufferedImage image = null;
-        try{
-            image = ImageIO.read(targetImageFile);
-        } catch (IOException e) {
-            System.out.println(" Image file does not exist.");
-            System.exit(-2);
-        }
+        BufferedImage image = Info.getTargetImage();
         graph.drawImage(image,getX(),getY(),100,100,null);
 //        graph.setColor(Color.BLACK);
 //        graph.fillOval(getX(), getY(), 100, 100);

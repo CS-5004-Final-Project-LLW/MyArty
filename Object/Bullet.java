@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import Coordinate.CoordinateInt;
 import Main.GUI;
+import Main.Info;
 import java.awt.Image;
 import java.awt.MediaTracker;
 import java.awt.Toolkit;
@@ -56,15 +57,7 @@ public class Bullet extends GameObject {
 
     @Override
     public void draw(Graphics2D graph) {
-        File bulletImageFile = new File("bullet.png");
-        BufferedImage image = null;
-        try{
-         image = ImageIO.read(bulletImageFile);
-        } catch (IOException e) {
-            System.out.println(" Image file does not exist.");
-            System.out.println("Working Directory = " + System.getProperty("user.dir"));
-            System.exit(-2);
-        }
+        BufferedImage image = Info.getBulletImage();
 
         graph.drawImage(image,getX(),getY(),70,50,null);
     }

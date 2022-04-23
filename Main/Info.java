@@ -1,7 +1,7 @@
 package Main;
 
 import java.util.ArrayList;
-
+import java.awt.image.BufferedImage;
 /**
  * All getters are public and all setter are package accessed.
  */
@@ -13,6 +13,10 @@ public class Info {
     private static int cursorX = 0;
     private static int cursorY = 0;
     private static ArrayList<Integer> sleepTimeRecord = new ArrayList<>();
+
+    private static BufferedImage bulletImage;
+    private static BufferedImage cannonImage;
+    private static BufferedImage targetImage;
 
     public static int angleValue = 45;
     public static int powerValue = 50;
@@ -86,6 +90,37 @@ public class Info {
         }
         sleepTimeRecord.add(sleepTime);
     }
+
+
+    public static BufferedImage getBulletImage() {
+        return bulletImage;
+    }
+
+
+    public static void setBulletImage(BufferedImage bulletImage) {
+        Info.bulletImage = bulletImage;
+    }
+
+
+    public static BufferedImage getCannonImage() {
+        return cannonImage;
+    }
+
+
+    public static void setCannonImage(BufferedImage cannonImage) {
+        Info.cannonImage = cannonImage;
+    }
+
+
+    public static BufferedImage getTargetImage() {
+        return targetImage;
+    }
+
+
+    public static void setTargetImage(BufferedImage targetImage) {
+        Info.targetImage = targetImage;
+    }
+
 
 
 }

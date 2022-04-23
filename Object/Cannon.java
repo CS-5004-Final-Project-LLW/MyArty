@@ -76,14 +76,7 @@ public class Cannon extends GameObject {
 
     @Override
     public void draw(Graphics2D graph) {
-        File cannonImageFile = new File("cannon.jpeg");
-        BufferedImage image = null;
-        try {
-            image = ImageIO.read(cannonImageFile);
-        } catch (IOException e) {
-            System.out.println(" Image file does not exist.");
-            System.exit(-2);
-        }
+        BufferedImage image = Info.getCannonImage();
 
         Graphics2D graphicsImage = (Graphics2D) image.getGraphics();
         graphicsImage.setBackground(Color.BLACK);

@@ -16,15 +16,17 @@ import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Random;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionListener {
 
   /* NOTE: WIDTH and HEIGHT must be capitalized and static */
   public static int WIDTH;
   public static int HEIGHT;
-  private static int fps = 30;
+  private static int fps = 60;
 
   private Thread workingThread;
   private boolean running;
@@ -46,9 +48,28 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     addMouseMotionListener(this);
     addMouseListener(this);
 
+    loadAllImage();
     start();
 
     printDebugInfo();
+  }
+
+  private BufferedImage loadImage(String fileName) {
+    File targetImageFile = new File(fileName);
+    BufferedImage image = null;
+    try {
+      image = ImageIO.read(targetImageFile);
+    } catch (IOException e) {
+      System.out.println(" Image file does not exist.");
+      System.exit(-2);
+    }
+    return image;
+  }
+
+  private void loadAllImage() {
+    Info.setBulletImage(loadImage("res/bullet.png"));
+    Info.setCannonImage(loadImage("res/cannon.jpeg"));
+    Info.setTargetImage(loadImage("res/target.png"));
   }
 
   private void start() {
