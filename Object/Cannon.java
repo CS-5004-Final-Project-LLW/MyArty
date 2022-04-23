@@ -19,8 +19,8 @@ import javax.imageio.ImageIO;
 public class Cannon extends GameObject {
     /* A special number for gravity after a whole-night testing */
     CoordinateInt size;
-    private int width = GUI.WIDTH / 8;
-    private int height = GUI.HEIGHT / 8;
+    private int width ;
+    private int height;
 
 
     public Cannon(CoordinateInt coordinate) {
@@ -45,8 +45,8 @@ public class Cannon extends GameObject {
 
     @Override
     protected void createBoundary() {
-        setBoundary_min(new CoordinateInt(100, GUI.HEIGHT / 2));
-        setBoundary_max(new CoordinateInt(GUI.WIDTH / 2 - 100, GUI.HEIGHT - 100));
+	setBoundary_min(new CoordinateInt(100, GUI.HEIGHT / 2));
+        setBoundary_max(new CoordinateInt(GUI.WIDTH / 2 - 100, GUI.HEIGHT - 100))
     }
 
 
@@ -61,17 +61,17 @@ public class Cannon extends GameObject {
         double dy = Info.getCursorY() - centerY;
         double dx = Info.getCursorX() - centerX;
 
-        if (dx == 0) {
-            dx = 1;
-        }
-        double radian = Math.atan2(-dy, dx);
+        //if (dx == 0) {
+        //    dx = 1;
+        //}
+        double radian = Math.atan2(dy, dx);
         Info.angleValue = (int) RadianToDegree(radian);
 
         /* Create bullets */
         int range = 400;
         if (Info.isPressed() && Math.sqrt(dx * dx + dy * dy) < range) {
             CoordinateInt bulletPoint = new CoordinateInt(centerX, centerY);
-            Repo.bullets.add(new Bullet(bulletPoint, Info.powerValue, Info.angleValue));
+            Repo.bullets.add(new Bullet(bulletPoint, Info.powerValue, Info.angleValue, 25));
         }
 
         return true;
