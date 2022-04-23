@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -20,6 +21,8 @@ import java.util.Random;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+
 
 public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionListener {
 
@@ -33,6 +36,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
 
   private BufferedImage image;
   private Graphics2D graph;
+  private Image background_image;
 
   private Thread debugThread;
 
@@ -67,6 +71,8 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
   }
 
   private void loadAllImage() {
+    var fileBack = "res/background.png";
+    background_image = new ImageIcon(fileBack).getImage();
     Info.setBulletImage(loadImage("res/bullet.png"));
     Info.setCannonImage(loadImage("res/cannon.jpeg"));
     Info.setTargetImage(loadImage("res/target.png"));
@@ -130,7 +136,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
     graph = (Graphics2D) image.getGraphics();
     graph.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
+    
     long startTime, sleepTime, usedTime;
     final long timePerFrame = 1000 / fps;
 
@@ -206,8 +212,10 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
 
   private void drawAll() {
     // Background
-    graph.setColor(new Color(197, 234, 243, 100));
-    graph.fillRect(0, 0, WIDTH, HEIGHT);
+    // graph.setColor(new Color(197, 234, 243, 100));
+    // graph.fillRect(0, 0, WIDTH, HEIGHT);
+    graph.drawImage(background_image,getX(),getY(),WIDTH, HEIGHT,null);
+
 
     // Game objects
     drawObject(Repo.cannon, graph);
@@ -222,6 +230,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
 
   public void showAll() {
     Graphics tempGraph = this.getGraphics();
+
     tempGraph.drawImage(image, 0, 0, null);
     tempGraph.dispose();
   }
