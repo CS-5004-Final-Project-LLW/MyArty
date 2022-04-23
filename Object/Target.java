@@ -5,6 +5,10 @@ import java.awt.Graphics2D;
 import Coordinate.CoordinateInt;
 import Main.GUI;
 import Main.Repo;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  * A class for Target
@@ -15,7 +19,7 @@ public class Target extends GameObject {
 
     public Target(CoordinateInt coordinate, int width, int height) {
         super(coordinate);
-        this.width = width;
+	this.width = width;
         this.height = height;
     }
 
@@ -28,8 +32,19 @@ public class Target extends GameObject {
 
     @Override
     public void draw(Graphics2D graph) {
-        graph.setColor(Color.BLACK);
-        graph.fillOval(getX(), getY(), width, height);
+
+        File targetImageFile = new File("target.png");
+        BufferedImage image = null;
+        try{
+            image = ImageIO.read(targetImageFile);
+        } catch (IOException e) {
+            System.out.println(" Image file does not exist.");
+            System.exit(-2);
+        }
+        graph.drawImage(image,getX(),getY(),100,100,null);
+//        graph.setColor(Color.BLACK);
+//        graph.fillOval(getX(), getY(), 100, 100);
+
 
     }
 

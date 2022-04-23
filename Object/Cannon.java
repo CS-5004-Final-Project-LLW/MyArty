@@ -1,11 +1,17 @@
 package Object;
 
+import java.awt.AlphaComposite;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import Coordinate.CoordinateInt;
 import Main.GUI;
 import Main.Info;
 import Main.Repo;
 import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  * A class for Cannon
@@ -26,7 +32,7 @@ public class Cannon extends GameObject {
     /**
      * Convert degree angle to radian
      * 
-     * @param degree
+     * @param radian
      * @return double radian
      */
     private double RadianToDegree(double radian) {
@@ -35,7 +41,7 @@ public class Cannon extends GameObject {
 
     @Override
     protected void createBoundary() {
-        setBoundary_min(new CoordinateInt(width, GUI.HEIGHT / 2 + height));
+	setBoundary_min(new CoordinateInt(width, GUI.HEIGHT / 2 + height));
         setBoundary_max(new CoordinateInt(GUI.WIDTH / 2 - width, GUI.HEIGHT - height));
     }
 
@@ -51,9 +57,9 @@ public class Cannon extends GameObject {
         double dy = Info.getCursorY() - centerY;
         double dx = Info.getCursorX() - centerX;
 
-        // if (dx == 0) {
-        // dx = 1;
-        // }
+        //if (dx == 0) {
+        //    dx = 1;
+        //}
         double radian = Math.atan2(dy, dx);
         Info.angleValue = (int) RadianToDegree(radian);
 
@@ -70,8 +76,24 @@ public class Cannon extends GameObject {
 
     @Override
     public void draw(Graphics2D graph) {
-        graph.setColor(Color.black);
-        graph.fillOval(getX(), getY(), width, height);
+        File cannonImageFile = new File("cannon.jpeg");
+        BufferedImage image = null;
+        try{
+            image = ImageIO.read(cannonImageFile);
+        } catch (IOException e) {
+            System.out.println(" Image file does not exist.");
+            System.exit(-2);
+        }
+
+        Graphics2D graphicsImage = (Graphics2D) image.getGraphics();
+        graphicsImage.setBackground(Color.BLACK);
+        graph.drawImage(image,getX(),getY(),width,height,null);
+    }
+    public int getHeight(){
+        return height;
+    }
+    public int getWidth() {
+        return width;
     }
 
 

@@ -71,6 +71,5 @@ public abstract class Slider extends GameObject {
         Font f = new Font("Calibri", Font.BOLD, 25);
         graph.setFont(f);
         graph.drawString(words, getX(), getY() - height);
-
     }
 }
