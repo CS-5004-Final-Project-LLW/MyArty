@@ -32,6 +32,9 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
   private BufferedImage image;
   private Graphics2D graph;
 
+  private Thread debugThread;
+
+
   public GUI(int WIDTH, int HEIGHT, int fps) {
     super();
     GUI.WIDTH = WIDTH;
@@ -123,6 +126,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
 
       usedTime = (System.nanoTime() - startTime) / 1000000;
       sleepTime = timePerFrame - usedTime;
+      Info.addSleepTimes((int) usedTime);
       sleepTime = Math.max(0, timePerFrame - usedTime);
 
       try {
