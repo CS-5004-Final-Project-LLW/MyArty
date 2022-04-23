@@ -4,6 +4,13 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import Coordinate.CoordinateInt;
 import Main.GUI;
+import java.awt.Image;
+import java.awt.MediaTracker;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  * A class for bullet
@@ -15,21 +22,14 @@ public class Bullet extends GameObject {
     private double yPercent;
     private static double GRAVITY = 0.5;
     private static double VELOCITY_SCALE = 0.01;
-    private int radius;
 
-    public int getRadius() {
-        return radius;
-    }
-
-
-    public Bullet(CoordinateInt coordinate, double power, double degree, int radius) {
+    public Bullet(CoordinateInt coordinate, double power, double degree) {
         super(coordinate);
         xPercent = (double) coordinate.x / GUI.WIDTH;
         yPercent = (double) coordinate.y / GUI.HEIGHT;
         double velocity = VELOCITY_SCALE * power;
         this.speedX = velocity * Math.cos(degreeToRadian(degree));
-        this.speedY = velocity * Math.sin(degreeToRadian(degree));
-        this.radius = radius;
+        this.speedY = -velocity * Math.sin(degreeToRadian(degree));
     }
 
     /**
@@ -50,8 +50,17 @@ public class Bullet extends GameObject {
 
     @Override
     public void draw(Graphics2D graph) {
-        graph.setColor(Color.GREEN);
-        graph.fillOval(getX(), getY(), radius * 2, radius * 2);
+        File bulletImageFile = new File("bullet.png");
+        BufferedImage image = null;
+        try{
+         image = ImageIO.read(bulletImageFile);
+        } catch (IOException e) {
+            System.out.println(" Image file does not exist.");
+            System.out.println("Working Directory = " + System.getProperty("user.dir"));
+            System.exit(-2);
+        }
+
+        graph.drawImage(image,getX(),getY(),70,50,null);
     }
 
     @Override
@@ -62,11 +71,10 @@ public class Bullet extends GameObject {
         coordinate.x = (int) (xPercent * GUI.WIDTH);
         coordinate.y = (int) (yPercent * GUI.HEIGHT);
         speedY += GRAVITY * timeInterval;
-        // System.out.println(xPercent + " " + yPercent + " " + +coordinate.x + " " + coordinate.y
-        // + " " + speedY);
         return coordinate.x >= -100 && coordinate.x <= GUI.WIDTH + 100 && coordinate.y >= -100
                 && coordinate.y <= GUI.HEIGHT + 100;
     }
+
 
 
 
