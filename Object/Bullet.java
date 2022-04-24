@@ -67,7 +67,11 @@ public class Bullet extends GameObject {
         coordinate.x = (int) (xPercent * GUI.WIDTH);
         coordinate.y = (int) (yPercent * GUI.HEIGHT);
         speedY += GRAVITY * timeInterval;
-        return coordinate.x >= 0 && coordinate.x <= GUI.WIDTH && coordinate.y >= 0
+        boolean isInside =  coordinate.x >= 0 && coordinate.x <= GUI.WIDTH && coordinate.y >= 0
                 && coordinate.y <= GUI.HEIGHT + 100;
+        if (!isInside){
+            Info.miss();
+        }
+        return isInside;
     }
 }

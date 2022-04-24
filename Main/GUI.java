@@ -33,11 +33,8 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
   public static int HEIGHT;
   private static int fps = 60;
 
-  static final int DEFAULT_LIFE = 5;
-  static final int DEFAULT_SCORE = 0;
   private Thread workingThread;
   private boolean running;
-  private boolean isHit = false;
 
   private BufferedImage image;
   private Graphics2D graph;
@@ -156,8 +153,10 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
         updateAll();
         drawAll();
         showAll();
-        // clearMouseStatus();
-        Info.setClicking(false);
+
+        Info.setClicking(false); // clear mouse status
+
+        checkAll();
         // ---- main thread end ---- //
 
         usedTime = (System.nanoTime() - startTime) / 1000000;
@@ -168,10 +167,6 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
           Thread.sleep(sleepTime);
         } catch (InterruptedException e) {
 
-        }
-        if (Info.life <= 0) {
-          running = false;
-          drawGameOver();
         }
       } else {
         try {
@@ -187,12 +182,9 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     return object != null && object.update();
   }
 
+
   private void updateAll() {
-    /* Restart */
-    if (Info.restart) {
-      Info.restart = false;
-      createObject();
-    }
+
 
     /* Update cannon */
     updateObject(Repo.cannon);
@@ -203,7 +195,6 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
       // if update() return false, remove the object itself
       if (!updateObject(bullet)) {
         removedBullet.add(bullet);
-        scorelifeSetter(isHit);
         Repo.target = generateTarget();
       }
     }
@@ -225,18 +216,39 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     updateObject(Repo.powerSlider);
   }
 
+  private void checkAll() {
+    /* Deal with Hit */
+    if (Info.isHitTarget()) {
+      // set hitTarget to false
+      Info.resetHitTarget();
+      // add score
+      Info.setScore(Info.getScore() + 10);
+      // add life
+      Info.setLife(Math.min(5, Info.getLife() + 1));
+      // start a new round
+      Info.restart = true;
+    }
 
-  public void scorelifeSetter(boolean isHit) {
-    if (isHit) {
-      if (Info.life < 5) {
-        Info.life++;
+    /* Restart if hits */
+    if (Info.restart) {
+      Info.restart = false;
+      createObject();
+    }
+
+    /* Update life */
+    if (Info.isMissShot()) {
+      // set missShot to false
+      Info.resetMissShot();
+      // reduce life
+      Info.setLife(Info.getLife() - 1);
+      // check remained life
+      if (Info.getLife() <= 0) {
+        drawGameOver();
       }
-      Info.score += 10;
-      System.out.println("Score: %d".formatted(Info.score));
-    } else {
-      Info.life--;
     }
   }
+
+
 
   private void drawObject(GameObject object, Graphics2D graph) {
     if (object != null) {
@@ -269,20 +281,22 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
   }
 
 
-  private void drawGameOver() {
+  void drawGameOver() {
+    running = false;
+
     Graphics2D tempGraph = (Graphics2D) this.getGraphics();
 
     Tools.drawStringWithOutline("Game Over", WIDTH / 2 - 200, HEIGHT / 2 - 100,
         new Font("Serif", Font.BOLD, 70), 10, Color.WHITE, Color.BLACK, tempGraph);
 
-    Tools.drawStringWithOutline("Score: " + Info.score, WIDTH / 2 - 200, HEIGHT / 2 - 50,
+    Tools.drawStringWithOutline("Score: " + Info.getScore(), WIDTH / 2 - 200, HEIGHT / 2 - 50,
         new Font("Arial", Font.BOLD, 40), 15, Color.WHITE, Color.BLACK, tempGraph);
 
     /* Wait and then restart */
-    waitAndRestart();
+    pauseAndRestart();
   }
 
-  private void waitAndRestart() {
+  private void pauseAndRestart() {
     new Thread(new Runnable() {
       @Override
       public void run() {
@@ -294,10 +308,8 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
         }
 
         /* Set value to default */
-        Info.life = DEFAULT_LIFE;
-        Info.score = DEFAULT_SCORE;
+        Info.softReset();
         running = true;
-        Info.restart = true;
 
         /* Print debug info */
         if (DebugInfo.isRunning()) {
@@ -305,17 +317,6 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
         }
       }
     }).start();
-  }
-
-  // private void drawGamePaused(Graphics2D graph) {
-  // graph.setFont(new Font("Serif", Font.BOLD, 60));
-  // graph.drawString("Game Paused", 310, 150);
-  // }
-
-  private void clearMouseStatus() {
-    Info.setClicking(false);
-    Info.setDragging(false);
-    Info.setPressed(false);
   }
 
   @Override
