@@ -17,6 +17,7 @@ public class Info {
 
     private static BufferedImage bulletImage;
     private static BufferedImage cannonImage;
+    private static BufferedImage cannonBaseImage;
     private static BufferedImage targetImage;
 
     public static int angleValue = 45;
@@ -111,6 +112,15 @@ public class Info {
 
     public static void setCannonImage(BufferedImage cannonImage) {
         Info.cannonImage = cannonImage;
+    }
+
+    public static BufferedImage getCannonBaseImage() {
+        return cannonBaseImage;
+    }
+
+
+    public static void setCannonBaseImage(BufferedImage cannonBaseImage) {
+        Info.cannonBaseImage = cannonBaseImage;
     }
 
 
