@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 
 import Coordinate.CoordinateInt;
 import Main.Info;
+import Main.Tools;
 import Object.GameObject;
 
 public abstract class Slider extends GameObject {
@@ -59,17 +60,18 @@ public abstract class Slider extends GameObject {
 
     @Override
     public void draw(Graphics2D graph) {
+        /* Draw slider */
         graph.setColor(Color.GRAY);
         graph.fillRect(getX(), getY(), width, height);
 
+        /* Draw bar */
         graph.setColor(Color.BLACK);
         int barX = (int) (percentage * width) + getX() - barWidth / 2;
         int barY = getY() + height / 2 - barHeight / 2;
         graph.fillRect(barX, barY, barWidth, barHeight);
 
-        graph.setColor(Color.BLACK);
-        Font f = new Font("Calibri", Font.BOLD, 25);
-        graph.setFont(f);
-        graph.drawString(words, getX(), getY() - height);
+        /* Draw string */
+        Tools.drawStringWithOutline(words, getX(), getY() - height,
+                new Font("Calibri", Font.BOLD, 25), 20, Color.WHITE, Color.BLACK, graph);
     }
 }
