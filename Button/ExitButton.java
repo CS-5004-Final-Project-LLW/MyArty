@@ -1,10 +1,9 @@
 package Button;
 
-import Coordinate.CoordinateInt;
-import Main.GUI;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import Coordinate.CoordinateInt;
 
 public class ExitButton extends Button {
 
@@ -19,14 +18,9 @@ public class ExitButton extends Button {
         }
         return true;
     }
+
     @Override
-    public void draw(Graphics2D graph) {
-        super.draw(graph);
-        graph.setColor(Color.white);
-        Font f = new Font("Calibri", Font.BOLD, 25);
-        graph.setFont(f);
-        graph.drawString("reset",coordinate.x+20,coordinate.y+25);
-    }
+    public void draw(Graphics2D graph) {}
 
 
 }

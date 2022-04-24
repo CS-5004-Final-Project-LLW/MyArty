@@ -1,6 +1,7 @@
 package Object;
 
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import Coordinate.CoordinateInt;
 import Main.GUI;
 import Main.Info;

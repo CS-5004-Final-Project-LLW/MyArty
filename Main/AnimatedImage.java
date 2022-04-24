@@ -24,7 +24,7 @@ class AnimatedImage {
 
     public BufferedImage getFrame() {
         addCounter();
-        return images[counter % slowFactor];
+        return images[counter / slowFactor];
     }
 
 }

@@ -1,8 +1,8 @@
 package Object;
 
+import java.awt.Graphics2D;
 import Coordinate.CoordinateInt;
 import Main.GUI;
-import java.awt.Graphics2D;
 
 /**
  * An abstarct class for GameObject like Cannon, Target, Bullet and so on

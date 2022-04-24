@@ -1,11 +1,11 @@
 package Object;
 
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import Coordinate.CoordinateInt;
 import Main.DebugInfo;
 import Main.GUI;
 import Main.Info;
-import java.awt.image.BufferedImage;
 
 /**
  * A class for bullet
