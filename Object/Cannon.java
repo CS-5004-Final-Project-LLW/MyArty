@@ -62,7 +62,7 @@ public class Cannon extends GameObject {
 
         /* Create bullets */
         int range = 400;
-        if (Info.isClicking() && Repo.bullets.size() <= 0 && Math.sqrt(dx * dx + dy * dy) < range) {
+        if (Info.isClicking() && Repo.isReadyForShot() && Math.sqrt(dx * dx + dy * dy) < range) {
             CoordinateInt bulletPoint = new CoordinateInt(centerX, centerY);
             Repo.bullets.add(new Bullet(bulletPoint, Info.powerValue, Info.angleValue, 25));
         }

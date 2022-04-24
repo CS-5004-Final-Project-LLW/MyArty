@@ -35,8 +35,10 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
   public static int HEIGHT;
   private static int fps = 60;
 
-  public static int life = 5;
-  public static int score = 0;
+  private static final int DEFAULT_LIFE = 5;
+  private static final int DEFAULT_SCORE = 0;
+  public static int life = DEFAULT_LIFE;
+  public static int score = DEFAULT_SCORE;
 
   private Thread workingThread;
   private boolean running;
@@ -143,37 +145,44 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
     graph = (Graphics2D) image.getGraphics();
     graph.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-    
+
     long startTime, sleepTime, usedTime;
     final long timePerFrame = 1000 / fps;
 
-    while (running) {
-      startTime = System.nanoTime();
+    while (true) {
+      if (running) {
+        startTime = System.nanoTime();
 
-      // ------ main thread ------ //
-      updateAll();
-      drawAll();
-      showAll();
-      // clearMouseStatus();
-      Info.setClicking(false);
-      // ---- main thread end ---- //
+        // ------ main thread ------ //
+        updateAll();
+        drawAll();
+        showAll();
+        // clearMouseStatus();
+        Info.setClicking(false);
+        // ---- main thread end ---- //
 
-      usedTime = (System.nanoTime() - startTime) / 1000000;
-      sleepTime = timePerFrame - usedTime;
-      Info.addSleepTimes((int) usedTime);
-      sleepTime = Math.max(0, timePerFrame - usedTime);
+        usedTime = (System.nanoTime() - startTime) / 1000000;
+        sleepTime = timePerFrame - usedTime;
+        Info.addSleepTimes((int) usedTime);
+        sleepTime = Math.max(0, timePerFrame - usedTime);
 
-      try {
-        Thread.sleep(sleepTime);
-      } catch (InterruptedException e) {
+        try {
+          Thread.sleep(sleepTime);
+        } catch (InterruptedException e) {
 
-      }
-      if (life == 0) {
-        running = false;
-        drawGameOver();
+        }
+        if (life == 0) {
+          running = false;
+          drawGameOver();
+        }
+      } else {
+        try {
+          Thread.sleep(200);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
       }
     }
-      
   }
 
   private boolean updateObject(GameObject object) {
@@ -199,7 +208,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
         scorelifeSetter(isHit);
       }
     }
-    
+
     for (Bullet bulletToRemoved : removedBullet) {
       Repo.bullets.remove(bulletToRemoved);
     }
@@ -218,17 +227,17 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
   }
 
 
-  public void scorelifeSetter(boolean isHit){
-    if(isHit){
-        if (life<5){
+  public void scorelifeSetter(boolean isHit) {
+    if (isHit) {
+      if (life < 5) {
         life++;
-        }
-        score+=10;
-    }else{
+      }
+      score += 10;
+    } else {
       life--;
     }
   }
-  
+
   private void drawObject(GameObject object, Graphics2D graph) {
     if (object != null) {
       object.draw(graph);
@@ -238,7 +247,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
 
   private void drawAll() {
     // Background
-    graph.drawImage(background_image,getX(),getY(),WIDTH, HEIGHT,null);
+    graph.drawImage(background_image, getX(), getY(), WIDTH, HEIGHT, null);
 
 
     // Game objects
@@ -247,10 +256,10 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     for (Bullet bullet : Repo.bullets) {
       drawObject(bullet, graph);
     }
-    
-      drawObject(Repo.fireButton, graph);
-      drawObject(Repo.restartButton, graph);
-      drawObject(Repo.powerSlider, graph);
+
+    drawObject(Repo.fireButton, graph);
+    drawObject(Repo.restartButton, graph);
+    drawObject(Repo.powerSlider, graph);
   }
 
   public void showAll() {
@@ -267,11 +276,29 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
 
     tempGraph.setFont(new Font("Arial", Font.BOLD, 40));
     tempGraph.drawString("Score: " + score, 410, 150);
+
+    /* Wait and then restart */
+    new Thread(new Runnable() {
+      @Override
+      public void run() {
+        try {
+          Thread.sleep(3000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+        life = DEFAULT_LIFE;
+        score = DEFAULT_SCORE;
+        running = true;
+        if (DebugInfo.isRunning()) {
+          System.out.println("Set to True");
+        }
+      }
+    }).start();
   }
 
   // private void drawGamePaused(Graphics2D graph) {
-  //   graph.setFont(new Font("Serif", Font.BOLD, 60));
-  //   graph.drawString("Game Paused", 310, 150);
+  // graph.setFont(new Font("Serif", Font.BOLD, 60));
+  // graph.drawString("Game Paused", 310, 150);
   // }
 
   private void clearMouseStatus() {

@@ -19,8 +19,10 @@ public class Repo {
     public static Button restartButton;
     public static Slider powerSlider;
     public static HashSet<Bullet> bullets = new HashSet<>();
-    
 
+    public static boolean isReadyForShot() {
+        return Repo.bullets.size() <= 0;
+    }
 
 }
 

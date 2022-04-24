@@ -75,7 +75,7 @@ public class Bullet extends GameObject {
         coordinate.x = (int) (xPercent * GUI.WIDTH);
         coordinate.y = (int) (yPercent * GUI.HEIGHT);
         speedY += GRAVITY * timeInterval;
-        return coordinate.x >= -100 && coordinate.x <= GUI.WIDTH + 100 && coordinate.y >= -100
+        return coordinate.x >= 0 && coordinate.x <= GUI.WIDTH && coordinate.y >= 0
                 && coordinate.y <= GUI.HEIGHT + 100;
     }
 }
