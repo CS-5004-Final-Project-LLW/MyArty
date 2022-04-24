@@ -165,7 +165,6 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
         // ---- main thread end ---- //
 
         usedTime = (System.nanoTime() - startTime) / 1000000;
-        sleepTime = timePerFrame - usedTime;
         Info.addSleepTimes((int) usedTime);
         sleepTime = Math.max(0, timePerFrame - usedTime);
 
@@ -209,6 +208,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
       if (!updateObject(bullet)) {
         removedBullet.add(bullet);
         scorelifeSetter(isHit);
+        Repo.target = generateTarget();
       }
     }
 
