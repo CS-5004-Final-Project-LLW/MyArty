@@ -19,6 +19,7 @@ public class Info {
     private static BufferedImage cannonImage;
     private static BufferedImage cannonBaseImage;
     private static BufferedImage targetImage;
+    private static BufferedImage resetButtonImage;
 
     public static int angleValue = 45;
     public static int powerValue = 50;
@@ -133,6 +134,13 @@ public class Info {
         Info.targetImage = targetImage;
     }
 
+    public static BufferedImage getResetButtonImage() {
+        return resetButtonImage;
+    }
 
+
+    public static void setResetButtonImage(BufferedImage resetButtonImage) {
+        Info.resetButtonImage = resetButtonImage;
+    }
 
 }

@@ -86,12 +86,12 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     Info.setCannonImage(loadImage("res/cannon2.png"));
     Info.setCannonBaseImage(loadImage("res/cannon1.png"));
     Info.setTargetImage(loadImage("res/target.png"));
+    Info.setResetButtonImage(loadImage("res/bluereset.png"));
   }
 
   private void start() {
     createObject();
-    // Repo.fireButton = new FireButton(new CoordinateInt(300, 300), 100, 100);
-    Repo.restartButton = new RestartButton(new CoordinateInt(50, 50), 100, 100);
+    Repo.restartButton = new RestartButton(new CoordinateInt(25, 25), 80, 80);
     Repo.powerSlider = new PowerSlider(new CoordinateInt(50, 150), 100, 20);
   }
 
