@@ -153,4 +153,8 @@ public class Info {
         Info.sliderImage = sliderImage;
     }
 
+
+    public static int score = GUI.DEFAULT_SCORE;
+    public static int life = GUI.DEFAULT_LIFE;
+
 }

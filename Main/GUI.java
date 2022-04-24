@@ -33,11 +33,8 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
   public static int HEIGHT;
   private static int fps = 60;
 
-  private static final int DEFAULT_LIFE = 5;
-  private static final int DEFAULT_SCORE = 0;
-  public static int life = DEFAULT_LIFE;
-  public static int score = DEFAULT_SCORE;
-
+  static final int DEFAULT_LIFE = 5;
+  static final int DEFAULT_SCORE = 0;
   private Thread workingThread;
   private boolean running;
   private boolean isHit = false;
@@ -121,7 +118,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     // x should be at the left screen
     int x = new Random().nextInt(WIDTH * 3 / 10);
     int y = HEIGHT * 4 / 5;
-    Cannon cannon = new Cannon(new CoordinateInt(x, y), 150, 50, 80,60);
+    Cannon cannon = new Cannon(new CoordinateInt(x, y), 150, 50, 80, 60);
     return cannon;
   }
 
@@ -172,7 +169,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
         } catch (InterruptedException e) {
 
         }
-        if (life == 0) {
+        if (Info.life <= 0) {
           running = false;
           drawGameOver();
         }
@@ -231,12 +228,13 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
 
   public void scorelifeSetter(boolean isHit) {
     if (isHit) {
-      if (life < 5) {
-        life++;
+      if (Info.life < 5) {
+        Info.life++;
       }
-      score += 10;
+      Info.score += 10;
+      System.out.println("Score: %d".formatted(Info.score));
     } else {
-      life--;
+      Info.life--;
     }
   }
 
@@ -277,7 +275,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     Tools.drawStringWithOutline("Game Over", WIDTH / 2 - 200, HEIGHT / 2 - 100,
         new Font("Serif", Font.BOLD, 70), 10, Color.WHITE, Color.BLACK, tempGraph);
 
-    Tools.drawStringWithOutline("Score: " + score, WIDTH / 2 - 200, HEIGHT / 2 - 50,
+    Tools.drawStringWithOutline("Score: " + Info.score, WIDTH / 2 - 200, HEIGHT / 2 - 50,
         new Font("Arial", Font.BOLD, 40), 15, Color.WHITE, Color.BLACK, tempGraph);
 
     /* Wait and then restart */
@@ -296,8 +294,8 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
         }
 
         /* Set value to default */
-        life = DEFAULT_LIFE;
-        score = DEFAULT_SCORE;
+        Info.life = DEFAULT_LIFE;
+        Info.score = DEFAULT_SCORE;
         running = true;
         Info.restart = true;
 
