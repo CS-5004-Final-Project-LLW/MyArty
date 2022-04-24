@@ -5,85 +5,97 @@ import Coordinate.CoordinateInt;
 import Main.GUI;
 import Main.Info;
 import Main.Repo;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
-/**
- * A class for Cannon
- */
+/** A class for Cannon */
 public class Cannon extends GameObject {
-    /* A special number for gravity after a whole-night testing */
-    CoordinateInt size;
-    private int cannonWidth;
-    private int cannonHeight;
-    private int cannonBaseWidth;
-    private int cannonBaseHeight;
+  /* A special number for gravity after a whole-night testing */
+  CoordinateInt size;
+  private int cannonWidth;
+  private int cannonHeight;
+  private int cannonBaseWidth;
+  private int cannonBaseHeight;
 
+  public Cannon(
+      CoordinateInt coordinate,
+      int cannonWidth,
+      int cannonHeight,
+      int cannonBaseWidth,
+      int cannonBaseHeight) {
+    super(coordinate);
+    this.cannonWidth = cannonWidth;
+    this.cannonHeight = cannonHeight;
+    this.cannonBaseHeight = cannonBaseHeight;
+    this.cannonBaseWidth = cannonBaseWidth;
+  }
 
-    public Cannon(CoordinateInt coordinate, int cannonWidth, int cannonHeight, int cannonBaseWidth, int cannonBaseHeight ) {
-        super(coordinate);
-        this.cannonWidth = cannonWidth;
-        this.cannonHeight = cannonHeight;
-        this.cannonBaseHeight = cannonBaseHeight;
-        this.cannonBaseWidth  = cannonBaseWidth;
+  /**
+   * Convert degree angle to radian
+   *
+   * @param radian
+   * @return double radian
+   */
+  private double RadianToDegree(double radian) {
+    return radian / Math.PI * 180;
+  }
+
+  @Override
+  protected void createBoundary() {
+    setBoundary_min(new CoordinateInt(cannonWidth, GUI.HEIGHT / 2 + cannonHeight));
+    setBoundary_max(new CoordinateInt(GUI.WIDTH / 2 - cannonWidth, GUI.HEIGHT - cannonHeight));
+  }
+
+  @Override
+  public boolean update() {
+
+    int centerX = getX() + cannonWidth / 2;
+    int centerY = getY() + cannonHeight / 2;
+
+    /* Update angle */
+    double dy = Info.getCursorY() - centerY;
+    double dx = Info.getCursorX() - centerX;
+
+    double radian = Math.atan2(dy, dx);
+    Info.angleValue = (int) RadianToDegree(radian);
+    Info.setRotateDegree(radian);
+
+    /* Create bullets */
+    int range = 400;
+    if (Info.isClicking() && Repo.isReadyForShot() && Math.sqrt(dx * dx + dy * dy) < range) {
+      CoordinateInt bulletPoint = new CoordinateInt(centerX, centerY);
+      Repo.bullets.add(new Bullet(bulletPoint, Info.powerValue, Info.angleValue, 25));
     }
 
-    /**
-     * Convert degree angle to radian
-     * 
-     * @param radian
-     * @return double radian
-     */
-    private double RadianToDegree(double radian) {
-        return radian / Math.PI * 180;
-    }
+    return true;
+  }
 
-    @Override
-    protected void createBoundary() {
-        setBoundary_min(new CoordinateInt(cannonWidth, GUI.HEIGHT / 2 + cannonHeight));
-        setBoundary_max(new CoordinateInt(GUI.WIDTH / 2 - cannonWidth, GUI.HEIGHT - cannonHeight));
-    }
+  @Override
+  public void draw(Graphics2D graph) {
+    BufferedImage cannonImage = Info.getCannonImage();
+    BufferedImage cannonBaseImage = Info.getCannonBaseImage();
+    AffineTransform at = getTransformation();
+    graph.drawImage(cannonImage,at, null);
+    graph.drawImage(cannonBaseImage, getX(), getY()+20, cannonBaseWidth, cannonBaseHeight, null);
 
+  }
 
+  private AffineTransform getTransformation() {
+    AffineTransform at = new AffineTransform();
+    at.translate(getX(), getY());
+//    at.rotate(-Math.PI / 4);
+    at.rotate(Info.getRotateDegree());
+//    System.out.println("aaaaaaaaaa "+Info.getRotateDegree());
+    at.scale(3, 3);
+    at.translate(-10, -10);
+    return at;
+  }
 
-    @Override
-    public boolean update() {
+  public int getCannonHeight() {
+    return cannonHeight;
+  }
 
-        int centerX = getX() + cannonWidth / 2;
-        int centerY = getY() + cannonHeight / 2;
-
-        /* Update angle */
-        double dy = Info.getCursorY() - centerY;
-        double dx = Info.getCursorX() - centerX;
-
-        double radian = Math.atan2(dy, dx);
-        Info.angleValue = (int) RadianToDegree(radian);
-
-        /* Create bullets */
-        int range = 400;
-        if (Info.isClicking() && Repo.isReadyForShot() && Math.sqrt(dx * dx + dy * dy) < range) {
-            CoordinateInt bulletPoint = new CoordinateInt(centerX, centerY);
-            Repo.bullets.add(new Bullet(bulletPoint, Info.powerValue, Info.angleValue, 25));
-        }
-
-        return true;
-    }
-
-
-    @Override
-    public void draw(Graphics2D graph) {
-        BufferedImage cannonImage = Info.getCannonImage();
-        BufferedImage cannonBaseImage = Info.getCannonBaseImage();
-        graph.drawImage(cannonImage, getX(), getY(), cannonWidth, cannonHeight, null);
-        graph.drawImage(cannonBaseImage, getX(), getY()+40, cannonBaseWidth, cannonBaseHeight, null);
-    }
-
-    public int getCannonHeight() {
-        return cannonHeight;
-    }
-
-    public int getCannonWidth() {
-        return cannonWidth;
-    }
-
-
+  public int getCannonWidth() {
+    return cannonWidth;
+  }
 }

@@ -13,6 +13,7 @@ public class Info {
     private static int cursorX = 0;
     private static int cursorY = 0;
     private static ArrayList<Integer> sleepTimeRecord = new ArrayList<>();
+    private static double rotateDegree = 0;
 
     private static BufferedImage bulletImage;
     private static BufferedImage cannonImage;
@@ -174,6 +175,13 @@ public class Info {
         Info.life = life;
     }
 
+    public static double getRotateDegree() {
+        return rotateDegree;
+    }
+
+    public static void setRotateDegree(double rotateDegree) {
+        Info.rotateDegree = rotateDegree;
+    }
 
     public static void Hit() {
         hitTarget = true;
