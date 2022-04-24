@@ -1,11 +1,11 @@
 package Slider;
 
-import Coordinate.CoordinateInt;
-import Main.Info;
-import Main.Tools;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import Coordinate.CoordinateInt;
+import Main.Info;
+import Main.Tools;
 
 public class PowerSlider extends Slider {
 

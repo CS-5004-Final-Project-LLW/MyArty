@@ -1,8 +1,8 @@
 package Button;
 
+import java.awt.Graphics2D;
 import Coordinate.CoordinateInt;
 import Main.Info;
-import java.awt.Graphics2D;
 
 public class RestartButton extends Button {
 

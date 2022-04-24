@@ -1,10 +1,9 @@
 package Button;
 
-import Coordinate.CoordinateInt;
-import Main.GUI;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import Coordinate.CoordinateInt;
 
 public class ExitButton extends Button {
 
