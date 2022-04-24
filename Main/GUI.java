@@ -44,7 +44,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
 
   private BufferedImage image;
   private Graphics2D graph;
-  private Image background_image;
+  private Image backgroundImage;
 
   private Thread debugThread;
 
@@ -79,7 +79,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
 
   private void loadAllImage() {
     var fileBack = "res/background.png";
-    background_image = new ImageIcon(fileBack).getImage();
+    backgroundImage = new ImageIcon(fileBack).getImage();
     Info.setBulletImage(loadImage("res/ball.png"));
     Info.setCannonImage(loadImage("res/cannon2.png"));
     Info.setCannonBaseImage(loadImage("res/cannon1.png"));
@@ -249,7 +249,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
 
   private void drawAll() {
     // Background
-    graph.drawImage(background_image, getX(), getY(), WIDTH, HEIGHT, null);
+    graph.drawImage(backgroundImage, getX(), getY(), WIDTH, HEIGHT, null);
 
     // Game objects
     drawObject(Repo.cannon, graph);
