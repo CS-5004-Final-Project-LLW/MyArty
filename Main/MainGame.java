@@ -1,7 +1,9 @@
 package Main;
 
 import javax.swing.JFrame;
-
+/**
+ * Main entrance for the game
+ */
 public class MainGame {
     public static void main(String[] args) {
         int width = 1300;

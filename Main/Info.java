@@ -1,6 +1,7 @@
 package Main;
 
 import java.util.ArrayList;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 /**
@@ -19,6 +20,7 @@ public class Info {
     private static double rotateDegree = 0;
 
     /* Images */
+    private static Image backgroundImage;
     private static BufferedImage bulletImage;
     private static BufferedImage cannonImage;
     private static BufferedImage cannonBaseImage;
@@ -194,6 +196,16 @@ public class Info {
     public static void setRotateDegree(double rotateDegree) {
         Info.rotateDegree = rotateDegree;
     }
+
+    public static Image getBackgroundImage() {
+        return backgroundImage;
+    }
+
+
+    public static void setBackgroundImage(Image backgroundImage) {
+        Info.backgroundImage = backgroundImage;
+    }
+
 
     public static void Hit() {
         hitTarget = true;
