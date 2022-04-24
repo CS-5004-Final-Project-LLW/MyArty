@@ -7,13 +7,17 @@ import java.awt.image.BufferedImage;
  * All getters are public and all setter are package accessed.
  */
 public class Info {
+    /* Mouse status */
     private static boolean dragging = false;
     private static boolean clicking = false;
     private static boolean pressed = false;
     private static int cursorX = 0;
     private static int cursorY = 0;
+
+    /* Debugging for time per frame */
     private static ArrayList<Integer> sleepTimeRecord = new ArrayList<>();
 
+    /* Images */
     private static BufferedImage bulletImage;
     private static BufferedImage cannonImage;
     private static BufferedImage cannonBaseImage;
@@ -21,7 +25,7 @@ public class Info {
     private static BufferedImage resetButtonImage;
     private static BufferedImage sliderImage;
 
-
+    /* Player statics */
     private static final int DEFAULT_LIFE = 5;
     private static final int DEFAULT_SCORE = 0;
     private static int score = Info.DEFAULT_SCORE;
@@ -29,9 +33,17 @@ public class Info {
     private static boolean hitTarget = false;
     private static boolean missShot = false;
 
+    /* Fire parameters */
     public static int angleValue = 45;
     public static int powerValue = 50;
     public static boolean restart;
+
+    /* Game States */
+    static int previousState = -1;
+    public final static int TITLE_STATE = 0;
+    public final static int PLAY_STATE = 1;
+    public final static int PAUSE_STATE = 2;
+    public static int gameState = TITLE_STATE;
 
 
 
@@ -228,6 +240,7 @@ public class Info {
         cursorX = 0;
         cursorY = 0;
     }
+
 
 
 }

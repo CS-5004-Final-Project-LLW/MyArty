@@ -1,8 +1,8 @@
 package Button;
 
-import java.awt.Graphics2D;
 import Coordinate.CoordinateInt;
 import Main.Info;
+import java.awt.Graphics2D;
 
 public class RestartButton extends Button {
 
@@ -17,14 +17,11 @@ public class RestartButton extends Button {
         }
         return true;
     }
+
     @Override
     public void draw(Graphics2D graph) {
-//        super.draw(graph);
-//        graph.setColor(Color.white);
-//        Font f = new Font("Calibri", Font.BOLD, 25);
-//        graph.setFont(f);
-//        graph.drawString("reset",coordinate.x+20,coordinate.y+25);
-        graph.drawImage(Info.getResetButtonImage(),coordinate.x,coordinate.y,width,height,null);
+        graph.drawImage(Info.getResetButtonImage(), coordinate.x, coordinate.y, width, height,
+                null);
     }
 
 

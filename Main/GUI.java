@@ -40,14 +40,8 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
   private boolean running;
 
   private BufferedImage image;
-  private Graphics2D graph;
+  // private Graphics2D graph;
   private Image backgroundImage;
-
-  // Game State
-  public static int gameState = 0;
-  public final static int titleState = 0;
-  public final static int playState = 1;
-  public final static int pauseState = 2;
 
   private Thread debugThread;
 
@@ -92,18 +86,28 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
 
   private void start() {
     createObject();
-    Repo.restartButton = new RestartButton(new CoordinateInt(25, 25), 80, 80);
-    Repo.powerSlider = new PowerSlider(new CoordinateInt(50, 150), 100, 20);
-    Repo.newGameButton = new NewGameButton(new CoordinateInt(420, 510), 400, 100);
-    Repo.exitButton = new ExitButton(new CoordinateInt(450, 610), 400, 100);
-
-
+    createButtonInWelcome();
   }
+
 
   private void createObject() {
     Repo.cannon = generateCannon();
     Repo.target = generateTarget();
     Repo.bullets = new HashSet<>();
+  }
+
+  private void createButtonInWelcome() {
+    Repo.newGameButton = new NewGameButton(new CoordinateInt(420, 510), 400, 100);
+    Repo.exitButton = new ExitButton(new CoordinateInt(450, 610), 400, 100);
+    Repo.restartButton = null;
+    Repo.powerSlider = null;
+  }
+
+  private void createButtonInGame() {
+    Repo.restartButton = new RestartButton(new CoordinateInt(25, 25), 80, 80);
+    Repo.powerSlider = new PowerSlider(new CoordinateInt(50, 150), 100, 20);
+    Repo.newGameButton = null;
+    Repo.exitButton = null;
   }
 
 
@@ -150,7 +154,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
   public void run() {
     running = true;
     image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-    graph = (Graphics2D) image.getGraphics();
+    Graphics2D graph = (Graphics2D) image.getGraphics();
     graph.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
     long startTime, sleepTime, usedTime;
@@ -159,24 +163,33 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     while (true) {
       if (running) {
         startTime = System.nanoTime();
-        if (gameState == titleState) {
+        if (Info.gameState == Info.TITLE_STATE) {
+          if (Info.gameState != Info.previousState) {
+            Info.previousState = Info.gameState;
+            createButtonInWelcome();
+          }
           updateObject(Repo.exitButton);
           updateObject(Repo.newGameButton);
           drawTitleScreen();
-          drawObject(Repo.newGameButton, graph);
-          drawObject(Repo.exitButton, graph);
+
+          showAll();
 
           // TODO: not a nice practice
           try {
-            Thread.sleep(200);
+            Thread.sleep(1 / getFps());
           } catch (InterruptedException e) {
 
           }
         } else {
+          if (Info.gameState != Info.previousState) {
+            Info.previousState = Info.gameState;
+            createButtonInGame();
+            Info.hardReset();
+          }
 
           // ------ main thread ------ //
           updateAll();
-          drawAll();
+          drawAll(graph);
           showAll();
 
           Info.setClicking(false);
@@ -184,6 +197,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
           // ---- main thread end ---- //
 
           usedTime = (System.nanoTime() - startTime) / 1000000;
+          // used for debugging
           Info.addSleepTimes((int) usedTime);
           sleepTime = Math.max(0, timePerFrame - usedTime);
 
@@ -281,7 +295,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     }
   }
 
-  private void drawAll() {
+  private void drawAll(Graphics2D graph) {
     // Background
     graph.drawImage(backgroundImage, getX(), getY(), WIDTH, HEIGHT, null);
 
@@ -299,7 +313,6 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
 
   public void showAll() {
     Graphics tempGraph = this.getGraphics();
-
     tempGraph.drawImage(image, 0, 0, null);
     tempGraph.dispose();
   }
@@ -344,7 +357,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
   }
 
   public void drawTitleScreen() {
-    Graphics tempGraph = this.getGraphics();
+    Graphics2D tempGraph = (Graphics2D) image.createGraphics();
     tempGraph.setColor(new Color(0, 0, 0));
     tempGraph.fillRect(0, 0, 1300, 800);
     // title name
@@ -371,6 +384,9 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     y = 650;
     tempGraph.drawString(text, x, y);
     // Repo.exitButton = new ExitButton(new CoordinateInt(x, y-10), 300, 100);
+
+    drawObject(Repo.newGameButton, tempGraph);
+    drawObject(Repo.exitButton, tempGraph);
 
   }
 

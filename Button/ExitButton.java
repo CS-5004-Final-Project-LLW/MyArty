@@ -18,14 +18,9 @@ public class ExitButton extends Button {
         }
         return true;
     }
+
     @Override
-    public void draw(Graphics2D graph) {
-        super.draw(graph);
-        graph.setColor(Color.white);
-        Font f = new Font("Calibri", Font.BOLD, 25);
-        graph.setFont(f);
-        graph.drawString("reset",coordinate.x+20,coordinate.y+25);
-    }
+    public void draw(Graphics2D graph) {}
 
 
 }
