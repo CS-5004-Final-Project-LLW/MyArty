@@ -81,10 +81,10 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
   private void loadAllImage() {
     var fileBack = "res/background.png";
     background_image = new ImageIcon(fileBack).getImage();
-    Info.setBulletImage(loadImage("res/bullet.png"));
+    Info.setBulletImage(loadImage("res/ball.png"));
     Info.setCannonImage(loadImage("res/cannon2.png"));
     Info.setCannonBaseImage(loadImage("res/cannon1.png"));
-    Info.setTargetImage(loadImage("res/target.png"));
+    Info.setTargetImage(loadImage("res/flyingPig.png"));
     Info.setResetButtonImage(loadImage("res/bluereset.png"));
     Info.setSliderImage(loadImage("res/bulletSlide.png"));
   }

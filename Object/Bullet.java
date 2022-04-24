@@ -63,8 +63,7 @@ public class Bullet extends GameObject {
     @Override
     public void draw(Graphics2D graph) {
         BufferedImage image = Info.getBulletImage();
-
-        graph.drawImage(image, getX(), getY(), 70, 50, null);
+        graph.drawImage(image, getX(), getY(), 70, 70, null);
     }
 
     @Override
