@@ -1,18 +1,11 @@
 package Object;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import Coordinate.CoordinateInt;
 import Main.DebugInfo;
 import Main.GUI;
 import Main.Info;
-import java.awt.Image;
-import java.awt.MediaTracker;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 
 /**
  * A class for bullet
