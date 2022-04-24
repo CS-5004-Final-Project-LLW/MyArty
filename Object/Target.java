@@ -6,9 +6,6 @@ import Main.GUI;
 import Main.Info;
 import Main.Repo;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 
 /**
  * A class for Target
@@ -16,7 +13,6 @@ import javax.imageio.ImageIO;
 public class Target extends GameObject {
     private int width;
     private int height;
-    private boolean isHit=false;
 
     public Target(CoordinateInt coordinate, int width, int height) {
         super(coordinate);
@@ -33,13 +29,8 @@ public class Target extends GameObject {
 
     @Override
     public void draw(Graphics2D graph) {
-
         BufferedImage image = Info.getTargetImage();
         graph.drawImage(image,getX(),getY(),100,100,null);
-//        graph.setColor(Color.BLACK);
-//        graph.fillOval(getX(), getY(), 100, 100);
-
-
     }
 
     @Override
@@ -49,12 +40,10 @@ public class Target extends GameObject {
             double distanceY = (getY() + height / 2) - (bullet.getY() + bullet.getRadius());
             double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
             if (distance < bullet.getRadius() + (width / 2 + height / 2) / 2) {
-                isHit = true;
                 Repo.bullets.remove(bullet);
-                Info.restart = true;
+                Info.Hit();
                 return false;
             }
-             
         }
         return true;
     }

@@ -13,10 +13,9 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Font;
-
 import java.awt.Image;
 import java.awt.RenderingHints;
-import java.awt.Toolkit;
+
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -30,7 +29,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-
 public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionListener {
 
   /* NOTE: WIDTH and HEIGHT must be capitalized and static */
@@ -38,18 +36,12 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
   public static int HEIGHT;
   private static int fps = 60;
 
-  private static final int DEFAULT_LIFE = 5;
-  private static final int DEFAULT_SCORE = 0;
-  public static int life = DEFAULT_LIFE;
-  public static int score = DEFAULT_SCORE;
-
   private Thread workingThread;
   private boolean running;
-  private boolean isHit = false;
 
   private BufferedImage image;
   private Graphics2D graph;
-  private Image background_image;
+  private Image backgroundImage;
   
   // Game State
   public static int gameState = 0;
@@ -89,16 +81,18 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
 
   private void loadAllImage() {
     var fileBack = "res/background.png";
-    background_image = new ImageIcon(fileBack).getImage();
-    Info.setBulletImage(loadImage("res/bullet.png"));
-    Info.setCannonImage(loadImage("res/cannon.jpeg"));
-    Info.setTargetImage(loadImage("res/target.png"));
+    backgroundImage = new ImageIcon(fileBack).getImage();
+    Info.setBulletImage(loadImage("res/ball.png"));
+    Info.setCannonImage(loadImage("res/cannon2.png"));
+    Info.setCannonBaseImage(loadImage("res/cannon1.png"));
+    Info.setTargetImage(loadImage("res/flyingPig.png"));
+    Info.setResetButtonImage(loadImage("res/bluereset.png"));
+    Info.setSliderImage(loadImage("res/bulletSlide.png"));
   }
 
   private void start() {
     createObject();
-    // Repo.fireButton = new FireButton(new CoordinateInt(300, 300), 100, 100);
-    Repo.restartButton = new RestartButton(new CoordinateInt(50, 50), 100, 100);
+    Repo.restartButton = new RestartButton(new CoordinateInt(25, 25), 80, 80);
     Repo.powerSlider = new PowerSlider(new CoordinateInt(50, 150), 100, 20);
     Repo.newGameButton = new NewGameButton(new CoordinateInt(420, 510), 400, 100);
     Repo.exitButton = new ExitButton(new CoordinateInt(450, 610), 400, 100);
@@ -133,7 +127,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     // x should be at the left screen
     int x = new Random().nextInt(WIDTH * 3 / 10);
     int y = HEIGHT * 4 / 5;
-    Cannon cannon = new Cannon(new CoordinateInt(x, y), 150, 150);
+    Cannon cannon = new Cannon(new CoordinateInt(x, y), 150, 50, 80, 60);
     return cannon;
   }
 
@@ -150,6 +144,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     Target target = new Target(new CoordinateInt(x, y), 100, 100);
     return target;
   }
+
 
   @Override
   public void run() {
@@ -197,25 +192,23 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
             } catch (InterruptedException e) {
 
             }
-            if (life == 0) {
-              running = false;
-              drawGameOver();
-            } else {
-              try {
-                Thread.sleep(200);
-              } catch (InterruptedException e) {
-                e.printStackTrace();
-              }
+          }
+        } else {
+            try {
+              Thread.sleep(200);
+            } catch (InterruptedException e) {
+              e.printStackTrace();
             }
-         }
+          }
         }
-      }
+      
     
   }
 
   private boolean updateObject(GameObject object) {
     return object != null && object.update();
   }
+
 
   private void updateAll() {
     /* Restart */
@@ -232,7 +225,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
         // if update() return false, remove the object itself
         if (!updateObject(bullet)) {
           removedBullet.add(bullet);
-          scorelifeSetter(isHit);
+          Repo.target = generateTarget();
         }
       }
 
@@ -253,17 +246,39 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
       updateObject(Repo.powerSlider);
   }
 
+  private void checkAll() {
+    /* Deal with Hit */
+    if (Info.isHitTarget()) {
+      // set hitTarget to false
+      Info.resetHitTarget();
+      // add score
+      Info.setScore(Info.getScore() + 10);
+      // add life
+      Info.setLife(Math.min(5, Info.getLife() + 1));
+      // start a new round
+      Info.restart = true;
+    }
 
-  public void scorelifeSetter(boolean isHit) {
-    if (isHit) {
-      if (life < 5) {
-        life++;
+    /* Restart if hits */
+    if (Info.restart) {
+      Info.restart = false;
+      createObject();
+    }
+
+    /* Update life */
+    if (Info.isMissShot()) {
+      // set missShot to false
+      Info.resetMissShot();
+      // reduce life
+      Info.setLife(Info.getLife() - 1);
+      // check remained life
+      if (Info.getLife() <= 0) {
+        drawGameOver();
       }
-      score += 10;
-    } else {
-      life--;
     }
   }
+
+
 
   private void drawObject(GameObject object, Graphics2D graph) {
     if (object != null) {
@@ -273,7 +288,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
 
   private void drawAll() {
     // Background
-    graph.drawImage(background_image, getX(), getY(), WIDTH, HEIGHT, null);
+    graph.drawImage(backgroundImage, getX(), getY(), WIDTH, HEIGHT, null);
 
     // Game objects
     drawObject(Repo.cannon, graph);
@@ -294,26 +309,38 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     tempGraph.dispose();
   }
 
-  private void drawGameOver() {
-    Graphics tempGraph = this.getGraphics();
-    tempGraph.setFont(new Font("Serif", Font.BOLD, 70));
-    tempGraph.drawString("Game Over", 320, 90);
 
-    tempGraph.setFont(new Font("Arial", Font.BOLD, 40));
-    tempGraph.drawString("Score: " + score, 410, 150);
+  void drawGameOver() {
+    running = false;
+
+    Graphics2D tempGraph = (Graphics2D) this.getGraphics();
+
+    Tools.drawStringWithOutline("Game Over", WIDTH / 2 - 200, HEIGHT / 2 - 100,
+        new Font("Serif", Font.BOLD, 70), 10, Color.WHITE, Color.BLACK, tempGraph);
+
+    Tools.drawStringWithOutline("Score: " + Info.getScore(), WIDTH / 2 - 200, HEIGHT / 2 - 50,
+        new Font("Arial", Font.BOLD, 40), 15, Color.WHITE, Color.BLACK, tempGraph);
 
     /* Wait and then restart */
+    pauseAndRestart();
+  }
+
+  private void pauseAndRestart() {
     new Thread(new Runnable() {
       @Override
       public void run() {
         try {
+          /* Wait for several seconds */
           Thread.sleep(3000);
         } catch (InterruptedException e) {
           e.printStackTrace();
         }
-        life = DEFAULT_LIFE;
-        score = DEFAULT_SCORE;
+
+        /* Set value to default */
+        Info.softReset();
         running = true;
+
+        /* Print debug info */
         if (DebugInfo.isRunning()) {
           System.out.println("Set to True");
         }

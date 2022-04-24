@@ -1,18 +1,11 @@
 package Object;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import Coordinate.CoordinateInt;
 import Main.DebugInfo;
 import Main.GUI;
 import Main.Info;
-import java.awt.Image;
-import java.awt.MediaTracker;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 
 /**
  * A class for bullet
@@ -63,8 +56,7 @@ public class Bullet extends GameObject {
     @Override
     public void draw(Graphics2D graph) {
         BufferedImage image = Info.getBulletImage();
-
-        graph.drawImage(image, getX(), getY(), 70, 50, null);
+        graph.drawImage(image, getX(), getY(), 70, 70, null);
     }
 
     @Override
@@ -75,7 +67,11 @@ public class Bullet extends GameObject {
         coordinate.x = (int) (xPercent * GUI.WIDTH);
         coordinate.y = (int) (yPercent * GUI.HEIGHT);
         speedY += GRAVITY * timeInterval;
-        return coordinate.x >= 0 && coordinate.x <= GUI.WIDTH && coordinate.y >= 0
+        boolean isInside =  coordinate.x >= 0 && coordinate.x <= GUI.WIDTH && coordinate.y >= 0
                 && coordinate.y <= GUI.HEIGHT + 100;
+        if (!isInside){
+            Info.miss();
+        }
+        return isInside;
     }
 }

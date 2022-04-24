@@ -2,6 +2,7 @@ package Slider;
 
 import Coordinate.CoordinateInt;
 import Main.Info;
+import Main.Tools;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -24,12 +25,14 @@ public class PowerSlider extends Slider {
         return true;
 
     }
+
     @Override
     public void draw(Graphics2D graph) {
         super.draw(graph);
-        graph.setColor(Color.RED);
-        Font pf = new Font("Calibri", Font.LAYOUT_LEFT_TO_RIGHT, 20);
-        graph.setFont(pf);
-        graph.drawString(String.valueOf(Info.powerValue)+"%", getX()+width+10, getY() +10 );
+        Font pf = new Font("Calibri", Font.LAYOUT_LEFT_TO_RIGHT, 30);
+
+        /* Draw string */
+        Tools.drawStringWithOutline(String.valueOf(Info.powerValue) + "%", getX() + width + 15,
+                getY() + 15, pf, 15, Color.WHITE, Color.RED, graph);
     }
 }
