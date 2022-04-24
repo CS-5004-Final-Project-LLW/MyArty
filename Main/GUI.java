@@ -9,8 +9,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Font;
+
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.Toolkit;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -31,15 +35,18 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
   public static int HEIGHT;
   private static int fps = 60;
 
+  public static int life = 5;
+  public static int score = 0;
+
   private Thread workingThread;
   private boolean running;
+  private boolean isHit = false;
 
   private BufferedImage image;
   private Graphics2D graph;
   private Image background_image;
 
   private Thread debugThread;
-
 
   public GUI(int WIDTH, int HEIGHT, int fps) {
     super();
@@ -161,7 +168,12 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
       } catch (InterruptedException e) {
 
       }
+      if (life == 0) {
+        running = false;
+        drawGameOver();
+      }
     }
+      
   }
 
   private boolean updateObject(GameObject object) {
@@ -184,8 +196,10 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
       // if update() return false, remove the object itself
       if (!updateObject(bullet)) {
         removedBullet.add(bullet);
+        scorelifeSetter(isHit);
       }
     }
+    
     for (Bullet bulletToRemoved : removedBullet) {
       Repo.bullets.remove(bulletToRemoved);
     }
@@ -203,6 +217,18 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     updateObject(Repo.powerSlider);
   }
 
+
+  public void scorelifeSetter(boolean isHit){
+    if(isHit){
+        if (life<5){
+        life++;
+        }
+        score+=10;
+    }else{
+      life--;
+    }
+  }
+  
   private void drawObject(GameObject object, Graphics2D graph) {
     if (object != null) {
       object.draw(graph);
@@ -212,8 +238,6 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
 
   private void drawAll() {
     // Background
-    // graph.setColor(new Color(197, 234, 243, 100));
-    // graph.fillRect(0, 0, WIDTH, HEIGHT);
     graph.drawImage(background_image,getX(),getY(),WIDTH, HEIGHT,null);
 
 
@@ -223,9 +247,10 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     for (Bullet bullet : Repo.bullets) {
       drawObject(bullet, graph);
     }
-    drawObject(Repo.fireButton, graph);
-    drawObject(Repo.restartButton, graph);
-    drawObject(Repo.powerSlider, graph);
+    
+      drawObject(Repo.fireButton, graph);
+      drawObject(Repo.restartButton, graph);
+      drawObject(Repo.powerSlider, graph);
   }
 
   public void showAll() {
@@ -235,6 +260,19 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     tempGraph.dispose();
   }
 
+  private void drawGameOver() {
+    Graphics tempGraph = this.getGraphics();
+    tempGraph.setFont(new Font("Serif", Font.BOLD, 70));
+    tempGraph.drawString("Game Over", 320, 90);
+
+    tempGraph.setFont(new Font("Arial", Font.BOLD, 40));
+    tempGraph.drawString("Score: " + score, 410, 150);
+  }
+
+  // private void drawGamePaused(Graphics2D graph) {
+  //   graph.setFont(new Font("Serif", Font.BOLD, 60));
+  //   graph.drawString("Game Paused", 310, 150);
+  // }
 
   private void clearMouseStatus() {
     Info.setClicking(false);

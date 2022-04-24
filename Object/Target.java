@@ -16,10 +16,11 @@ import javax.imageio.ImageIO;
 public class Target extends GameObject {
     private int width;
     private int height;
+    private boolean isHit=false;
 
     public Target(CoordinateInt coordinate, int width, int height) {
         super(coordinate);
-	this.width = width;
+	    this.width = width;
         this.height = height;
     }
 
@@ -48,10 +49,12 @@ public class Target extends GameObject {
             double distanceY = (getY() + height / 2) - (bullet.getY() + bullet.getRadius());
             double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
             if (distance < bullet.getRadius() + (width / 2 + height / 2) / 2) {
+                isHit = true;
                 Repo.bullets.remove(bullet);
                 Info.restart = true;
                 return false;
             }
+             
         }
         return true;
     }
