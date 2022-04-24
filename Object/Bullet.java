@@ -78,5 +78,4 @@ public class Bullet extends GameObject {
         return coordinate.x >= -100 && coordinate.x <= GUI.WIDTH + 100 && coordinate.y >= -100
                 && coordinate.y <= GUI.HEIGHT + 100;
     }
-
 }
