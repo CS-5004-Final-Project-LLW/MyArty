@@ -83,9 +83,7 @@ public class Cannon extends GameObject {
   private AffineTransform getTransformation() {
     AffineTransform at = new AffineTransform();
     at.translate(getX(), getY());
-//    at.rotate(-Math.PI / 4);
     at.rotate(Info.getRotateDegree());
-//    System.out.println("aaaaaaaaaa "+Info.getRotateDegree());
     at.scale(3, 3);
     at.translate(-10, -10);
     return at;
