@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 
 public class MainGame {
     public static void main(String[] args) {
-        int width = 1000;
+        int width = 1300;
         int height = 800;
         int fps = 60;
         JFrame mainWindow = new JFrame();
