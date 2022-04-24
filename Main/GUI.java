@@ -83,7 +83,8 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     var fileBack = "res/background.png";
     background_image = new ImageIcon(fileBack).getImage();
     Info.setBulletImage(loadImage("res/bullet.png"));
-    Info.setCannonImage(loadImage("res/cannon.jpeg"));
+    Info.setCannonImage(loadImage("res/cannon2.png"));
+    Info.setCannonBaseImage(loadImage("res/cannon1.png"));
     Info.setTargetImage(loadImage("res/target.png"));
   }
 
@@ -121,7 +122,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     // x should be at the left screen
     int x = new Random().nextInt(WIDTH * 3 / 10);
     int y = HEIGHT * 4 / 5;
-    Cannon cannon = new Cannon(new CoordinateInt(x, y), 150, 150);
+    Cannon cannon = new Cannon(new CoordinateInt(x, y), 150, 50, 80,60);
     return cannon;
   }
 

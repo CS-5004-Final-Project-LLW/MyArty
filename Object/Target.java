@@ -6,9 +6,6 @@ import Main.GUI;
 import Main.Info;
 import Main.Repo;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 
 /**
  * A class for Target
@@ -33,13 +30,8 @@ public class Target extends GameObject {
 
     @Override
     public void draw(Graphics2D graph) {
-
         BufferedImage image = Info.getTargetImage();
         graph.drawImage(image,getX(),getY(),100,100,null);
-//        graph.setColor(Color.BLACK);
-//        graph.fillOval(getX(), getY(), 100, 100);
-
-
     }
 
     @Override

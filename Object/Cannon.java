@@ -1,17 +1,11 @@
 package Object;
 
-import java.awt.AlphaComposite;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import Coordinate.CoordinateInt;
 import Main.GUI;
 import Main.Info;
 import Main.Repo;
-import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 
 /**
  * A class for Cannon
@@ -19,14 +13,18 @@ import javax.imageio.ImageIO;
 public class Cannon extends GameObject {
     /* A special number for gravity after a whole-night testing */
     CoordinateInt size;
-    private int width;
-    private int height;
+    private int cannonWidth;
+    private int cannonHeight;
+    private int cannonBaseWidth;
+    private int cannonBaseHeight;
 
 
-    public Cannon(CoordinateInt coordinate, int width, int height) {
+    public Cannon(CoordinateInt coordinate, int cannonWidth, int cannonHeight, int cannonBaseWidth, int cannonBaseHeight ) {
         super(coordinate);
-        this.width = width;
-        this.height = height;
+        this.cannonWidth = cannonWidth;
+        this.cannonHeight = cannonHeight;
+        this.cannonBaseHeight = cannonBaseHeight;
+        this.cannonBaseWidth  = cannonBaseWidth;
     }
 
     /**
@@ -41,8 +39,8 @@ public class Cannon extends GameObject {
 
     @Override
     protected void createBoundary() {
-        setBoundary_min(new CoordinateInt(width, GUI.HEIGHT / 2 + height));
-        setBoundary_max(new CoordinateInt(GUI.WIDTH / 2 - width, GUI.HEIGHT - height));
+        setBoundary_min(new CoordinateInt(cannonWidth, GUI.HEIGHT / 2 + cannonHeight));
+        setBoundary_max(new CoordinateInt(GUI.WIDTH / 2 - cannonWidth, GUI.HEIGHT - cannonHeight));
     }
 
 
@@ -50,8 +48,8 @@ public class Cannon extends GameObject {
     @Override
     public boolean update() {
 
-        int centerX = getX() + width / 2;
-        int centerY = getY() + height / 2;
+        int centerX = getX() + cannonWidth / 2;
+        int centerY = getY() + cannonHeight / 2;
 
         /* Update angle */
         double dy = Info.getCursorY() - centerY;
@@ -73,19 +71,18 @@ public class Cannon extends GameObject {
 
     @Override
     public void draw(Graphics2D graph) {
-        BufferedImage image = Info.getCannonImage();
-
-        Graphics2D graphicsImage = (Graphics2D) image.getGraphics();
-        graphicsImage.setBackground(Color.BLACK);
-        graph.drawImage(image, getX(), getY(), width, height, null);
+        BufferedImage cannonImage = Info.getCannonImage();
+        BufferedImage cannonBaseImage = Info.getCannonBaseImage();
+        graph.drawImage(cannonImage, getX(), getY(), cannonWidth, cannonHeight, null);
+        graph.drawImage(cannonBaseImage, getX(), getY()+40, cannonBaseWidth, cannonBaseHeight, null);
     }
 
-    public int getHeight() {
-        return height;
+    public int getCannonHeight() {
+        return cannonHeight;
     }
 
-    public int getWidth() {
-        return width;
+    public int getCannonWidth() {
+        return cannonWidth;
     }
 
 
