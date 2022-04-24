@@ -10,9 +10,9 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Font;
-
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.Stroke;
 import java.awt.Toolkit;
 
 import java.awt.event.MouseEvent;
@@ -26,7 +26,6 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-
 
 public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionListener {
 
@@ -140,12 +139,14 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     return target;
   }
 
+
   @Override
   public void run() {
     running = true;
     image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
     graph = (Graphics2D) image.getGraphics();
     graph.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
 
     long startTime, sleepTime, usedTime;
     final long timePerFrame = 1000 / fps;
@@ -250,7 +251,6 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     // Background
     graph.drawImage(background_image, getX(), getY(), WIDTH, HEIGHT, null);
 
-
     // Game objects
     drawObject(Repo.cannon, graph);
     drawObject(Repo.target, graph);
@@ -270,26 +270,38 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     tempGraph.dispose();
   }
 
-  private void drawGameOver() {
-    Graphics tempGraph = this.getGraphics();
-    tempGraph.setFont(new Font("Serif", Font.BOLD, 70));
-    tempGraph.drawString("Game Over", 320, 90);
 
-    tempGraph.setFont(new Font("Arial", Font.BOLD, 40));
-    tempGraph.drawString("Score: " + score, 410, 150);
+  private void drawGameOver() {
+    Graphics2D tempGraph = (Graphics2D) this.getGraphics();
+
+    Tools.drawStringWithOutline("Game Over", WIDTH / 2 - 200, HEIGHT / 2 - 100,
+        new Font("Serif", Font.BOLD, 70), 10, Color.WHITE, Color.BLACK, tempGraph);
+
+    Tools.drawStringWithOutline("Score: " + score, WIDTH / 2 - 200, HEIGHT / 2 - 50,
+        new Font("Arial", Font.BOLD, 40), 15, Color.WHITE, Color.BLACK, tempGraph);
 
     /* Wait and then restart */
+    waitAndRestart();
+  }
+
+  private void waitAndRestart() {
     new Thread(new Runnable() {
       @Override
       public void run() {
         try {
+          /* Wait for several seconds */
           Thread.sleep(3000);
         } catch (InterruptedException e) {
           e.printStackTrace();
         }
+
+        /* Set value to default */
         life = DEFAULT_LIFE;
         score = DEFAULT_SCORE;
         running = true;
+        Info.restart = true;
+
+        /* Print debug info */
         if (DebugInfo.isRunning()) {
           System.out.println("Set to True");
         }
