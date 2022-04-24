@@ -7,16 +7,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Random;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import Button.ExitButton;
@@ -24,12 +17,10 @@ import Button.NewGameButton;
 import Button.RestartButton;
 import Coordinate.CoordinateInt;
 import Object.Bullet;
-import Object.Cannon;
 import Object.GameObject;
-import Object.Target;
 import Slider.PowerSlider;
 
-public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionListener {
+public class GUI extends JPanel implements Runnable {
 
   /* NOTE: WIDTH and HEIGHT must be capitalized and static */
   public static int WIDTH;
@@ -44,6 +35,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
   private Image backgroundImage;
 
   private Thread debugThread;
+  private MouseCapturer mouseCapturer;
 
   public GUI(int WIDTH, int HEIGHT, int fps) {
     super();
@@ -53,35 +45,25 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     setPreferredSize(new Dimension(WIDTH, HEIGHT));
     setFocusable(true);
     requestFocus();
-    addMouseMotionListener(this);
-    addMouseListener(this);
+
+    mouseCapturer = new MouseCapturer();
+    addMouseMotionListener(mouseCapturer);
+    addMouseListener(mouseCapturer);
 
     loadAllImage();
     start();
     printDebugInfo();
   }
 
-  private BufferedImage loadImage(String fileName) {
-    File targetImageFile = new File(fileName);
-    BufferedImage image = null;
-    try {
-      image = ImageIO.read(targetImageFile);
-    } catch (IOException e) {
-      System.out.println(" Image file does not exist.");
-      System.exit(-2);
-    }
-    return image;
-  }
-
   private void loadAllImage() {
     var fileBack = "res/background.png";
     backgroundImage = new ImageIcon(fileBack).getImage();
-    Info.setBulletImage(loadImage("res/ball.png"));
-    Info.setCannonImage(loadImage("res/cannon2.png"));
-    Info.setCannonBaseImage(loadImage("res/cannon1.png"));
-    Info.setTargetImage(loadImage("res/flyingPig.png"));
-    Info.setResetButtonImage(loadImage("res/bluereset.png"));
-    Info.setSliderImage(loadImage("res/bulletSlide.png"));
+    Info.setBulletImage(Tools.loadImage("res/ball.png"));
+    Info.setCannonImage(Tools.loadImage("res/cannon2.png"));
+    Info.setCannonBaseImage(Tools.loadImage("res/cannon1.png"));
+    Info.setTargetImage(Tools.loadImage("res/flyingPig.png"));
+    Info.setResetButtonImage(Tools.loadImage("res/bluereset.png"));
+    Info.setSliderImage(Tools.loadImage("res/bulletSlide.png"));
   }
 
   private void start() {
@@ -91,8 +73,8 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
 
 
   private void createObject() {
-    Repo.cannon = generateCannon();
-    Repo.target = generateTarget();
+    Repo.cannon = Tools.generateCannon();
+    Repo.target = Tools.generateTarget();
     Repo.bullets = new HashSet<>();
   }
 
@@ -122,102 +104,72 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
   }
 
 
-  /**
-   * Create a cannon at a random position of the left screen
-   *
-   * @return Cannon
-   */
-  private Cannon generateCannon() {
-    // x should be at the left screen
-    int x = new Random().nextInt(WIDTH * 3 / 10);
-    int y = HEIGHT * 4 / 5;
-    Cannon cannon = new Cannon(new CoordinateInt(x, y), 150, 50, 80, 60);
-    return cannon;
-  }
-
-  /**
-   * Create a target at a random position of the right screen
-   *
-   * @return Target
-   */
-  private Target generateTarget() {
-    // x should be at the right screen
-    int x = WIDTH * 9 / 10 - new Random().nextInt(WIDTH * 3 / 10);
-    int y = HEIGHT * 9 / 10 - new Random().nextInt(HEIGHT * 3 / 10);
-
-    Target target = new Target(new CoordinateInt(x, y), 100, 100);
-    return target;
-  }
-
-
   @Override
   public void run() {
     running = true;
     image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
     Graphics2D graph = (Graphics2D) image.getGraphics();
     graph.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-    long startTime, sleepTime, usedTime;
-    final long timePerFrame = 1000 / fps;
+    long startTime;
 
     while (true) {
       if (running) {
         startTime = System.nanoTime();
         if (Info.gameState == Info.TITLE_STATE) {
-          if (Info.gameState != Info.previousState) {
-            Info.previousState = Info.gameState;
-            createButtonInWelcome();
-          }
-          updateObject(Repo.exitButton);
-          updateObject(Repo.newGameButton);
-          drawTitleScreen();
-
-          showAll();
-
-          // TODO: not a nice practice
-          try {
-            Thread.sleep(1 / getFps());
-          } catch (InterruptedException e) {
-
-          }
+          gameLoopTitle();
         } else {
-          if (Info.gameState != Info.previousState) {
-            Info.previousState = Info.gameState;
-            createButtonInGame();
-            Info.hardReset();
-          }
-
-          // ------ main thread ------ //
-          updateAll();
-          drawAll(graph);
-          showAll();
-
-          Info.setClicking(false);
-          checkAll();
-          // ---- main thread end ---- //
-
-          usedTime = (System.nanoTime() - startTime) / 1000000;
-          // used for debugging
-          Info.addSleepTimes((int) usedTime);
-          sleepTime = Math.max(0, timePerFrame - usedTime);
-
-          try {
-            Thread.sleep(sleepTime);
-          } catch (InterruptedException e) {
-
-          }
+          gameLoopPlay(graph, startTime);
         }
       } else {
-        try {
-          Thread.sleep(200);
-        } catch (InterruptedException e) {
-          e.printStackTrace();
-        }
+        Tools.sleepForMills(200);
       }
     }
 
 
   }
+
+  private void gameLoopPlay(Graphics2D graph, long startTime) {
+    final long timePerFrame = 1000 / fps;
+    long sleepTime;
+    long usedTime;
+    if (Info.gameState != Info.previousState) {
+      Info.previousState = Info.gameState;
+      createButtonInGame();
+      Info.hardReset();
+    }
+
+    // ------ main thread ------ //
+    updateAll();
+    drawAll(graph);
+    showAll();
+
+    Info.setClicking(false);
+    checkAll();
+    // ---- main thread end ---- //
+
+    usedTime = (System.nanoTime() - startTime) / 1000000;
+    // used for debugging
+    Info.addSleepTimes((int) usedTime);
+    sleepTime = Math.max(0, timePerFrame - usedTime);
+
+    Tools.sleepForMills(sleepTime);
+  }
+
+  private void gameLoopTitle() {
+    if (Info.gameState != Info.previousState) {
+      Info.previousState = Info.gameState;
+      createButtonInWelcome();
+    }
+    updateObject(Repo.exitButton);
+    updateObject(Repo.newGameButton);
+    drawTitleScreen();
+
+    showAll();
+
+    Tools.sleepForMills(1 / getFps());
+  }
+
+
 
   private boolean updateObject(GameObject object) {
     return object != null && object.update();
@@ -234,7 +186,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
       // if update() return false, remove the object itself
       if (!updateObject(bullet)) {
         removedBullet.add(bullet);
-        Repo.target = generateTarget();
+        Repo.target = Tools.generateTarget();
       }
     }
 
@@ -337,12 +289,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     new Thread(new Runnable() {
       @Override
       public void run() {
-        try {
-          /* Wait for several seconds */
-          Thread.sleep(3000);
-        } catch (InterruptedException e) {
-          e.printStackTrace();
-        }
+        Tools.sleepForMills(3000);
 
         /* Set value to default */
         Info.softReset();
@@ -389,7 +336,6 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     drawObject(Repo.exitButton, tempGraph);
 
   }
-
   @Override
   public void addNotify() {
     super.addNotify();
@@ -399,38 +345,4 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     }
   }
 
-  @Override
-  public void mouseClicked(MouseEvent e) {
-    Info.setClicking(true);
-  }
-
-  @Override
-  public void mouseDragged(MouseEvent e) {
-    Info.setDragging(true);
-    Info.setCursorX(e.getX());
-    Info.setCursorY(e.getY());
-  }
-
-  @Override
-  public void mouseMoved(MouseEvent e) {
-    Info.setCursorX(e.getX());
-    Info.setCursorY(e.getY());
-  }
-
-  @Override
-  public void mouseEntered(MouseEvent e) {}
-
-  @Override
-  public void mouseExited(MouseEvent e) {}
-
-  @Override
-  public void mousePressed(MouseEvent e) {
-    Info.setPressed(true);
-  }
-
-  @Override
-  public void mouseReleased(MouseEvent e) {
-    Info.setDragging(false);
-    Info.setPressed(false);
-  }
 }
