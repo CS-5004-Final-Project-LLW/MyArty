@@ -299,6 +299,7 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
         life = DEFAULT_LIFE;
         score = DEFAULT_SCORE;
         running = true;
+        Info.restart = true;
 
         /* Print debug info */
         if (DebugInfo.isRunning()) {
