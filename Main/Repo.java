@@ -17,6 +17,9 @@ public class Repo {
     public static Target target;
     public static Button fireButton;
     public static Button restartButton;
+    public static Button newGameButton;
+    public static Button exitButton;
+
     public static Slider powerSlider;
     public static HashSet<Bullet> bullets = new HashSet<>();
 

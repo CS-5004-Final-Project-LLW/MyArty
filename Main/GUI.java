@@ -1,6 +1,9 @@
 package Main;
 
 import javax.swing.JPanel;
+
+import Button.ExitButton;
+import Button.NewGameButton;
 import Button.RestartButton;
 import Coordinate.CoordinateInt;
 import Object.*;
@@ -47,6 +50,12 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
   private BufferedImage image;
   private Graphics2D graph;
   private Image background_image;
+  
+  // Game State
+  public static int gameState = 0;
+  public final static int titleState = 0;
+  public final static int playState = 1;
+  public final static int pauseState = 2;
 
   private Thread debugThread;
 
@@ -63,7 +72,6 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
 
     loadAllImage();
     start();
-
     printDebugInfo();
   }
 
@@ -92,6 +100,10 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     // Repo.fireButton = new FireButton(new CoordinateInt(300, 300), 100, 100);
     Repo.restartButton = new RestartButton(new CoordinateInt(50, 50), 100, 100);
     Repo.powerSlider = new PowerSlider(new CoordinateInt(50, 150), 100, 20);
+    Repo.newGameButton = new NewGameButton(new CoordinateInt(420, 510), 400, 100);
+    Repo.exitButton = new ExitButton(new CoordinateInt(450, 610), 400, 100);
+
+
   }
 
   private void createObject() {
@@ -141,48 +153,64 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
 
   @Override
   public void run() {
-    running = true;
-    image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-    graph = (Graphics2D) image.getGraphics();
-    graph.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+      running = true;
+      image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+      graph = (Graphics2D) image.getGraphics();
+      graph.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-    long startTime, sleepTime, usedTime;
-    final long timePerFrame = 1000 / fps;
+      long startTime, sleepTime, usedTime;
+      final long timePerFrame = 1000 / fps;
 
-    while (true) {
-      if (running) {
-        startTime = System.nanoTime();
+      while (true) {
+        if (running) {
+          startTime = System.nanoTime();
+          if (gameState == titleState){
+            updateObject(Repo.exitButton);
+            updateObject(Repo.newGameButton);
+            drawTitleScreen();
+            drawObject(Repo.newGameButton, graph);
+            drawObject(Repo.exitButton, graph);
+            
+            try {
+              Thread.sleep(2000);
+            } catch (InterruptedException e) {
 
-        // ------ main thread ------ //
-        updateAll();
-        drawAll();
-        showAll();
-        // clearMouseStatus();
-        Info.setClicking(false);
-        // ---- main thread end ---- //
+            }
+          } else {
 
-        usedTime = (System.nanoTime() - startTime) / 1000000;
-        sleepTime = timePerFrame - usedTime;
-        Info.addSleepTimes((int) usedTime);
-        sleepTime = Math.max(0, timePerFrame - usedTime);
+            // ------ main thread ------ //
+            updateAll();
+            drawAll();
+            showAll();
+                
+            // clearMouseStatus();
+            Info.setClicking(false);
+            // ---- main thread end ---- //
 
-        try {
-          Thread.sleep(sleepTime);
-        } catch (InterruptedException e) {
+            usedTime = (System.nanoTime() - startTime) / 1000000;
+            sleepTime = timePerFrame - usedTime;
+            Info.addSleepTimes((int) usedTime);
+            sleepTime = Math.max(0, timePerFrame - usedTime);
 
-        }
-        if (life == 0) {
-          running = false;
-          drawGameOver();
-        }
-      } else {
-        try {
-          Thread.sleep(200);
-        } catch (InterruptedException e) {
-          e.printStackTrace();
+            try {
+              Thread.sleep(sleepTime);
+            } catch (InterruptedException e) {
+
+            }
+            if (life == 0) {
+              running = false;
+              drawGameOver();
+            } else {
+              try {
+                Thread.sleep(200);
+              } catch (InterruptedException e) {
+                e.printStackTrace();
+              }
+            }
+         }
         }
       }
-    }
+    
   }
 
   private boolean updateObject(GameObject object) {
@@ -195,35 +223,34 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
       Info.restart = false;
       createObject();
     }
+      /* Update cannon */
+      updateObject(Repo.cannon);
 
-    /* Update cannon */
-    updateObject(Repo.cannon);
-
-    /* Update bullets */
-    ArrayList<Bullet> removedBullet = new ArrayList<>();
-    for (Bullet bullet : Repo.bullets) {
-      // if update() return false, remove the object itself
-      if (!updateObject(bullet)) {
-        removedBullet.add(bullet);
-        scorelifeSetter(isHit);
+      /* Update bullets */
+      ArrayList<Bullet> removedBullet = new ArrayList<>();
+      for (Bullet bullet : Repo.bullets) {
+        // if update() return false, remove the object itself
+        if (!updateObject(bullet)) {
+          removedBullet.add(bullet);
+          scorelifeSetter(isHit);
+        }
       }
-    }
 
-    for (Bullet bulletToRemoved : removedBullet) {
-      Repo.bullets.remove(bulletToRemoved);
-    }
+      for (Bullet bulletToRemoved : removedBullet) {
+        Repo.bullets.remove(bulletToRemoved);
+      }
 
-    /* Update target */
-    if (!updateObject(Repo.target)) {
-      Repo.target = null;
-    }
+      /* Update target */
+      if (!updateObject(Repo.target)) {
+        Repo.target = null;
+      }
 
-    /* Update buttons */
-    updateObject(Repo.fireButton);
-    updateObject(Repo.restartButton);
+      /* Update buttons */
+      updateObject(Repo.fireButton);
+      updateObject(Repo.restartButton);
 
-    /* Update sliders */
-    updateObject(Repo.powerSlider);
+      /* Update sliders */
+      updateObject(Repo.powerSlider);
   }
 
 
@@ -244,11 +271,9 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     }
   }
 
-
   private void drawAll() {
     // Background
     graph.drawImage(background_image, getX(), getY(), WIDTH, HEIGHT, null);
-
 
     // Game objects
     drawObject(Repo.cannon, graph);
@@ -296,10 +321,40 @@ public class GUI extends JPanel implements Runnable, MouseListener, MouseMotionL
     }).start();
   }
 
+  public void drawTitleScreen(){
+    Graphics tempGraph = this.getGraphics();
+    tempGraph.setColor(new Color(0,0,0));
+    tempGraph.fillRect(0,0,1300,800);
+    // title name
+    tempGraph.setFont(tempGraph.getFont().deriveFont(Font.BOLD,96F));
+    String text = "AAA Game";
+    int x = 370;
+    int y = 230;
+    //shadow
+    tempGraph.setColor(Color.gray);
+    tempGraph.drawString(text, x+5, y+5);
+    // main color
+    tempGraph.setColor(Color.white);
+    tempGraph.drawString(text,x,y);
+    // menu
+    tempGraph.setFont(tempGraph.getFont().deriveFont(Font.BOLD,48F));
+    text = "NEW GAME";
+    x = 450;
+    y = 550;
+    tempGraph.drawString(text, x, y);
+    // Repo.newGameButton = new NewGameButton(new CoordinateInt(x, y-10), 300, 100);
+
+    text = "QUIT";
+    x = 450;
+    y = 650;
+    tempGraph.drawString(text, x, y);
+    // Repo.exitButton = new ExitButton(new CoordinateInt(x, y-10), 300, 100);
+
+  }
+
   // private void drawGamePaused(Graphics2D graph) {
   // graph.setFont(new Font("Serif", Font.BOLD, 60));
   // graph.drawString("Game Paused", 310, 150);
-  // }
 
   private void clearMouseStatus() {
     Info.setClicking(false);
