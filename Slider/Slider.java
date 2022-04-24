@@ -16,7 +16,7 @@ public abstract class Slider extends GameObject {
 
     protected boolean grapped = false;
     protected double percentage;
-    protected int barWidth = 15;
+    protected int barWidth = 50;
     protected int barHeight = 50;
     protected String words;
 
@@ -68,7 +68,7 @@ public abstract class Slider extends GameObject {
         graph.setColor(Color.BLACK);
         int barX = (int) (percentage * width) + getX() - barWidth / 2;
         int barY = getY() + height / 2 - barHeight / 2;
-        graph.fillRect(barX, barY, barWidth, barHeight);
+        graph.drawImage(Info.getSliderImage(), barX,barY, barWidth, barHeight,null);
 
         /* Draw string */
         Tools.drawStringWithOutline(words, getX(), getY() - height,

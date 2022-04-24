@@ -20,6 +20,7 @@ public class Info {
     private static BufferedImage cannonBaseImage;
     private static BufferedImage targetImage;
     private static BufferedImage resetButtonImage;
+    private static BufferedImage sliderImage;
 
     public static int angleValue = 45;
     public static int powerValue = 50;
@@ -141,6 +142,15 @@ public class Info {
 
     public static void setResetButtonImage(BufferedImage resetButtonImage) {
         Info.resetButtonImage = resetButtonImage;
+    }
+
+    public static BufferedImage getSliderImage() {
+        return sliderImage;
+    }
+
+
+    public static void setSliderImage(BufferedImage sliderImage) {
+        Info.sliderImage = sliderImage;
     }
 
 }
