@@ -48,7 +48,7 @@ public abstract class Slider extends GameObject {
         }
 
         if (grapped) {
-            double temp = ((double) Info.getCursorX() - getX()) / 100;
+            double temp = ((double) Info.getCursorX() - getX()) / width;
             temp = Math.max(0, temp);
             percentage = Math.min(1, temp);
         }
@@ -66,10 +66,10 @@ public abstract class Slider extends GameObject {
         graph.setColor(Color.BLACK);
         int barX = (int) (percentage * width) + getX() - barWidth / 2;
         int barY = getY() + height / 2 - barHeight / 2;
-        graph.drawImage(Info.getSliderImage(), barX,barY, barWidth, barHeight,null);
+        graph.drawImage(Info.getSliderImage(), barX, barY, barWidth, barHeight, null);
 
         /* Draw string */
-        Tools.drawStringWithOutline(words, getX(), getY() + 2*height,
+        Tools.drawStringWithOutline(words, getX(), getY() + 2 * height,
                 new Font("Calibri", Font.BOLD, 25), 20, Color.WHITE, Color.BLACK, graph);
     }
 }
