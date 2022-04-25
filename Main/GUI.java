@@ -412,7 +412,10 @@ public class GUI extends JPanel implements Runnable {
     Tools.drawStringWithOutline("Game Over", WIDTH / 2 - 200, HEIGHT / 2 - 100,
         new Font("Serif", Font.BOLD, 70), 10, Color.WHITE, Color.BLACK, graph);
 
-    Tools.drawStringWithOutline("Score: " + Info.getScore(), WIDTH / 2 - 200, HEIGHT / 2 - 50,
+    Tools.drawStringWithOutline("Score: " + Info.getScore(), WIDTH / 2 - 200, HEIGHT / 2 - 30,
+        new Font("Arial", Font.BOLD, 40), 15, Color.WHITE, Color.BLACK, graph);
+
+    Tools.drawStringWithOutline("Press any key to continue", WIDTH / 2 - 200, HEIGHT / 2 + 30,
         new Font("Arial", Font.BOLD, 40), 15, Color.WHITE, Color.BLACK, graph);
 
   }
