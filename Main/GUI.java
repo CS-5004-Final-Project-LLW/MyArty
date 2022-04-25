@@ -39,8 +39,9 @@ public class GUI extends JPanel implements Runnable {
   // thread for printing debugging info
   private Thread debugThread;
 
-  // mouse event capturer
+  /* mouse and keyboard event capturer */
   private MouseCapturer mouseCapturer;
+  private KeyboardListener keyboardListener;
 
 
   /**
@@ -69,6 +70,10 @@ public class GUI extends JPanel implements Runnable {
     mouseCapturer = new MouseCapturer();
     addMouseMotionListener(mouseCapturer);
     addMouseListener(mouseCapturer);
+
+    /* Add keyboard listener */
+    keyboardListener = new KeyboardListener();
+    addKeyListener(keyboardListener);
 
     /* Load images from files */
     loadAllImage();
@@ -174,7 +179,7 @@ public class GUI extends JPanel implements Runnable {
           gameLoopTitle();
         } else {
           /* Main loop */
-          gameLoopPlay(graph);
+          gameLoopPlay();
         }
       }
 
@@ -222,12 +227,8 @@ public class GUI extends JPanel implements Runnable {
    * Main game loop body
    * <p>
    * Do not place any {@Code sleep()} method inside.
-   * 
-   * @param graph
-   * @param startTime
    */
-  // TODO: remove graph parameter
-  private void gameLoopPlay(Graphics2D graph) {
+  private void gameLoopPlay() {
     /* Check transition */
     if (Info.gameState != Info.previousState) {
       Info.previousState = Info.gameState;
@@ -422,7 +423,16 @@ public class GUI extends JPanel implements Runnable {
     new Thread(new Runnable() {
       @Override
       public void run() {
-        Tools.sleepForMills(3000);
+        final int sleepTimeSecond = 20;
+        for (int i = 0; i < sleepTimeSecond * fps; i++) {
+          // sleep for 1/fps seconds
+          Tools.sleepForMills(1000 / fps);
+
+          // If any key pressed, restart game
+          if (Info.isKeyPressed()) {
+            break;
+          }
+        }
 
         /* Set value to default */
         Info.softReset();
