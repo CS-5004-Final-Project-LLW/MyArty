@@ -437,6 +437,7 @@ public class GUI extends JPanel implements Runnable {
     // Repo.newGameButton = new NewGameButton(new CoordinateInt(x, y-10), 300, 100);
 
     text = "QUIT";
+    text = "EXIT";
     x = 450;
     y = 650;
     tempGraph.drawString(text, x, y);
