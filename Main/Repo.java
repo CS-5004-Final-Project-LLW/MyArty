@@ -1,13 +1,11 @@
 package Main;
 
-
 import java.util.HashSet;
 import Button.Button;
 import Object.Bullet;
 import Object.Cannon;
 import Object.Target;
 import Slider.Slider;
-
 
 /**
  * A class for storing game objects like cannon and target
@@ -23,8 +21,16 @@ public class Repo {
     public static Slider powerSlider;
     public static HashSet<Bullet> bullets = new HashSet<>();
 
+    public static final int MAX_BULLETS = 1;
+
+
+    /**
+     * Check if more bullets can be shot
+     * 
+     * @return boolean {@code true} if the number of bullets does not reach the limit
+     */
     public static boolean isReadyForShot() {
-        return Repo.bullets.size() <= 0;
+        return Repo.bullets.size() < MAX_BULLETS;
     }
 
 }

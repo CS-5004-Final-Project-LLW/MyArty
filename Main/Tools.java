@@ -51,6 +51,11 @@ public class Tools {
         graph.setRenderingHints(hintsBackup);
     }
 
+    /**
+     * Freeze a thread for specified milliseconds
+     * 
+     * @param mills
+     */
     static void sleepForMills(long mills) {
         try {
             Thread.sleep(mills);
@@ -59,6 +64,12 @@ public class Tools {
         }
     }
 
+    /**
+     * Read image from a file
+     * 
+     * @param fileName
+     * @return
+     */
     static BufferedImage loadImage(String fileName) {
         File targetImageFile = new File(fileName);
         BufferedImage image = null;

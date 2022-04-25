@@ -2,12 +2,12 @@ package Main;
 
 public class DebugInfo implements Runnable {
     private int timeIntervalMill = 1000;
-    private static boolean running = false;
+    private static boolean debugging = false;
 
     @Override
     public void run() {
         while (true) {
-            if (running) {
+            if (debugging) {
                 printDebugInfo();
             }
             try {
@@ -30,8 +30,8 @@ public class DebugInfo implements Runnable {
         System.out.println(sb.toString());
     }
 
-    public static boolean isRunning() {
-        return running;
+    public static boolean isDebugging() {
+        return debugging;
     }
 
 

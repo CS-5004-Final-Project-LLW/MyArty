@@ -15,7 +15,7 @@ public class Info {
     private static int cursorX = 0;
     private static int cursorY = 0;
 
-    /* Debugging for time per frame */
+    /* Debugging for time per frame. Working as a queue */
     private static ArrayList<Integer> sleepTimeRecord = new ArrayList<>();
     private static double rotateDegree = 0;
 
@@ -206,15 +206,20 @@ public class Info {
         Info.backgroundImage = backgroundImage;
     }
 
-
+    /**
+     * Set `hit target` flag to true
+     */
     public static void Hit() {
         hitTarget = true;
     }
 
-
+    /**
+     * Set `miss` flag to true
+     */
     public static void miss() {
         missShot = true;
     }
+
 
 
     public static boolean isHitTarget() {
@@ -226,10 +231,20 @@ public class Info {
         return missShot;
     }
 
+
+    /*-
+     * Set `hit target` flag to true.
+     * Package access only
+     */
     static void resetHitTarget() {
         hitTarget = false;
     }
 
+
+    /*-
+     * Set `miss` flag to true.
+     * Package access only
+     */
     static void resetMissShot() {
         missShot = false;
     }
@@ -242,6 +257,9 @@ public class Info {
         setLife(DEFAULT_LIFE);
     }
 
+    /**
+     * Reset most of parameters but retain angel, power and cursor.
+     */
     static void softReset() {
         restart = true;
         resetScore();
@@ -253,6 +271,9 @@ public class Info {
         resetMissShot();
     }
 
+    /**
+     * Reset all parameters
+     */
     static void hardReset() {
         softReset();
         angleValue = 45;
