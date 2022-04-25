@@ -123,8 +123,8 @@ public class GUI extends JPanel implements Runnable {
    * Create buttons for welcome page
    */
   private void createButtonInWelcome() {
-    Repo.newGameButton = new NewGameButton(new CoordinateInt(420, 510), 400, 100);
-    Repo.exitButton = new ExitButton(new CoordinateInt(450, 610), 400, 100);
+    Repo.newGameButton = new NewGameButton(new CoordinateInt(450, 550), 400, 100, "NEW GAME");
+    Repo.exitButton = new ExitButton(new CoordinateInt(450, 650), 400, 100, "EXIT");
     Repo.restartButton = null;
     Repo.powerSlider = null;
   }
@@ -134,7 +134,7 @@ public class GUI extends JPanel implements Runnable {
    * Create buttons for gaming
    */
   private void createButtonInGame() {
-    Repo.restartButton = new RestartButton(new CoordinateInt(25, 25), 100, 100);
+    Repo.restartButton = new RestartButton(new CoordinateInt(25, 25), 100, 100, "RESET");
     Repo.powerSlider = new PowerSlider(new CoordinateInt(25, 170), 150, 30);
     Repo.newGameButton = null;
     Repo.exitButton = null;
@@ -409,13 +409,16 @@ public class GUI extends JPanel implements Runnable {
     running = false;
     darkenImage(0.5f);
 
-    Tools.drawStringWithOutline("Game Over", WIDTH / 2 - 200, HEIGHT / 2 - 100,
-        new Font("Serif", Font.BOLD, 70), 10, Color.WHITE, Color.BLACK, graph);
+    final int borderX = WIDTH / 2 - 230;
+    final int borderY = HEIGHT / 2 - 120;
 
-    Tools.drawStringWithOutline("Score: " + Info.getScore(), WIDTH / 2 - 200, HEIGHT / 2 - 30,
+    Tools.drawStringWithOutline("Game Over", borderX, borderY, new Font("Serif", Font.BOLD, 70), 10,
+        Color.WHITE, Color.BLACK, graph);
+
+    Tools.drawStringWithOutline("Score: " + Info.getScore(), borderX, borderY + 70,
         new Font("Arial", Font.BOLD, 40), 15, Color.WHITE, Color.BLACK, graph);
 
-    Tools.drawStringWithOutline("Press any key to continue", WIDTH / 2 - 200, HEIGHT / 2 + 30,
+    Tools.drawStringWithOutline("Press any key to continue", borderX, borderY + 130,
         new Font("Arial", Font.BOLD, 40), 15, Color.WHITE, Color.BLACK, graph);
 
   }
@@ -477,6 +480,7 @@ public class GUI extends JPanel implements Runnable {
    * Draw title screen to temp graph
    */
   public void drawTitleScreen() {
+    // TODO: change drawTitleScreen()
     graph.drawImage(Info.getBackgroundImage(), getX(), getY(), WIDTH, HEIGHT, null);
     // graph.setColor(new Color(0, 0, 0));
     // graph.fillRect(0, 0, 1300, 800);
@@ -488,22 +492,24 @@ public class GUI extends JPanel implements Runnable {
     // shadow
     graph.setColor(Color.gray);
     graph.drawString(text, x + 5, y + 5);
+
     // main color
     graph.setColor(Color.white);
     graph.drawString(text, x, y);
-    // menu
-    graph.setFont(graph.getFont().deriveFont(Font.BOLD, 48F));
-    text = "NEW GAME";
-    x = 450;
-    y = 550;
-    graph.drawString(text, x, y);
-    // Repo.newGameButton = new NewGameButton(new CoordinateInt(x, y-10), 300, 100);
 
-    text = "EXIT";
-    x = 450;
-    y = 650;
-    graph.drawString(text, x, y);
-    // Repo.exitButton = new ExitButton(new CoordinateInt(x, y-10), 300, 100);
+
+    // // menu
+    // graph.setFont(graph.getFont().deriveFont(Font.BOLD, 48F));
+    // text = "NEW GAME";
+    // x = 450;
+    // y = 550;
+    // graph.drawString(text, x, y);
+
+    // graph.setColor(Color.white);
+    // text = "EXIT";
+    // x = 450;
+    // y = 650;
+    // graph.drawString(text, x, y);
 
     drawObject(Repo.newGameButton, graph);
     drawObject(Repo.exitButton, graph);

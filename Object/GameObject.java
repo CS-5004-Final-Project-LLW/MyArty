@@ -3,6 +3,7 @@ package Object;
 import java.awt.Graphics2D;
 import Coordinate.CoordinateInt;
 import Main.GUI;
+import Main.Info;
 
 /**
  * An abstarct class for GameObject like Cannon, Target, Bullet and so on
@@ -96,6 +97,7 @@ public abstract class GameObject {
             }
         }
     }
+
 
     public abstract boolean update();
 
