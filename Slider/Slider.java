@@ -59,7 +59,7 @@ public abstract class Slider extends GameObject {
     @Override
     public void draw(Graphics2D graph) {
         /* Draw slider */
-        graph.setColor(Color.GRAY);
+        graph.setColor(Color.BLUE);
         graph.fillRect(getX(), getY(), width, height);
 
         /* Draw bar */
@@ -69,7 +69,7 @@ public abstract class Slider extends GameObject {
         graph.drawImage(Info.getSliderImage(), barX,barY, barWidth, barHeight,null);
 
         /* Draw string */
-        Tools.drawStringWithOutline(words, getX(), getY() - height,
+        Tools.drawStringWithOutline(words, getX(), getY() + 2*height,
                 new Font("Calibri", Font.BOLD, 25), 20, Color.WHITE, Color.BLACK, graph);
     }
 }
