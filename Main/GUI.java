@@ -203,9 +203,14 @@ public class GUI extends JPanel implements Runnable {
       createButtonInWelcome();
     }
 
-    /* Update and draw buttons and texts */
+    /* Update buttons and texts */
     updateObject(Repo.exitButton);
     updateObject(Repo.newGameButton);
+
+    // Soft reset mouse and keyboard status
+    clearMouseAndKeyboard();
+
+    /* Draw buttons and texts */
     drawTitleScreen();
 
     /* Refresh screen */
@@ -243,9 +248,6 @@ public class GUI extends JPanel implements Runnable {
 
     // Update life and score
     checkAll();
-
-    // Clear mouse status
-    Info.setClicking(false);
 
     // Refresh Screen
     showAll();
