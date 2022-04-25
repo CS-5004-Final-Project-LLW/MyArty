@@ -7,7 +7,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.awt.image.RescaleOp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import javax.swing.JPanel;
 import Button.ExitButton;
@@ -33,8 +35,8 @@ public class GUI extends JPanel implements Runnable {
   private boolean running;
 
   // temp image
-  private final BufferedImage image;
-  private final Graphics2D graph;
+  private BufferedImage image;
+  private Graphics2D graph;
 
   // thread for printing debugging info
   private Thread debugThread;
@@ -63,8 +65,7 @@ public class GUI extends JPanel implements Runnable {
 
     /* Get a black image */
     image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-    graph = (Graphics2D) image.getGraphics();
-    graph.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+    graph = Tools.generateGraph(image);
 
     /* Add mouse listener */
     mouseCapturer = new MouseCapturer();
@@ -345,7 +346,10 @@ public class GUI extends JPanel implements Runnable {
       Info.setLife(Info.getLife() - 1);
       // check remained life
       if (Info.getLife() <= 0) {
+        /* Draw game over */
         drawGameOver();
+        /* Wait and then restart */
+        pauseAndRestart();
       }
     }
   }
@@ -403,6 +407,7 @@ public class GUI extends JPanel implements Runnable {
    */
   void drawGameOver() {
     running = false;
+    darkenImage(0.5f);
 
     Tools.drawStringWithOutline("Game Over", WIDTH / 2 - 200, HEIGHT / 2 - 100,
         new Font("Serif", Font.BOLD, 70), 10, Color.WHITE, Color.BLACK, graph);
@@ -410,8 +415,26 @@ public class GUI extends JPanel implements Runnable {
     Tools.drawStringWithOutline("Score: " + Info.getScore(), WIDTH / 2 - 200, HEIGHT / 2 - 50,
         new Font("Arial", Font.BOLD, 40), 15, Color.WHITE, Color.BLACK, graph);
 
-    /* Wait and then restart */
-    pauseAndRestart();
+  }
+
+  /**
+   * Darken current image
+   * 
+   * @param factor
+   */
+  private void darkenImage(float factor) {
+    /* Set rendering hints */
+    HashMap<java.awt.RenderingHints.Key, Object> hints = new HashMap<>();
+    hints.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+    hints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+
+    /* Rescale image */
+    RescaleOp op = new RescaleOp(factor, 0, new RenderingHints(hints));
+    this.image = op.filter(image, null);
+
+    /* Set graph */
+    this.graph = Tools.generateGraph(this.image);
+
   }
 
 

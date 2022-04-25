@@ -103,9 +103,24 @@ public class Tools {
     static Target generateTarget() {
         // x should be at the right screen
         int x = GUI.WIDTH * 9 / 10 - new Random().nextInt(GUI.WIDTH * 3 / 10);
-        int y =  new Random().nextInt(GUI.HEIGHT * 3 / 4);
+        int y = new Random().nextInt(GUI.HEIGHT * 3 / 4);
 
         Target target = new Target(new CoordinateInt(x, y), 100, 100);
         return target;
     }
+
+    /**
+     * Generate a graph from specified image with rendering hints
+     * 
+     * @param image a BufferImage
+     * @return a graph from specified image with rendering hints
+     */
+    public static Graphics2D generateGraph(BufferedImage image) {
+        Graphics2D graph = (Graphics2D) image.getGraphics();
+        graph.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        // graph.setRenderingHint(RenderingHints.KEY_RENDERING,
+        // RenderingHints.VALUE_RENDER_QUALITY);
+        return graph;
+    }
+
 }
