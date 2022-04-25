@@ -69,7 +69,7 @@ public abstract class Slider extends GameObject {
         graph.drawImage(Info.getSliderImage(), barX,barY, barWidth, barHeight,null);
 
         /* Draw string */
-        Tools.drawStringWithOutline(words, getX(), getY() - height,
+        Tools.drawStringWithOutline(words, getX(), getY() + 2*height,
                 new Font("Calibri", Font.BOLD, 25), 20, Color.WHITE, Color.BLACK, graph);
     }
 }

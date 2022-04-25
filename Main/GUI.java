@@ -128,8 +128,8 @@ public class GUI extends JPanel implements Runnable {
    * Create buttons for gaming
    */
   private void createButtonInGame() {
-    Repo.restartButton = new RestartButton(new CoordinateInt(25, 25), 80, 80);
-    Repo.powerSlider = new PowerSlider(new CoordinateInt(50, 150), 100, 20);
+    Repo.restartButton = new RestartButton(new CoordinateInt(25, 25), 100, 100);
+    Repo.powerSlider = new PowerSlider(new CoordinateInt(25, 170), 150, 30);
     Repo.newGameButton = null;
     Repo.exitButton = null;
   }
@@ -344,7 +344,6 @@ public class GUI extends JPanel implements Runnable {
   /**
    * Draw all objects and buttons
    * 
-   * @param graph
    */
   private void drawAll() {
     // Draw background
