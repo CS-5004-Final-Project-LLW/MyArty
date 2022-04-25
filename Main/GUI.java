@@ -74,6 +74,7 @@ public class GUI extends JPanel implements Runnable {
     printDebugInfo();
   }
 
+
   /**
    * Load all images from files
    */
@@ -95,6 +96,7 @@ public class GUI extends JPanel implements Runnable {
     createButtonInWelcome();
   }
 
+
   /**
    * Create objects
    */
@@ -103,6 +105,7 @@ public class GUI extends JPanel implements Runnable {
     Repo.target = Tools.generateTarget();
     Repo.bullets = new HashSet<>();
   }
+
 
   /**
    * Create buttons for welcome page
@@ -145,79 +148,104 @@ public class GUI extends JPanel implements Runnable {
   }
 
 
+  /**
+   * Method for Runnable
+   */
   @Override
   public void run() {
     running = true;
+
+    /* Get a black image */
     image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
     Graphics2D graph = (Graphics2D) image.getGraphics();
     graph.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-    long startTime;
 
+    /* Main loop for all */
     while (true) {
+      long startTime = System.nanoTime();
+      final long timePerFrame = 1000 / fps;
+      long sleepTime, usedTime;
+
       if (running) {
-        startTime = System.nanoTime();
         if (Info.gameState == Info.TITLE_STATE) {
+          /* Title loop */
           gameLoopTitle();
         } else {
-          gameLoopPlay(graph, startTime);
+          /* Main loop */
+          gameLoopPlay(graph);
         }
-      } else {
-        Tools.sleepForMills(200);
       }
+
+      /* Wait for next frame */
+      usedTime = (System.nanoTime() - startTime) / 1000000;
+      // used for debugging
+      Info.addSleepTimes((int) usedTime);
+      sleepTime = Math.max(0, timePerFrame - usedTime);
+      Tools.sleepForMills(sleepTime);
     }
-
-
   }
 
 
   /**
-   * @param graph
-   * @param startTime
+   * Title loop body.
+   * <p>
+   * Do not place any {@Code sleep()} method inside.
    */
-  private void gameLoopPlay(Graphics2D graph, long startTime) {
-    final long timePerFrame = 1000 / fps;
-    long sleepTime;
-    long usedTime;
-    if (Info.gameState != Info.previousState) {
-      Info.previousState = Info.gameState;
-      createButtonInGame();
-      Info.hardReset();
-    }
-
-    // ------ main thread ------ //
-    updateAll();
-    drawAll(graph);
-    showAll();
-
-    Info.setClicking(false);
-    checkAll();
-    // ---- main thread end ---- //
-
-    usedTime = (System.nanoTime() - startTime) / 1000000;
-    // used for debugging
-    Info.addSleepTimes((int) usedTime);
-    sleepTime = Math.max(0, timePerFrame - usedTime);
-
-    Tools.sleepForMills(sleepTime);
-  }
-
   private void gameLoopTitle() {
+    /* Check transition */
     if (Info.gameState != Info.previousState) {
       Info.previousState = Info.gameState;
+      /* Create buttons only for welcome page */
       createButtonInWelcome();
     }
+
+    /* Update and draw buttons and texts */
     updateObject(Repo.exitButton);
     updateObject(Repo.newGameButton);
     drawTitleScreen();
 
+    /* Refresh screen */
+    showAll();
+  }
+
+
+  /**
+   * Main game loop body
+   * <p>
+   * Do not place any {@Code sleep()} method inside.
+   * 
+   * @param graph
+   * @param startTime
+   */
+  private void gameLoopPlay(Graphics2D graph) {
+    /* Check transition */
+    if (Info.gameState != Info.previousState) {
+      Info.previousState = Info.gameState;
+      /* Create buttons only for gaming */
+      createButtonInGame();
+      /* Reset all */
+      Info.hardReset();
+    }
+
+    // Update objects and buttons
+    updateAll();
+    // Draw objects and buttons
+    drawAll(graph);
+
+    // Refresh Screen
     showAll();
 
-    Tools.sleepForMills(1 / getFps());
+    // Clear mouse status
+    Info.setClicking(false);
+    /* Update life and score */
+    checkAll();
   }
 
 
 
   /**
+   * Update object if not null
+   * 
    * @param object
    * @return boolean
    */
@@ -225,7 +253,9 @@ public class GUI extends JPanel implements Runnable {
     return object != null && object.update();
   }
 
-
+  /**
+   * Update all objects and buttons exclusing life and score counter
+   */
   private void updateAll() {
     /* Update cannon */
     updateObject(Repo.cannon);
@@ -257,6 +287,9 @@ public class GUI extends JPanel implements Runnable {
     updateObject(Repo.powerSlider);
   }
 
+  /**
+   * Check life, score, hit and miss
+   */
   private void checkAll() {
     /* Deal with Hit */
     if (Info.isHitTarget()) {
@@ -292,6 +325,8 @@ public class GUI extends JPanel implements Runnable {
 
 
   /**
+   * Draw object if not null
+   * 
    * @param object
    * @param graph
    */
@@ -303,10 +338,12 @@ public class GUI extends JPanel implements Runnable {
 
 
   /**
+   * Draw all objects and buttons
+   * 
    * @param graph
    */
   private void drawAll(Graphics2D graph) {
-    // Background
+    // Draw background
     graph.drawImage(Info.getBackgroundImage(), getX(), getY(), WIDTH, HEIGHT, null);
 
     // Game objects
@@ -321,6 +358,11 @@ public class GUI extends JPanel implements Runnable {
     drawObject(Repo.powerSlider, graph);
   }
 
+  /**
+   * Refresh screen
+   * <p>
+   * Image will not be updated on the screen until this method called
+   */
   public void showAll() {
     Graphics tempGraph = this.getGraphics();
     tempGraph.drawImage(image, 0, 0, null);
@@ -343,7 +385,11 @@ public class GUI extends JPanel implements Runnable {
     pauseAndRestart();
   }
 
+  /**
+   * Wait for seconds and then restart game
+   */
   private void pauseAndRestart() {
+    // Use a new thread to avoid clogging
     new Thread(new Runnable() {
       @Override
       public void run() {
@@ -361,6 +407,9 @@ public class GUI extends JPanel implements Runnable {
     }).start();
   }
 
+  /**
+   * Draw title screen to temp graph
+   */
   public void drawTitleScreen() {
     Graphics2D tempGraph = (Graphics2D) image.createGraphics();
     tempGraph.setColor(new Color(0, 0, 0));
