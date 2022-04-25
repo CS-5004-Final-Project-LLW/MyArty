@@ -33,7 +33,8 @@ public class GUI extends JPanel implements Runnable {
   private boolean running;
 
   // temp image
-  private BufferedImage image;
+  private final BufferedImage image;
+  private final Graphics2D graph;
 
   // thread for printing debugging info
   private Thread debugThread;
@@ -58,6 +59,11 @@ public class GUI extends JPanel implements Runnable {
     setPreferredSize(new Dimension(width, height));
     setFocusable(true);
     requestFocus();
+
+    /* Get a black image */
+    image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+    graph = (Graphics2D) image.getGraphics();
+    graph.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
     /* Add mouse listener */
     mouseCapturer = new MouseCapturer();
@@ -155,11 +161,6 @@ public class GUI extends JPanel implements Runnable {
   @Override
   public void run() {
     running = true;
-
-    /* Get a black image */
-    image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-    Graphics2D graph = (Graphics2D) image.getGraphics();
-    graph.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
     /* Main loop for all */
     while (true) {
@@ -346,7 +347,6 @@ public class GUI extends JPanel implements Runnable {
    * @param graph
    */
   private void drawAll() {
-    Graphics2D graph = (Graphics2D) image.getGraphics();
     // Draw background
     graph.drawImage(Info.getBackgroundImage(), getX(), getY(), WIDTH, HEIGHT, null);
 
@@ -382,13 +382,11 @@ public class GUI extends JPanel implements Runnable {
   void drawGameOver() {
     running = false;
 
-    Graphics2D tempGraph = (Graphics2D) image.getGraphics();
-
     Tools.drawStringWithOutline("Game Over", WIDTH / 2 - 200, HEIGHT / 2 - 100,
-        new Font("Serif", Font.BOLD, 70), 10, Color.WHITE, Color.BLACK, tempGraph);
+        new Font("Serif", Font.BOLD, 70), 10, Color.WHITE, Color.BLACK, graph);
 
     Tools.drawStringWithOutline("Score: " + Info.getScore(), WIDTH / 2 - 200, HEIGHT / 2 - 50,
-        new Font("Arial", Font.BOLD, 40), 15, Color.WHITE, Color.BLACK, tempGraph);
+        new Font("Arial", Font.BOLD, 40), 15, Color.WHITE, Color.BLACK, graph);
 
     /* Wait and then restart */
     pauseAndRestart();
@@ -422,36 +420,35 @@ public class GUI extends JPanel implements Runnable {
    * Draw title screen to temp graph
    */
   public void drawTitleScreen() {
-    Graphics2D tempGraph = (Graphics2D) image.createGraphics();
-    tempGraph.setColor(new Color(0, 0, 0));
-    tempGraph.fillRect(0, 0, 1300, 800);
+    graph.setColor(new Color(0, 0, 0));
+    graph.fillRect(0, 0, 1300, 800);
     // title name
-    tempGraph.setFont(tempGraph.getFont().deriveFont(Font.BOLD, 96F));
+    graph.setFont(graph.getFont().deriveFont(Font.BOLD, 96F));
     String text = "AAA Game";
     int x = 370;
     int y = 230;
     // shadow
-    tempGraph.setColor(Color.gray);
-    tempGraph.drawString(text, x + 5, y + 5);
+    graph.setColor(Color.gray);
+    graph.drawString(text, x + 5, y + 5);
     // main color
-    tempGraph.setColor(Color.white);
-    tempGraph.drawString(text, x, y);
+    graph.setColor(Color.white);
+    graph.drawString(text, x, y);
     // menu
-    tempGraph.setFont(tempGraph.getFont().deriveFont(Font.BOLD, 48F));
+    graph.setFont(graph.getFont().deriveFont(Font.BOLD, 48F));
     text = "NEW GAME";
     x = 450;
     y = 550;
-    tempGraph.drawString(text, x, y);
+    graph.drawString(text, x, y);
     // Repo.newGameButton = new NewGameButton(new CoordinateInt(x, y-10), 300, 100);
 
     text = "EXIT";
     x = 450;
     y = 650;
-    tempGraph.drawString(text, x, y);
+    graph.drawString(text, x, y);
     // Repo.exitButton = new ExitButton(new CoordinateInt(x, y-10), 300, 100);
 
-    drawObject(Repo.newGameButton, tempGraph);
-    drawObject(Repo.exitButton, tempGraph);
+    drawObject(Repo.newGameButton, graph);
+    drawObject(Repo.exitButton, graph);
 
   }
 
