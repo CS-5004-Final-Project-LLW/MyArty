@@ -474,13 +474,14 @@ public class GUI extends JPanel implements Runnable {
    * Draw title screen to temp graph
    */
   public void drawTitleScreen() {
-    graph.setColor(new Color(0, 0, 0));
-    graph.fillRect(0, 0, 1300, 800);
+    graph.drawImage(Info.getBackgroundImage(), getX(), getY(), WIDTH, HEIGHT, null);
+    // graph.setColor(new Color(0, 0, 0));
+    // graph.fillRect(0, 0, 1300, 800);
     // title name
-    graph.setFont(graph.getFont().deriveFont(Font.BOLD, 96F));
-    String text = "AAA Game";
+    graph.setFont(graph.getFont().deriveFont(Font.BOLD, 92F));
+    String text = "FLAGGY PIG";
     int x = 370;
-    int y = 230;
+    int y = 250;
     // shadow
     graph.setColor(Color.gray);
     graph.drawString(text, x + 5, y + 5);
