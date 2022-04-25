@@ -86,7 +86,7 @@ public class GUI extends JPanel implements Runnable {
    */
   private void loadAllImage() {
     Info.setBackgroundImage(Tools.loadImage("res/background.png"));
-    Info.setBulletImage(Tools.loadImage("res/ball.png"));
+    Info.setBulletImage(Tools.loadImage("res/apple.png"));
     Info.setCannonImage(Tools.loadImage("res/cannon2.png"));
     Info.setCannonBaseImage(Tools.loadImage("res/cannon1.png"));
     Info.setTargetImage(Tools.loadImage("res/flyingPig.png"));
