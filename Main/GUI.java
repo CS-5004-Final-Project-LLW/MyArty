@@ -410,7 +410,7 @@ public class GUI extends JPanel implements Runnable {
         running = true;
 
         /* Print debug info */
-        if (DebugInfo.isRunning()) {
+        if (DebugInfo.isDebugging()) {
           System.out.println("Set to True");
         }
       }

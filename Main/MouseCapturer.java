@@ -4,6 +4,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+/**
+ * Mouse Capturer class refractoring from `GUI`
+ */
 class MouseCapturer implements MouseListener, MouseMotionListener {
 
     @Override

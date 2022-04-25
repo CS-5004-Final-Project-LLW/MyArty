@@ -31,7 +31,7 @@ public class Bullet extends GameObject {
         this.speedX = velocity * Math.cos(degreeToRadian(degree));
         this.speedY = velocity * Math.sin(degreeToRadian(degree));
         this.radius = radius;
-        if (DebugInfo.isRunning()) {
+        if (DebugInfo.isDebugging()) {
             System.out.println("New Bullet %d %d %.2f %.2f %d".formatted(coordinate.x, coordinate.y,
                     power, degree, radius));
         }
