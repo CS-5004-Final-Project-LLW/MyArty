@@ -123,6 +123,8 @@ public class GUI extends JPanel implements Runnable {
    * Create buttons for welcome page
    */
   private void createButtonInWelcome() {
+    // TODO: change position
+    // TODO: extract to `Tools` or `Factory`
     Repo.newGameButton = new NewGameButton(new CoordinateInt(450, 550), 400, 100, "NEW GAME");
     Repo.exitButton = new ExitButton(new CoordinateInt(450, 650), 400, 100, "EXIT");
     Repo.restartButton = null;
@@ -497,20 +499,7 @@ public class GUI extends JPanel implements Runnable {
     graph.setColor(Color.white);
     graph.drawString(text, x, y);
 
-
-    // // menu
-    // graph.setFont(graph.getFont().deriveFont(Font.BOLD, 48F));
-    // text = "NEW GAME";
-    // x = 450;
-    // y = 550;
-    // graph.drawString(text, x, y);
-
-    // graph.setColor(Color.white);
-    // text = "EXIT";
-    // x = 450;
-    // y = 650;
-    // graph.drawString(text, x, y);
-
+    /* Draw buttons */
     drawObject(Repo.newGameButton, graph);
     drawObject(Repo.exitButton, graph);
 
