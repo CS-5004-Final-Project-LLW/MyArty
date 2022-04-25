@@ -32,6 +32,8 @@ public class Info {
     private static BufferedImage targetImage;
     private static BufferedImage resetButtonImage;
     private static BufferedImage sliderImage;
+    private static BufferedImage heartImage;
+    private static BufferedImage heartEmptyImage;
 
     /* Player statics */
     private static final int DEFAULT_LIFE = 5;
@@ -154,6 +156,27 @@ public class Info {
     public static void setTargetImage(BufferedImage targetImage) {
         Info.targetImage = targetImage;
     }
+
+
+    public static BufferedImage getHeartImage() {
+        return heartImage;
+    }
+
+
+    public static void setHeartImage(BufferedImage heartImage) {
+        Info.heartImage = heartImage;
+    }
+
+
+    public static BufferedImage getHeartEmptyImage() {
+        return heartEmptyImage;
+    }
+
+
+    public static void setHeartEmptyImage(BufferedImage heartEmptyImage) {
+        Info.heartEmptyImage = heartEmptyImage;
+    }
+
 
     public static BufferedImage getResetButtonImage() {
         return resetButtonImage;

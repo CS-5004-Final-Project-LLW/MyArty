@@ -18,6 +18,7 @@ import Button.RestartButton;
 import Coordinate.CoordinateInt;
 import Object.Bullet;
 import Object.GameObject;
+import Object.Heart;
 import Slider.PowerSlider;
 
 /**
@@ -93,6 +94,8 @@ public class GUI extends JPanel implements Runnable {
   private void loadAllImage() {
     Info.setBackgroundImage(Tools.loadImage("res/background.png"));
     Info.setBulletImage(Tools.loadImage("res/apple.png"));
+    Info.setHeartImage(Tools.loadImage("res/heart1.png"));
+    Info.setHeartEmptyImage(Tools.loadImage("res/heart2.png"));
     Info.setCannonImage(Tools.loadImage("res/cannon2.png"));
     Info.setCannonBaseImage(Tools.loadImage("res/cannon1.png"));
     Info.setTargetImage(Tools.loadImage("res/flyingPig.png"));
@@ -115,6 +118,7 @@ public class GUI extends JPanel implements Runnable {
   private void createObject() {
     Repo.cannon = Tools.generateCannon();
     Repo.target = Tools.generateTarget();
+    Repo.heart = Tools.generateHeart();
     Repo.bullets = new HashSet<>();
   }
 
@@ -279,7 +283,7 @@ public class GUI extends JPanel implements Runnable {
   private boolean updateObject(GameObject object) {
     return object != null && object.update();
   }
-
+  
 
   /**
    * Update all objects and buttons exclusing life and score counter
@@ -379,6 +383,7 @@ public class GUI extends JPanel implements Runnable {
     // Game objects
     drawObject(Repo.cannon, graph);
     drawObject(Repo.target, graph);
+    drawObject(Repo.heart, graph);
     for (Bullet bullet : Repo.bullets) {
       drawObject(bullet, graph);
     }
@@ -475,11 +480,9 @@ public class GUI extends JPanel implements Runnable {
    */
   public void drawTitleScreen() {
     graph.drawImage(Info.getBackgroundImage(), getX(), getY(), WIDTH, HEIGHT, null);
-    // graph.setColor(new Color(0, 0, 0));
-    // graph.fillRect(0, 0, 1300, 800);
     // title name
     graph.setFont(graph.getFont().deriveFont(Font.BOLD, 92F));
-    String text = "FLAGGY PIG";
+    String text = "FLAPPY PIG";
     int x = 370;
     int y = 250;
     // shadow
@@ -494,13 +497,11 @@ public class GUI extends JPanel implements Runnable {
     x = 450;
     y = 550;
     graph.drawString(text, x, y);
-    // Repo.newGameButton = new NewGameButton(new CoordinateInt(x, y-10), 300, 100);
 
     text = "EXIT";
     x = 450;
     y = 650;
     graph.drawString(text, x, y);
-    // Repo.exitButton = new ExitButton(new CoordinateInt(x, y-10), 300, 100);
 
     drawObject(Repo.newGameButton, graph);
     drawObject(Repo.exitButton, graph);
