@@ -64,7 +64,7 @@ public class Cannon extends GameObject {
     /* Create bullets */
     int range = 400;
     if (Info.isClicking() && Repo.isReadyForShot() && Math.sqrt(dx * dx + dy * dy) < range) {
-      CoordinateInt bulletPoint = new CoordinateInt(centerX, centerY);
+      CoordinateInt bulletPoint = new CoordinateInt(centerX , centerY-100);
       Repo.bullets.add(new Bullet(bulletPoint, Info.powerValue, Info.angleValue, 25));
     }
 
@@ -83,7 +83,7 @@ public class Cannon extends GameObject {
 
   private AffineTransform getTransformation() {
     AffineTransform at = new AffineTransform();
-    at.translate(getX(), getY());
+    at.translate(getX() + 15, getY());
     at.rotate(Info.getRotateDegree());
     at.scale(3, 3);
     at.translate(-10, -10);

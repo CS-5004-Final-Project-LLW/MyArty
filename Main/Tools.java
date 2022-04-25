@@ -79,7 +79,7 @@ public class Tools {
     static Cannon generateCannon() {
         // x should be at the left screen
         int x = new Random().nextInt(GUI.WIDTH * 3 / 10);
-        int y = GUI.HEIGHT * 4 / 5;
+        int y = GUI.HEIGHT * 3 / 4;
         Cannon cannon = new Cannon(new CoordinateInt(x, y), 150, 50, 80, 60);
         return cannon;
     }
@@ -92,7 +92,7 @@ public class Tools {
     static Target generateTarget() {
         // x should be at the right screen
         int x = GUI.WIDTH * 9 / 10 - new Random().nextInt(GUI.WIDTH * 3 / 10);
-        int y = GUI.HEIGHT * 9 / 10 - new Random().nextInt(GUI.HEIGHT * 3 / 10);
+        int y =  new Random().nextInt(GUI.HEIGHT * 3 / 4);
 
         Target target = new Target(new CoordinateInt(x, y), 100, 100);
         return target;
