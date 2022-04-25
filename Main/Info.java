@@ -15,6 +15,11 @@ public class Info {
     private static int cursorX = 0;
     private static int cursorY = 0;
 
+    /* Keyboard status */
+    private static boolean keyPressed = false;
+    private static boolean keyReleased = false;
+    private static boolean keyEntered = false;
+
     /* Debugging for time per frame. Working as a queue */
     private static ArrayList<Integer> sleepTimeRecord = new ArrayList<>();
     private static double rotateDegree = 0;
@@ -256,6 +261,37 @@ public class Info {
     static void resetLife() {
         setLife(DEFAULT_LIFE);
     }
+
+
+    public static boolean isKeyPressed() {
+        return keyPressed;
+    }
+
+
+    static void setKeyPressed(boolean keyPressed) {
+        Info.keyPressed = keyPressed;
+    }
+
+
+    public static boolean isKeyReleased() {
+        return keyReleased;
+    }
+
+
+    static void setKeyReleased(boolean keyReleased) {
+        Info.keyReleased = keyReleased;
+    }
+
+
+    public static boolean isKeyEntered() {
+        return keyEntered;
+    }
+
+
+    static void setKeyTyped(boolean keyEntered) {
+        Info.keyEntered = keyEntered;
+    }
+
 
     /**
      * Reset most of parameters but retain angel, power and cursor.

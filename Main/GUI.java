@@ -178,6 +178,8 @@ public class GUI extends JPanel implements Runnable {
         }
       }
 
+
+
       /* Wait for next frame */
       usedTime = (System.nanoTime() - startTime) / 1000000;
       // used for debugging
@@ -219,6 +221,7 @@ public class GUI extends JPanel implements Runnable {
    * @param graph
    * @param startTime
    */
+  // TODO: remove graph parameter
   private void gameLoopPlay(Graphics2D graph) {
     /* Check transition */
     if (Info.gameState != Info.previousState) {
@@ -232,6 +235,9 @@ public class GUI extends JPanel implements Runnable {
     // Update objects and buttons
     updateAll();
 
+    // Soft reset mouse and keyboard status
+    clearMouseAndKeyboard();
+
     // Draw objects and buttons
     drawAll();
 
@@ -243,6 +249,20 @@ public class GUI extends JPanel implements Runnable {
 
     // Refresh Screen
     showAll();
+  }
+
+
+  /**
+   * Soft reset mouse and keyboard status.
+   * <p>
+   * Please note most of mouse and keyboard status will be cleared by their opposite.
+   * <p>
+   * For example, `mouse pressed` resets `mouse released` and vice versa.
+   */
+  private void clearMouseAndKeyboard() {
+    // Clear mouse status
+    Info.setClicking(false);
+    Info.setKeyTyped(false);
   }
 
 
