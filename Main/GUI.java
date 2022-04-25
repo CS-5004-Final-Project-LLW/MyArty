@@ -117,6 +117,7 @@ public class GUI extends JPanel implements Runnable {
     Repo.powerSlider = null;
   }
 
+
   /**
    * Create buttons for gaming
    */
@@ -244,7 +245,6 @@ public class GUI extends JPanel implements Runnable {
   }
 
 
-
   /**
    * Update object if not null
    * 
@@ -254,6 +254,7 @@ public class GUI extends JPanel implements Runnable {
   private boolean updateObject(GameObject object) {
     return object != null && object.update();
   }
+
 
   /**
    * Update all objects and buttons exclusing life and score counter
@@ -288,6 +289,7 @@ public class GUI extends JPanel implements Runnable {
     /* Update sliders */
     updateObject(Repo.powerSlider);
   }
+
 
   /**
    * Check life, score, hit and miss
@@ -325,7 +327,6 @@ public class GUI extends JPanel implements Runnable {
   }
 
 
-
   /**
    * Draw object if not null
    * 
@@ -361,18 +362,23 @@ public class GUI extends JPanel implements Runnable {
     drawObject(Repo.powerSlider, graph);
   }
 
+
   /**
    * Refresh screen
    * <p>
    * Image will not be updated on the screen until this method called
    */
   public void showAll() {
+    // Get real graph
     Graphics tempGraph = this.getGraphics();
     tempGraph.drawImage(image, 0, 0, null);
     tempGraph.dispose();
   }
 
 
+  /**
+   * Draw game-over screen
+   */
   void drawGameOver() {
     running = false;
 
@@ -387,6 +393,7 @@ public class GUI extends JPanel implements Runnable {
     /* Wait and then restart */
     pauseAndRestart();
   }
+
 
   /**
    * Wait for seconds and then restart game
@@ -409,6 +416,7 @@ public class GUI extends JPanel implements Runnable {
       }
     }).start();
   }
+
 
   /**
    * Draw title screen to temp graph
@@ -436,7 +444,6 @@ public class GUI extends JPanel implements Runnable {
     tempGraph.drawString(text, x, y);
     // Repo.newGameButton = new NewGameButton(new CoordinateInt(x, y-10), 300, 100);
 
-    text = "QUIT";
     text = "EXIT";
     x = 450;
     y = 650;
@@ -448,6 +455,10 @@ public class GUI extends JPanel implements Runnable {
 
   }
 
+
+  /**
+   * Method for JPanel
+   */
   @Override
   public void addNotify() {
     super.addNotify();
