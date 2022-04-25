@@ -23,9 +23,11 @@ public class DebugInfo implements Runnable {
         System.out.println(Info.getDebugInfo());
 
         StringBuffer sb = new StringBuffer();
-        for (int temp : Info.getSleepTimes()) {
-            sb.append(temp);
-            sb.append(" ");
+        if (Info.getSleepTimes() != null) {
+            for (int temp : Info.getSleepTimes()) {
+                sb.append(temp);
+                sb.append(" ");
+            }
         }
         System.out.println(sb.toString());
     }
