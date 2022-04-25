@@ -59,7 +59,7 @@ public abstract class Slider extends GameObject {
     @Override
     public void draw(Graphics2D graph) {
         /* Draw slider */
-        graph.setColor(Color.GRAY);
+        graph.setColor(Color.BLUE);
         graph.fillRect(getX(), getY(), width, height);
 
         /* Draw bar */
