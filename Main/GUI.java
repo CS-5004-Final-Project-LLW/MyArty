@@ -229,16 +229,18 @@ public class GUI extends JPanel implements Runnable {
 
     // Update objects and buttons
     updateAll();
-    // Draw objects and buttons
-    drawAll(graph);
 
-    // Refresh Screen
-    showAll();
+    // Draw objects and buttons
+    drawAll();
+
+    // Update life and score
+    checkAll();
 
     // Clear mouse status
     Info.setClicking(false);
-    /* Update life and score */
-    checkAll();
+
+    // Refresh Screen
+    showAll();
   }
 
 
@@ -342,7 +344,8 @@ public class GUI extends JPanel implements Runnable {
    * 
    * @param graph
    */
-  private void drawAll(Graphics2D graph) {
+  private void drawAll() {
+    Graphics2D graph = (Graphics2D) image.getGraphics();
     // Draw background
     graph.drawImage(Info.getBackgroundImage(), getX(), getY(), WIDTH, HEIGHT, null);
 
@@ -373,7 +376,7 @@ public class GUI extends JPanel implements Runnable {
   void drawGameOver() {
     running = false;
 
-    Graphics2D tempGraph = (Graphics2D) this.getGraphics();
+    Graphics2D tempGraph = (Graphics2D) image.getGraphics();
 
     Tools.drawStringWithOutline("Game Over", WIDTH / 2 - 200, HEIGHT / 2 - 100,
         new Font("Serif", Font.BOLD, 70), 10, Color.WHITE, Color.BLACK, tempGraph);
