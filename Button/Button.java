@@ -44,7 +44,7 @@ public abstract class Button extends GameObject {
     }
 
 
-    public boolean isPressed() {
+    public boolean isClicked() {
         return Info.isClicking() && Info.getCursorX() >= getX()
                 && Info.getCursorX() <= getX() + width && Info.getCursorY() >= getY()
                 && Info.getCursorY() <= getY() + height;

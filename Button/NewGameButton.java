@@ -14,7 +14,7 @@ public class NewGameButton extends Button {
 
     @Override
     public boolean update() {
-        if (isPressed()) {
+        if (isClicked()) {
             Info.gameState = Info.PLAY_STATE;
         }
         return true;

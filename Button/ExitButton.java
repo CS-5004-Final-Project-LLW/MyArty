@@ -13,7 +13,7 @@ public class ExitButton extends Button {
 
     @Override
     public boolean update() {
-        if (isPressed()) {
+        if (isClicked()) {
             System.exit(0);
         }
         return true;
