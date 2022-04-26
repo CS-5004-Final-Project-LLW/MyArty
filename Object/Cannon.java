@@ -7,8 +7,8 @@ import Coordinate.CoordinateInt;
 import Main.GUI;
 import Main.Info;
 import Main.Repo;
+import Main.Tools;
 import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 
 /** A class for Cannon */
 public class Cannon extends GameObject {
@@ -32,8 +32,6 @@ public class Cannon extends GameObject {
     this.cannonBaseWidth = cannonBaseWidth;
   }
 
-
-
   @Override
   protected void createBoundary() {
     setBoundary_min(new CoordinateInt(cannonWidth, GUI.HEIGHT / 2 + cannonHeight));
@@ -51,15 +49,14 @@ public class Cannon extends GameObject {
     double dx = Info.getCursorX() - centerX;
 
     double radian = Math.atan2(dy, dx);
-    Info.angleValue = (int) Tools.RadianToDegree(radian);
-    if (- Tools.RadianToDegree(radian) > 90.0) {
+    Info.angleValue = (int) Tools.radianToDegree(radian);
+    if (- Tools.radianToDegree(radian) > 90.0) {
       Info.setRotateDegree(Tools.degreeToRadian(-90));
-    } else if (- Tools.RadianToDegree(radian)< 0){
+    } else if (- Tools.radianToDegree(radian)< 0){
       Info.setRotateDegree(0);
     } else{
       Info.setRotateDegree(radian);
     }
-
 
     /* Create bullets */
     int range = 400;
