@@ -13,7 +13,6 @@ public abstract class GameObject {
     protected CoordinateInt boundary_min;
     protected CoordinateInt boundary_max;
 
-
     // subclass must impletment it to set a proper rectangle boundary for the object itself
     protected abstract void createBoundary();
 
@@ -104,3 +103,4 @@ public abstract class GameObject {
     public abstract void draw(Graphics2D graph);
 
 }
+

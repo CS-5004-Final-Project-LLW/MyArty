@@ -13,6 +13,8 @@ import java.util.HashMap;
 import javax.swing.JPanel;
 import Object.Bullet;
 import Object.GameObject;
+import Object.Heart;
+import Slider.PowerSlider;
 
 /**
  * The class for main panel
@@ -228,7 +230,7 @@ public class GUI extends JPanel implements Runnable {
   private boolean updateObject(GameObject object) {
     return object != null && object.update();
   }
-
+  
 
   /**
    * Update all objects and buttons exclusing life and score counter
@@ -328,6 +330,7 @@ public class GUI extends JPanel implements Runnable {
     // Game objects
     drawObject(Repo.cannon, graph);
     drawObject(Repo.target, graph);
+    drawObject(Repo.heart, graph);
     for (Bullet bullet : Repo.bullets) {
       drawObject(bullet, graph);
     }
@@ -335,6 +338,11 @@ public class GUI extends JPanel implements Runnable {
     drawObject(Repo.fireButton, graph);
     drawObject(Repo.restartButton, graph);
     drawObject(Repo.powerSlider, graph);
+
+    // Score display
+    Tools.drawStringWithOutline("Score: " + Info.getScore(), 1050, 25,
+    new Font("Arial", Font.BOLD, 40), 15, Color.WHITE, Color.BLACK, graph);
+
   }
 
 
@@ -429,15 +437,15 @@ public class GUI extends JPanel implements Runnable {
    * Draw title screen to temp graph
    */
   public void drawTitleScreen() {
-    // TODO: change drawTitleScreen()
+
     graph.drawImage(Info.getBackgroundImage(), getX(), getY(), WIDTH, HEIGHT, null);
-    // graph.setColor(new Color(0, 0, 0));
-    // graph.fillRect(0, 0, 1300, 800);
+    
     // title name
     graph.setFont(graph.getFont().deriveFont(Font.BOLD, 92F));
-    String text = "FLAGGY PIG";
-    int x = 370;
+    String text = "FLAPPY PIG";
+    int x = 380;
     int y = 250;
+
     // shadow
     graph.setColor(Color.gray);
     graph.drawString(text, x + 5, y + 5);
@@ -445,6 +453,21 @@ public class GUI extends JPanel implements Runnable {
     // main color
     graph.setColor(Color.white);
     graph.drawString(text, x, y);
+
+
+    // instructions
+    graph.setFont(graph.getFont().deriveFont(Font.ITALIC, 25));
+    String text2 = "*            Mouse Click: fire cannon        *";
+    String text3 = "*     Move Cursor: manage the angle    *";
+    String text4 = "*       Drag Slider: control the power     *";
+
+    // main color
+    graph.setColor(Color.white);
+    graph.drawString(text2, 400, 400);
+    graph.drawString(text3, 400, 430);
+    graph.drawString(text4, 400, 460);
+
+    
 
     /* Draw buttons */
     drawObject(Repo.newGameButton, graph);

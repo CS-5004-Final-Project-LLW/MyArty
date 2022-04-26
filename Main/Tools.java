@@ -17,6 +17,8 @@ import javax.imageio.ImageIO;
 import Coordinate.CoordinateInt;
 import Object.Cannon;
 import Object.Target;
+import Object.Heart;
+
 
 public class Tools {
 
@@ -109,6 +111,20 @@ public class Tools {
 
         Target target = new Target(new CoordinateInt(x, y), 100, 100);
         return target;
+    }
+
+    /**
+     * Create a Heart at a random position of the right screen
+     *
+     * @return Heart
+     */
+    static Heart generateHeart() {
+        // x should be at the right screen
+        int x = GUI.WIDTH * 9 / 10 - new Random().nextInt(GUI.WIDTH * 3 / 10);
+        int y = new Random().nextInt(GUI.HEIGHT * 3 / 4);
+
+        Heart heart = new Heart(new CoordinateInt(x, y), 100, 100);
+        return heart;
     }
 
     /**
