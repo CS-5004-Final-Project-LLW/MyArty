@@ -22,8 +22,8 @@ public class Heart extends GameObject {
 
     @Override
     protected void createBoundary() {
-        setBoundary_min(new CoordinateInt(GUI.WIDTH/2 + 30, 25));
-        setBoundary_max(new CoordinateInt(GUI.WIDTH/2 + 30, 25));
+        setBoundary_min(new CoordinateInt(GUI.WIDTH/2 + 30, 35));
+        setBoundary_max(new CoordinateInt(GUI.WIDTH/2 + 30, 35));
     }
 
 
