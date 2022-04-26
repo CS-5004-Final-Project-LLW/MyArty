@@ -36,7 +36,7 @@ public class Heart extends GameObject {
         BufferedImage heartEmptyImage = Info.getHeartEmptyImage();
         for(i = 0; i < Info.getLife(); i++){
             graph.drawImage(heartImage, x, getY(),50, 50,null);
-            x+=60;
+            x += 60;
         }
         for(i = Info.getLife(); i < 5; i++){
             graph.drawImage(heartEmptyImage, x, getY(),50,50,null);
