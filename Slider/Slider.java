@@ -6,9 +6,9 @@ import java.awt.Graphics2D;
 import Coordinate.CoordinateInt;
 import Main.Info;
 import Main.Tools;
-import Object.GameObject;
+import Object.AbstractGameObject;
 
-public abstract class Slider extends GameObject {
+public abstract class Slider extends AbstractGameObject {
     protected int width;
     protected int height;
 

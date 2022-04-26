@@ -11,7 +11,7 @@ import Main.Tools;
 import java.awt.geom.AffineTransform;
 
 /** A class for Cannon */
-public class Cannon extends GameObject {
+public class Cannon extends AbstractGameObject {
   /* A special number for gravity after a whole-night testing */
   CoordinateInt size;
   private int cannonWidth;

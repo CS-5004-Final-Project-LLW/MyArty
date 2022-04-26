@@ -7,13 +7,12 @@ import Coordinate.CoordinateInt;
 import Main.DebugInfo;
 import Main.GUI;
 import Main.Info;
-import Main.Tools;
 import java.awt.geom.AffineTransform;
 
 /**
  * A class for bullet
  */
-public class Bullet extends GameObject {
+public class Bullet extends AbstractGameObject {
     private double speedX;
     private double speedY;
     private double xPercent;

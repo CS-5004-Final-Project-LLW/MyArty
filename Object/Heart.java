@@ -10,7 +10,7 @@ import Main.Repo;
 /**
  * A class for Heart
  */
-public class Heart extends GameObject {
+public class Heart extends AbstractGameObject {
     private int width;
     private int height;
 
