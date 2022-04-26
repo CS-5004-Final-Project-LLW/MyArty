@@ -78,7 +78,7 @@ class ObjectFactory {
     Repo.exitButton = null;
     Repo.heart = generateHeart();
     Repo.angleTextField = generateAngleTextField();
-    Repo.background = generateBackgroundInGame();
+    Repo.backgroundInGame = generateBackgroundInGame();
   }
 
   private static GameObject generateBackgroundInGame() {
