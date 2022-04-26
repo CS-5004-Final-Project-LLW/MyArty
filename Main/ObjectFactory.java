@@ -15,11 +15,11 @@ import Slider.PowerSlider;
 class ObjectFactory {
 
   static ExitButton generateExitButton() {
-    return new ExitButton(new CoordinateInt(450, 650), 400, 100, "EXIT");
+    return new ExitButton(new CoordinateInt(580, 590), 400, 100, "EXIT");
   }
 
   static NewGameButton generateNewGameButton() {
-    return new NewGameButton(new CoordinateInt(450, 550), 400, 100, "NEW GAME");
+    return new NewGameButton(new CoordinateInt(505, 520), 400, 100, "NEW GAME");
   }
 
   static PowerSlider generatePowerSlider() {

@@ -495,6 +495,12 @@ public class GUI extends JPanel implements Runnable {
     graph.drawString(text3, 400, 430);
     graph.drawString(text4, 400, 460);
 
+    graph.setFont(graph.getFont().deriveFont(Font.PLAIN, 17));
+    String text5 = "Credit: This is the final project of CS5004 at Northeatern University, produced by Zhongyi Lu, Peiyao Li and Shasha Wang. We hope you enjoy the game!";
+    graph.setColor(Color.gray);
+    graph.drawString(text5, 30, 770);
+
+
 
 
     /* Draw buttons */
