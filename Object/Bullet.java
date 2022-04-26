@@ -1,5 +1,6 @@
 package Object;
 
+import Main.Tools;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import Coordinate.CoordinateInt;
@@ -31,25 +32,14 @@ public class Bullet extends GameObject {
         xPercent = (double) coordinate.x / GUI.WIDTH;
         yPercent = (double) coordinate.y / GUI.HEIGHT;
         double velocity = VELOCITY_SCALE * power;
-        this.speedX = velocity * Math.cos(degreeToRadian(degree));
-        this.speedY = velocity * Math.sin(degreeToRadian(degree));
+        this.speedX = velocity * Math.cos(Tools.degreeToRadian(degree));
+        this.speedY = velocity * Math.sin(Tools.degreeToRadian(degree));
         this.radius = radius;
         if (DebugInfo.isDebugging()) {
             System.out.println("New Bullet %d %d %.2f %.2f %d".formatted(coordinate.x, coordinate.y,
                     power, degree, radius));
         }
     }
-
-    /**
-     * Convert degree angle to radian
-     * 
-     * @param degree
-     * @return double radian
-     */
-    private double degreeToRadian(double degree) {
-        return degree * Math.PI / 180;
-    }
-
 
     @Override
     public void createBoundary() {

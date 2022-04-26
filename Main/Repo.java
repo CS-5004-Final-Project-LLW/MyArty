@@ -1,5 +1,6 @@
 package Main;
 
+import TextField.AngleTextField;
 import java.util.HashSet;
 import Button.Button;
 import Object.Bullet;
@@ -21,7 +22,9 @@ public class Repo {
     public static Button exitButton;
 
     public static Slider powerSlider;
+    public static AngleTextField angleTextField;
     public static HashSet<Bullet> bullets = new HashSet<>();
+
 
     public static final int MAX_BULLETS = 1;
 

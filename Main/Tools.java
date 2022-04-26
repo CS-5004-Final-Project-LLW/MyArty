@@ -130,22 +130,22 @@ public class Tools {
     }
 
     /**
-     * Convert degree angle to radian
+     * Convert degree radian to angle
      *
      * @param radian
-     * @return double radian
+     * @return double degree
      */
-    public static double RadianToDegree(double radian) {
-      return radian / Math.PI * 180;
+    public static double radianToDegree(double radian) {
+        return radian / Math.PI * 180;
     }
 
     /**
-     * Convert degree radian to degree
+     * Convert degree angle to radian
      *
      * @param degree
      * @return double radian
      */
-    public static double DegreeToRadian(double degree) {
+    public static double degreeToRadian(double degree) {
         return degree * Math.PI / 180;
-      }
+    }
 }
