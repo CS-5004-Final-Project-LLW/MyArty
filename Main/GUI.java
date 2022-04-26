@@ -393,6 +393,11 @@ public class GUI extends JPanel implements Runnable {
     drawObject(Repo.fireButton, graph);
     drawObject(Repo.restartButton, graph);
     drawObject(Repo.powerSlider, graph);
+
+    // Score display
+    Tools.drawStringWithOutline("Score: " + Info.getScore(), 1050, 65,
+    new Font("Arial", Font.BOLD, 40), 15, Color.WHITE, Color.BLACK, graph);
+
   }
 
 
