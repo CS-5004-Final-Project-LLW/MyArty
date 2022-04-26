@@ -129,4 +129,23 @@ public class Tools {
         return graph;
     }
 
+    /**
+     * Convert degree radian to angle
+     *
+     * @param radian
+     * @return double degree
+     */
+    public static double radianToDegree(double radian) {
+        return radian / Math.PI * 180;
+    }
+
+    /**
+     * Convert degree angle to radian
+     *
+     * @param degree
+     * @return double radian
+     */
+    public static double degreeToRadian(double degree) {
+        return degree * Math.PI / 180;
+    }
 }

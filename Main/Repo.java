@@ -1,9 +1,11 @@
 package Main;
 
+import TextField.AngleTextField;
 import java.util.HashSet;
 import Button.Button;
 import Object.Bullet;
 import Object.Cannon;
+import Object.GameObject;
 import Object.Target;
 import Object.Heart;
 import Slider.Slider;
@@ -21,7 +23,10 @@ public class Repo {
     public static Button exitButton;
 
     public static Slider powerSlider;
+    public static AngleTextField angleTextField;
     public static HashSet<Bullet> bullets = new HashSet<>();
+    public static GameObject backgroundInGame;
+
 
     public static final int MAX_BULLETS = 1;
 

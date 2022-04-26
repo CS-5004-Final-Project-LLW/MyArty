@@ -1,16 +1,17 @@
 package Object;
 
+import Main.Tools;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import Coordinate.CoordinateInt;
 import Main.GUI;
 import Main.Info;
 import Main.Repo;
+import Main.Tools;
 import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 
 /** A class for Cannon */
-public class Cannon extends GameObject {
+public class Cannon extends AbstractGameObject {
   /* A special number for gravity after a whole-night testing */
   CoordinateInt size;
   private int cannonWidth;
@@ -31,16 +32,6 @@ public class Cannon extends GameObject {
     this.cannonBaseWidth = cannonBaseWidth;
   }
 
-  /**
-   * Convert degree angle to radian
-   *
-   * @param radian
-   * @return double radian
-   */
-  private double RadianToDegree(double radian) {
-    return radian / Math.PI * 180;
-  }
-
   @Override
   protected void createBoundary() {
     setBoundary_min(new CoordinateInt(cannonWidth, GUI.HEIGHT / 2 + cannonHeight));
@@ -58,8 +49,14 @@ public class Cannon extends GameObject {
     double dx = Info.getCursorX() - centerX;
 
     double radian = Math.atan2(dy, dx);
-    Info.angleValue = (int) RadianToDegree(radian);
-    Info.setRotateDegree(radian);
+    Info.angleValue = (int) Tools.radianToDegree(radian);
+    if (- Tools.radianToDegree(radian) > 90.0) {
+      Info.setRotateDegree(Tools.degreeToRadian(-90));
+    } else if (- Tools.radianToDegree(radian)< 0){
+      Info.setRotateDegree(0);
+    } else{
+      Info.setRotateDegree(radian);
+    }
 
     /* Create bullets */
     int range = 400;
@@ -77,7 +74,7 @@ public class Cannon extends GameObject {
     BufferedImage cannonBaseImage = Info.getCannonBaseImage();
     AffineTransform at = getTransformation();
     graph.drawImage(cannonImage,at, null);
-    graph.drawImage(cannonBaseImage, getX(), getY()+20, cannonBaseWidth, cannonBaseHeight, null);
+    graph.drawImage(cannonBaseImage, getX(), getY()+15, cannonBaseWidth-10, cannonBaseHeight, null);
 
   }
 

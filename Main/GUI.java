@@ -160,6 +160,9 @@ public class GUI extends JPanel implements Runnable {
       ObjectFactory.createButtonInWelcome();
     }
 
+    /* Update background */
+    updateObject(Repo.backgroundInGame);
+
     /* Update buttons and texts */
     updateObject(Repo.exitButton);
     updateObject(Repo.newGameButton);
@@ -236,6 +239,9 @@ public class GUI extends JPanel implements Runnable {
    * Update all objects and buttons exclusing life and score counter
    */
   private void updateAll() {
+    /* Update background */
+    updateObject(Repo.backgroundInGame);
+
     /* Update cannon */
     updateObject(Repo.cannon);
 
@@ -261,6 +267,7 @@ public class GUI extends JPanel implements Runnable {
     /* Update buttons */
     updateObject(Repo.fireButton);
     updateObject(Repo.restartButton);
+    updateObject(Repo.angleTextField);
 
     /* Update sliders */
     updateObject(Repo.powerSlider);
@@ -341,7 +348,7 @@ public class GUI extends JPanel implements Runnable {
    */
   private void drawAll() {
     // Draw background
-    graph.drawImage(Info.getBackgroundImage(), getX(), getY(), WIDTH, HEIGHT, null);
+    drawObject(Repo.backgroundInGame, graph);
 
     // Game objects
     drawObject(Repo.cannon, graph);
@@ -351,6 +358,7 @@ public class GUI extends JPanel implements Runnable {
       drawObject(bullet, graph);
     }
 
+    drawObject(Repo.angleTextField, graph);
     drawObject(Repo.fireButton, graph);
     drawObject(Repo.restartButton, graph);
     drawObject(Repo.powerSlider, graph);

@@ -6,7 +6,7 @@ import Coordinate.CoordinateInt;
 /**
  * A class for Explosion
  */
-public class Explosion extends GameObject {
+public class Explosion extends AbstractGameObject {
 
     public Explosion(CoordinateInt coordinate) {
         super(coordinate);

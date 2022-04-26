@@ -6,9 +6,9 @@ import java.awt.Graphics2D;
 import Coordinate.CoordinateInt;
 import Main.Info;
 import Main.Tools;
-import Object.GameObject;
+import Object.AbstractGameObject;
 
-public abstract class Slider extends GameObject {
+public abstract class Slider extends AbstractGameObject {
     protected int width;
     protected int height;
 
@@ -68,8 +68,15 @@ public abstract class Slider extends GameObject {
         int barY = getY() + height / 2 - barHeight / 2;
         graph.drawImage(Info.getSliderImage(), barX, barY, barWidth, barHeight, null);
 
-        /* Draw string */
-        Tools.drawStringWithOutline(words, getX(), getY() + 2 * height - 30,
-                new Font("Calibri", Font.BOLD, 40), 20, Color.WHITE, Color.BLACK, graph);
-    }
+    /* Draw string */
+    Tools.drawStringWithOutline(
+        words,
+        getX(),
+        getY() + 2 * height - 30,
+        new Font("Calibri", Font.LAYOUT_LEFT_TO_RIGHT, 40),
+        20,
+        Color.WHITE,
+        Color.BLACK,
+        graph);
+  }
 }
