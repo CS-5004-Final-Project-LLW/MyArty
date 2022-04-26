@@ -1,5 +1,6 @@
 package Main;
 
+import TextField.AngleTextField;
 import java.util.HashSet;
 import java.util.Random;
 import Button.ExitButton;
@@ -21,6 +22,9 @@ class ObjectFactory {
 
   static PowerSlider generatePowerSlider() {
     return new PowerSlider(new CoordinateInt(25, 170), 150, 30);
+  }
+  static AngleTextField generateAngleTextField() {
+    return new AngleTextField(new CoordinateInt(25, 250), 100, 100);
   }
 
   static RestartButton generateRestartButton() {
@@ -70,6 +74,7 @@ class ObjectFactory {
     Repo.newGameButton = null;
     Repo.exitButton = null;
     Repo.heart = generateHeart();
+    Repo.angleTextField = generateAngleTextField();
   }
 
   /**

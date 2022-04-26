@@ -1,5 +1,6 @@
 package Object;
 
+import Main.Tools;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import Coordinate.CoordinateInt;
@@ -31,15 +32,7 @@ public class Cannon extends GameObject {
     this.cannonBaseWidth = cannonBaseWidth;
   }
 
-  /**
-   * Convert degree angle to radian
-   *
-   * @param radian
-   * @return double radian
-   */
-  private double RadianToDegree(double radian) {
-    return radian / Math.PI * 180;
-  }
+
 
   @Override
   protected void createBoundary() {
@@ -58,8 +51,15 @@ public class Cannon extends GameObject {
     double dx = Info.getCursorX() - centerX;
 
     double radian = Math.atan2(dy, dx);
-    Info.angleValue = (int) RadianToDegree(radian);
-    Info.setRotateDegree(radian);
+    Info.angleValue = (int) Tools.RadianToDegree(radian);
+    if (- Tools.RadianToDegree(radian) > 90.0) {
+      Info.setRotateDegree(Tools.degreeToRadian(-90));
+    } else if (- Tools.RadianToDegree(radian)< 0){
+      Info.setRotateDegree(0);
+    } else{
+      Info.setRotateDegree(radian);
+    }
+
 
     /* Create bullets */
     int range = 400;

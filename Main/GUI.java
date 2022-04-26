@@ -261,6 +261,7 @@ public class GUI extends JPanel implements Runnable {
     /* Update buttons */
     updateObject(Repo.fireButton);
     updateObject(Repo.restartButton);
+    updateObject(Repo.angleTextField);
 
     /* Update sliders */
     updateObject(Repo.powerSlider);
@@ -351,6 +352,7 @@ public class GUI extends JPanel implements Runnable {
       drawObject(bullet, graph);
     }
 
+    drawObject(Repo.angleTextField,graph);
     drawObject(Repo.fireButton, graph);
     drawObject(Repo.restartButton, graph);
     drawObject(Repo.powerSlider, graph);
