@@ -1,7 +1,9 @@
 package Button;
 
+import Coordinate.CoordinateAndSize;
 import Coordinate.CoordinateInt;
 import Main.Info;
+import Main.Tools;
 import java.awt.Graphics2D;
 
 public class RestartButton extends Button {
@@ -20,8 +22,16 @@ public class RestartButton extends Button {
 
     @Override
     public void draw(Graphics2D graph) {
-        graph.drawImage(Info.getResetButtonImage(), coordinate.x, coordinate.y, width, height,
-                null);
+        final double scaleFactor = 1.1;
+        if (isMouseHovered()) {
+            var scaledCAS = Tools.scaledImage(scaleFactor,
+                    new CoordinateAndSize(getX(), getY(), width, height));
+
+            graph.drawImage(Info.getResetButtonImage(), scaledCAS.x, scaledCAS.y, scaledCAS.width,
+                    scaledCAS.height, null);
+        } else {
+            graph.drawImage(Info.getResetButtonImage(), getX(), getY(), width, height, null);
+        }
     }
 
 

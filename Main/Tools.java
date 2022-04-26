@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 import javax.imageio.ImageIO;
+import Coordinate.CoordinateAndSize;
 import Coordinate.CoordinateInt;
 import Object.Cannon;
 import Object.Target;
@@ -148,4 +149,20 @@ public class Tools {
     public static double degreeToRadian(double degree) {
         return degree * Math.PI / 180;
     }
+
+    
+    public static CoordinateAndSize scaledImage(double scaleFactor, CoordinateAndSize cas) {
+        int x = cas.x;
+        int y = cas.y;
+        int width = cas.width;
+        int height = cas.height;
+        int newX = (int) (x + width / 2 * (1 - scaleFactor));
+        int newY = (int) (y + height / 2 * (1 - scaleFactor));
+        int newWidth = (int) (width * scaleFactor);
+        int newHeight = (int) (height * scaleFactor);
+        return new CoordinateAndSize(newX, newY, newWidth, newHeight);
+    }
 }
+
+
+

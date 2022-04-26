@@ -1,16 +1,16 @@
 package Background;
 
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import Coordinate.CoordinateInt;
 import Main.GUI;
 import Main.Info;
 import Object.AbstractGameObject;
 
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-
 public class BackgroundInGame extends AbstractGameObject {
     private double counter = 0;
+    private double cloudMovingSpeed = 60;
 
     public BackgroundInGame(CoordinateInt coordinate) {
         super(coordinate);
@@ -46,7 +46,7 @@ public class BackgroundInGame extends AbstractGameObject {
 
     @Override
     public boolean update() {
-        setCounter(counter + 1);
+        setCounter(counter + cloudMovingSpeed / GUI.getFps());
         return true;
     }
 
