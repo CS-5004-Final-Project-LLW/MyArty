@@ -15,6 +15,7 @@ import java.awt.geom.AffineTransform;
 public class Bullet extends AbstractGameObject {
     private static final double SLOW_FACTOR = 1.5;
     private static final double AIR_RESISTANCE = 0.999;
+    private static final double WIND_FACTOR = 0.5;
 
     private double speedX;
     private double speedY;
@@ -69,8 +70,11 @@ public class Bullet extends AbstractGameObject {
         coordinate.x = (int) (xPercent * GUI.WIDTH);
         coordinate.y = (int) (yPercent * GUI.HEIGHT);
         speedY += GRAVITY * timeInterval;
+
+        // TODO: consider timeInterval
         speedY *= AIR_RESISTANCE;
         speedX *= AIR_RESISTANCE;
+        speedX += Info.getWind() * WIND_FACTOR * timeInterval;
         boolean isInside = coordinate.x >= 0 && coordinate.x <= GUI.WIDTH && coordinate.y >= 0
                 && coordinate.y <= GUI.HEIGHT - 150;
         if (!isInside) {
