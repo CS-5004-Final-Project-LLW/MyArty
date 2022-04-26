@@ -509,6 +509,7 @@ public class GUI extends JPanel implements Runnable {
     graph.setColor(Color.white);
     graph.drawString(text, x, y);
 
+
     // instructions
     graph.setFont(graph.getFont().deriveFont(Font.ITALIC, 25));
     String text2 = "*            Mouse Click: fire cannon        *";
@@ -521,6 +522,7 @@ public class GUI extends JPanel implements Runnable {
     graph.drawString(text3, 400, 430);
     graph.drawString(text4, 400, 460);
 
+    
 
     /* Draw buttons */
     drawObject(Repo.newGameButton, graph);
