@@ -25,7 +25,7 @@ public class Repo {
     public static Slider powerSlider;
     public static AngleTextField angleTextField;
     public static HashSet<Bullet> bullets = new HashSet<>();
-    public static GameObject background;
+    public static GameObject backgroundInGame;
 
 
     public static final int MAX_BULLETS = 1;
