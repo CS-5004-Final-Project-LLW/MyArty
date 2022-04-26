@@ -494,11 +494,13 @@ public class GUI extends JPanel implements Runnable {
   public void drawTitleScreen() {
 
     graph.drawImage(Info.getBackgroundImage(), getX(), getY(), WIDTH, HEIGHT, null);
+    
     // title name
     graph.setFont(graph.getFont().deriveFont(Font.BOLD, 92F));
     String text = "FLAPPY PIG";
-    int x = 370;
+    int x = 380;
     int y = 250;
+
     // shadow
     graph.setColor(Color.gray);
     graph.drawString(text, x + 5, y + 5);
@@ -506,6 +508,21 @@ public class GUI extends JPanel implements Runnable {
     // main color
     graph.setColor(Color.white);
     graph.drawString(text, x, y);
+
+
+    // instructions
+    graph.setFont(graph.getFont().deriveFont(Font.ITALIC, 25));
+    String text2 = "*            Mouse Click: fire cannon        *";
+    String text3 = "*     Move Cursor: manage the angle    *";
+    String text4 = "*       Drag Slider: control the power     *";
+
+    // main color
+    graph.setColor(Color.white);
+    graph.drawString(text2, 400, 400);
+    graph.drawString(text3, 400, 430);
+    graph.drawString(text4, 400, 460);
+
+    
 
     /* Draw buttons */
     drawObject(Repo.newGameButton, graph);
