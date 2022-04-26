@@ -275,12 +275,16 @@ public class GUI extends JPanel implements Runnable {
   private void checkAll() {
     /* Deal with Hit */
     if (Info.isHitTarget()) {
+
       // set hitTarget to false
       Info.resetHitTarget();
+
       // add score
       Info.setScore(Info.getScore() + 10);
+
       // add life
       Info.setLife(Math.min(5, Info.getLife() + 1));
+
       // start a new round
       Info.restart = true;
     }
@@ -293,17 +297,24 @@ public class GUI extends JPanel implements Runnable {
 
     /* Update life */
     if (Info.isMissShot()) {
+
       // set missShot to false
       Info.resetMissShot();
+
       // reduce life
       Info.setLife(Info.getLife() - 1);
+
       // check remained life
       if (Info.getLife() <= 0) {
+        /* Pause the game */
+        running = false;
+
         /* Re-draw life */
-        // TODO: re-draw life
+        drawObject(Repo.heart, graph);
 
         /* Draw game over */
         drawGameOver();
+
         /* Wait and then restart */
         pauseAndRestart();
       }
@@ -368,7 +379,7 @@ public class GUI extends JPanel implements Runnable {
    * Draw game-over screen
    */
   void drawGameOver() {
-    running = false;
+
     darkenImage(0.5f);
 
     final int borderX = WIDTH / 2 - 230;

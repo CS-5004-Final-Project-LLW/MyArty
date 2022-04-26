@@ -82,10 +82,7 @@ class ObjectFactory {
     int x = GUI.WIDTH * 9 / 10 - new Random().nextInt(GUI.WIDTH * 3 / 10);
     int y = new Random().nextInt(GUI.HEIGHT * 3 / 4);
 
-    Heart heart = new Heart(new CoordinateInt(x, y), 100, 100);
+    return new Heart(new CoordinateInt(x, y), 100, 100);
 
-    // TODO
-    System.out.println("Heart created");
-    return heart;
   }
 }
