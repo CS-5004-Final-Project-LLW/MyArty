@@ -395,7 +395,7 @@ public class GUI extends JPanel implements Runnable {
     drawObject(Repo.powerSlider, graph);
 
     // Score display
-    Tools.drawStringWithOutline("Score: " + Info.getScore(), 1050, 65,
+    Tools.drawStringWithOutline("Score: " + Info.getScore(), 1050, 25,
     new Font("Arial", Font.BOLD, 40), 15, Color.WHITE, Color.BLACK, graph);
 
   }
@@ -505,18 +505,6 @@ public class GUI extends JPanel implements Runnable {
 
     // main color
     graph.setColor(Color.white);
-    graph.drawString(text, x, y);
-
-    // menu
-    graph.setFont(graph.getFont().deriveFont(Font.BOLD, 48F));
-    text = "NEW GAME";
-    x = 450;
-    y = 550;
-    graph.drawString(text, x, y);
-
-    text = "EXIT";
-    x = 450;
-    y = 650;
     graph.drawString(text, x, y);
 
     /* Draw buttons */
