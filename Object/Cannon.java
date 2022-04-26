@@ -19,11 +19,7 @@ public class Cannon extends AbstractGameObject {
   private int cannonBaseWidth;
   private int cannonBaseHeight;
 
-  public Cannon(
-      CoordinateInt coordinate,
-      int cannonWidth,
-      int cannonHeight,
-      int cannonBaseWidth,
+  public Cannon(CoordinateInt coordinate, int cannonWidth, int cannonHeight, int cannonBaseWidth,
       int cannonBaseHeight) {
     super(coordinate);
     this.cannonWidth = cannonWidth;
@@ -49,19 +45,20 @@ public class Cannon extends AbstractGameObject {
     double dx = Info.getCursorX() - centerX;
 
     double radian = Math.atan2(dy, dx);
+    // TODO: angleValue should be valid too
     Info.angleValue = (int) Tools.radianToDegree(radian);
-    if (- Tools.radianToDegree(radian) > 90.0) {
+    if (-Tools.radianToDegree(radian) > 90.0) {
       Info.setRotateDegree(Tools.degreeToRadian(-90));
-    } else if (- Tools.radianToDegree(radian)< 0){
+    } else if (-Tools.radianToDegree(radian) < 0) {
       Info.setRotateDegree(0);
-    } else{
+    } else {
       Info.setRotateDegree(radian);
     }
 
     /* Create bullets */
     int range = 400;
     if (Info.isClicking() && Repo.isReadyForShot() && Math.sqrt(dx * dx + dy * dy) < range) {
-      CoordinateInt bulletPoint = new CoordinateInt(centerX , centerY-100);
+      CoordinateInt bulletPoint = new CoordinateInt(centerX, centerY - 100);
       Repo.bullets.add(new Bullet(bulletPoint, Info.powerValue, Info.angleValue, 25));
     }
 
@@ -73,8 +70,9 @@ public class Cannon extends AbstractGameObject {
     BufferedImage cannonImage = Info.getCannonImage();
     BufferedImage cannonBaseImage = Info.getCannonBaseImage();
     AffineTransform at = getTransformation();
-    graph.drawImage(cannonImage,at, null);
-    graph.drawImage(cannonBaseImage, getX(), getY()+20, cannonBaseWidth, cannonBaseHeight, null);
+    graph.drawImage(cannonImage, at, null);
+    graph.drawImage(cannonBaseImage, getX(), getY() + 15, cannonBaseWidth - 10, cannonBaseHeight,
+        null);
 
   }
 
