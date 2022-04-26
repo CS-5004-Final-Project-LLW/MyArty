@@ -101,30 +101,34 @@ class ObjectFactory {
 
   }
 
-/**
- * Create a target at a random position of the right screen
- *
- * @return Target
- */
-static Target generateTarget() {
+  /**
+   * Create a target at a random position of the right screen
+   *
+   * @return Target
+   */
+  static Target generateTarget() {
     // x should be at the right screen
     int x = GUI.WIDTH * 9 / 10 - new Random().nextInt(GUI.WIDTH * 3 / 10);
     int y = GUI.HEIGHT * 1 / 4 + new Random().nextInt(GUI.HEIGHT / 2);
 
     Target target = new Target(new CoordinateInt(x, y), 100, 100);
     return target;
-}
+  }
 
-/**
- * Create a cannon at a random position of the left screen
- *
- * @return Cannon
- */
-static Cannon generateCannon() {
+  /**
+   * Create a cannon at a random position of the left screen
+   *
+   * @return Cannon
+   */
+  static Cannon generateCannon() {
     // x should be at the left screen
     int x = new Random().nextInt(GUI.WIDTH * 3 / 10);
     int y = GUI.HEIGHT * 3 / 4;
     Cannon cannon = new Cannon(new CoordinateInt(x, y), 150, 50, 80, 60);
     return cannon;
-}
+  }
+
+  static double generateRandomWind() {
+    return new Random().nextDouble(Info.MIN_WIND, Info.MAX_WIND);
+  }
 }

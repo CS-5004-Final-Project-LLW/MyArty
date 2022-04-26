@@ -130,7 +130,7 @@ public class Tools {
         return new CoordinateAndSize(newX, newY, newWidth, newHeight);
     }
 
-    public void printStackTrace() {
+    public static void printStackTrace() {
         try {
             throw new IllegalStateException();
         } catch (IllegalStateException e) {

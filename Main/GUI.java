@@ -125,6 +125,9 @@ public class GUI extends JPanel implements Runnable {
       final long timePerFrame = 1000 / fps;
       long sleepTime, usedTime;
 
+      /* Update game counter */
+      Info.addCounter();
+
       if (running) {
         if (Info.gameState == Info.TITLE_STATE) {
           /* Title loop */
@@ -134,8 +137,6 @@ public class GUI extends JPanel implements Runnable {
           gameLoopPlay();
         }
       }
-
-
 
       /* Wait for next frame */
       usedTime = (System.nanoTime() - startTime) / 1000000;
@@ -239,6 +240,7 @@ public class GUI extends JPanel implements Runnable {
    * Update all objects and buttons exclusing life and score counter
    */
   private void updateAll() {
+
     /* Update background */
     updateObject(Repo.backgroundInGame);
 
@@ -261,8 +263,12 @@ public class GUI extends JPanel implements Runnable {
     /* Update target */
     if (!updateObject(Repo.target)) {
       Info.resetFreeze();
-      /* If target deleted, renew both target and cannon */
+
+      /* Renew both target and cannon */
       ObjectFactory.createObject();
+
+      /* Update wind speed */
+      Info.setWind(ObjectFactory.generateRandomWind());
     }
 
     /* Update buttons */
@@ -297,9 +303,10 @@ public class GUI extends JPanel implements Runnable {
 
     /* Restart if hits */
     if (Info.restart) {
+      // TODO: never used?
       Info.restart = false;
-      Info.softReset();
       ObjectFactory.createObject();
+
     }
 
     /* Update life */
@@ -313,6 +320,9 @@ public class GUI extends JPanel implements Runnable {
 
       // reduce life
       Info.setLife(Info.getLife() - 1);
+
+      /* Update wind speed */
+      Info.setWind(ObjectFactory.generateRandomWind());
 
       // check remained life
       if (Info.getLife() <= 0) {
@@ -496,10 +506,10 @@ public class GUI extends JPanel implements Runnable {
     graph.drawString(text4, 400, 460);
 
     graph.setFont(graph.getFont().deriveFont(Font.PLAIN, 17));
-    String text5 = "Credit: This is the final project of CS5004 at Northeatern University, produced by Zhongyi Lu, Peiyao Li and Shasha Wang. We hope you enjoy the game!";
+    String text5 =
+        "Credit: This is the final project of CS5004 at Northeatern University, produced by Zhongyi Lu, Peiyao Li and Shasha Wang. We hope you enjoy the game!";
     graph.setColor(Color.gray);
     graph.drawString(text5, 30, 770);
-
 
 
 
