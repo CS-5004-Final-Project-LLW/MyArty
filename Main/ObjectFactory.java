@@ -3,10 +3,12 @@ package Main;
 import TextField.AngleTextField;
 import java.util.HashSet;
 import java.util.Random;
+import Background.BackgroundInGame;
 import Button.ExitButton;
 import Button.NewGameButton;
 import Button.RestartButton;
 import Coordinate.CoordinateInt;
+import Object.GameObject;
 import Object.Heart;
 import Slider.PowerSlider;
 
@@ -23,6 +25,7 @@ class ObjectFactory {
   static PowerSlider generatePowerSlider() {
     return new PowerSlider(new CoordinateInt(25, 170), 150, 30);
   }
+
   static AngleTextField generateAngleTextField() {
     return new AngleTextField(new CoordinateInt(25, 250), 100, 100);
   }
@@ -75,6 +78,11 @@ class ObjectFactory {
     Repo.exitButton = null;
     Repo.heart = generateHeart();
     Repo.angleTextField = generateAngleTextField();
+    Repo.background = generateBackgroundInGame();
+  }
+
+  private static GameObject generateBackgroundInGame() {
+    return new BackgroundInGame(new CoordinateInt(0, 0));
   }
 
   /**

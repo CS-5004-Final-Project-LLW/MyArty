@@ -12,8 +12,9 @@ public abstract class AbstractGameObject implements GameObject {
     protected CoordinateInt boundary_min;
     protected CoordinateInt boundary_max;
 
-    // subclass must impletment it to set a proper rectangle boundary for the object itself
-    protected abstract void createBoundary();
+    protected void createBoundary() {
+        createNullBoundary();
+    }
 
 
     public CoordinateInt getBoundary_min() {
