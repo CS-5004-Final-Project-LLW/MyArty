@@ -251,7 +251,6 @@ public class GUI extends JPanel implements Runnable {
       // if update() return false, remove the object itself
       if (!updateObject(bullet)) {
         removedBullet.add(bullet);
-        Repo.target = Tools.generateTarget();
       }
     }
 
@@ -261,7 +260,9 @@ public class GUI extends JPanel implements Runnable {
 
     /* Update target */
     if (!updateObject(Repo.target)) {
-      Repo.target = null;
+      Info.resetFreeze();
+      /* If target deleted, renew both target and cannon */
+      ObjectFactory.createObject();
     }
 
     /* Update buttons */
@@ -292,13 +293,12 @@ public class GUI extends JPanel implements Runnable {
       // add life
       Info.setLife(Math.min(5, Info.getLife() + 1));
 
-      // start a new round
-      Info.restart = true;
     }
 
     /* Restart if hits */
     if (Info.restart) {
       Info.restart = false;
+      Info.softReset();
       ObjectFactory.createObject();
     }
 
@@ -307,6 +307,9 @@ public class GUI extends JPanel implements Runnable {
 
       // set missShot to false
       Info.resetMissShot();
+
+      /* make a new target */
+      Repo.target = Tools.generateTarget();
 
       // reduce life
       Info.setLife(Info.getLife() - 1);
@@ -447,6 +450,7 @@ public class GUI extends JPanel implements Runnable {
         /* Set value to default */
         Info.softReset();
         running = true;
+        Info.restart = true;
 
         /* Print debug info */
         if (DebugInfo.isDebugging()) {

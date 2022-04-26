@@ -107,6 +107,7 @@ public class Tools {
      */
     static Target generateTarget() {
         // x should be at the right screen
+        // TODO: need a change
         int x = GUI.WIDTH * 9 / 10 - new Random().nextInt(GUI.WIDTH * 3 / 10);
         int y = new Random().nextInt(GUI.HEIGHT * 3 / 4);
 
@@ -150,7 +151,7 @@ public class Tools {
         return degree * Math.PI / 180;
     }
 
-    
+
     public static CoordinateAndSize scaledImage(double scaleFactor, CoordinateAndSize cas) {
         int x = cas.x;
         int y = cas.y;
@@ -162,7 +163,14 @@ public class Tools {
         int newHeight = (int) (height * scaleFactor);
         return new CoordinateAndSize(newX, newY, newWidth, newHeight);
     }
-}
 
+    public void printStackTrace() {
+        try {
+            throw new IllegalStateException();
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        }
+    }
+}
 
 

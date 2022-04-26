@@ -55,6 +55,7 @@ public class Info {
     public final static int PAUSE_STATE = 2;
     public static int gameState = TITLE_STATE;
 
+    private static boolean freezed = false;
 
 
     public static boolean isPressed() {
@@ -239,6 +240,7 @@ public class Info {
      */
     public static void Hit() {
         hitTarget = true;
+        freezed = true;
     }
 
     /**
@@ -316,11 +318,25 @@ public class Info {
     }
 
 
+    public static boolean isFreezed() {
+        return freezed;
+    }
+
+
+    public static void freeze() {
+        freezed = true;
+    }
+
+    static void resetFreeze() {
+        freezed = false;
+    }
+
+
     /**
      * Reset most of parameters but retain angel, power and cursor.
      */
     static void softReset() {
-        restart = true;
+        freezed = false;
         resetScore();
         resetLife();
         dragging = false;
