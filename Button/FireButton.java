@@ -4,12 +4,9 @@ import Coordinate.CoordinateInt;
 
 public class FireButton extends Button {
 
-    public FireButton(CoordinateInt coordinate, int width, int height) {
-        super(coordinate, width, height);
+
+    public FireButton(CoordinateInt coordinate, int width, int height, String text) {
+        super(coordinate, width, height, text);
     }
 
-    @Override
-    public boolean update() {
-        return true;
-    }
 }

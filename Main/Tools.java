@@ -39,11 +39,13 @@ public class Tools {
             Color outlineColor, Color fontColor, Graphics2D graph) {
         FontRenderContext renderer = graph.getFontRenderContext();
         TextLayout textlayout = new TextLayout(string, font, renderer);
-        Shape shape = textlayout.getOutline(AffineTransform.getTranslateInstance(x, y));
+        final int magicNumber = 50; // I do not know why but it works
+        Shape shape =
+                textlayout.getOutline(AffineTransform.getTranslateInstance(x, y + magicNumber));
 
         RenderingHints hintsBackup = graph.getRenderingHints();
-
         graph.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+
         graph.setColor(outlineColor);
         graph.setStroke(new BasicStroke(font.getSize2D() / scale));
         graph.draw(shape);

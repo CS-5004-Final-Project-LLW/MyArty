@@ -4,11 +4,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import Coordinate.CoordinateInt;
+import Main.Tools;
 
 public class ExitButton extends Button {
 
-    public ExitButton(CoordinateInt coordinate, int width, int height) {
-        super(coordinate, width, height);
+
+
+    public ExitButton(CoordinateInt coordinate, int width, int height, String text) {
+        super(coordinate, width, height, text);
     }
 
     @Override
@@ -20,7 +23,7 @@ public class ExitButton extends Button {
     }
 
     @Override
-    public void draw(Graphics2D graph) {}
-
-
+    public void draw(Graphics2D graph) {
+        super.draw(graph);
+    }
 }

@@ -29,10 +29,10 @@ public class PowerSlider extends Slider {
     @Override
     public void draw(Graphics2D graph) {
         super.draw(graph);
-        Font pf = new Font("Calibri", Font.LAYOUT_LEFT_TO_RIGHT, 30);
+        Font pf = new Font("Calibri", Font.LAYOUT_LEFT_TO_RIGHT, 40);
 
         /* Draw string */
         Tools.drawStringWithOutline(String.valueOf(Info.powerValue) + "%", getX() + width + 15,
-                getY() + 20, pf, 15, Color.WHITE, Color.RED, graph);
+                getY() -25, pf, 15, Color.WHITE, Color.RED, graph);
     }
 }

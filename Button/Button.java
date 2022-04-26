@@ -1,20 +1,24 @@
 package Button;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import Coordinate.CoordinateInt;
 import Main.Info;
+import Main.Tools;
 import Object.GameObject;
 
 public abstract class Button extends GameObject {
 
     protected int width;
     protected int height;
+    protected String text;
 
-    public Button(CoordinateInt coordinate, int width, int height) {
+    public Button(CoordinateInt coordinate, int width, int height, String text) {
         super(coordinate);
         this.width = width;
         this.height = height;
+        this.text = text;
     }
 
     @Override
@@ -29,8 +33,15 @@ public abstract class Button extends GameObject {
 
     @Override
     public void draw(Graphics2D graph) {
-        graph.setColor(Color.blue);
-        graph.fillRect(coordinate.x, coordinate.y, 100, 40);
+
+        final int offset = 2;
+        if (isMouseHovered()) {
+            Tools.drawStringWithOutline(text, getX() + offset, getY(),
+                    new Font("Arial", Font.BOLD, 48), 12, Color.BLUE, Color.WHITE, graph);
+        } else {
+            Tools.drawStringWithOutline(text, getX(), getY(), new Font("Arial", Font.BOLD, 48), 12,
+                    Color.WHITE, Color.BLACK, graph);
+        }
 
     }
 
@@ -43,11 +54,15 @@ public abstract class Button extends GameObject {
         return height;
     }
 
+    protected boolean isMouseHovered() {
+        return Info.getCursorX() >= getX() && Info.getCursorX() <= getX() + width
+                && Info.getCursorY() >= getY() && Info.getCursorY() <= getY() + height;
+    }
 
     public boolean isClicked() {
-        return Info.isClicking() && Info.getCursorX() >= getX()
-                && Info.getCursorX() <= getX() + width && Info.getCursorY() >= getY()
-                && Info.getCursorY() <= getY() + height;
+        return Info.isClicking() && isMouseHovered();
     }
+
+
 
 }
