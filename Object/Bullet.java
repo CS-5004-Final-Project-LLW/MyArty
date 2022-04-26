@@ -59,6 +59,7 @@ public class Bullet extends AbstractGameObject {
     @Override
     public boolean update() {
         setSpinAngle(spinAngle - 0.1);
+        // TODO: what about making bullets slower
         double timeInterval = (double) 1 / GUI.getFps();
         xPercent += speedX * timeInterval;
         yPercent += speedY * timeInterval;
