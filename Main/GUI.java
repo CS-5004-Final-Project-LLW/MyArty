@@ -10,15 +10,9 @@ import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import javax.swing.JPanel;
-import Button.ExitButton;
-import Button.NewGameButton;
-import Button.RestartButton;
-import Coordinate.CoordinateInt;
 import Object.Bullet;
 import Object.GameObject;
-import Slider.PowerSlider;
 
 /**
  * The class for main panel
@@ -77,7 +71,7 @@ public class GUI extends JPanel implements Runnable {
     addKeyListener(keyboardListener);
 
     /* Load images from files */
-    loadAllImage();
+    ObjectFactory.loadAllImage();
 
     /* Create objects and buttons */
     start();
@@ -88,58 +82,11 @@ public class GUI extends JPanel implements Runnable {
 
 
   /**
-   * Load all images from files
-   */
-  private void loadAllImage() {
-    Info.setBackgroundImage(Tools.loadImage("res/background.png"));
-    Info.setBulletImage(Tools.loadImage("res/apple.png"));
-    Info.setCannonImage(Tools.loadImage("res/cannon2.png"));
-    Info.setCannonBaseImage(Tools.loadImage("res/cannon1.png"));
-    Info.setTargetImage(Tools.loadImage("res/flyingPig.png"));
-    Info.setResetButtonImage(Tools.loadImage("res/bluereset.png"));
-    Info.setSliderImage(Tools.loadImage("res/bulletSlide.png"));
-  }
-
-  /**
    * Create objects and buttons
    */
   private void start() {
-    createObject();
-    createButtonInWelcome();
-  }
-
-
-  /**
-   * Create objects
-   */
-  private void createObject() {
-    Repo.cannon = Tools.generateCannon();
-    Repo.target = Tools.generateTarget();
-    Repo.bullets = new HashSet<>();
-  }
-
-
-  /**
-   * Create buttons for welcome page
-   */
-  private void createButtonInWelcome() {
-    // TODO: change position
-    // TODO: extract to `Tools` or `Factory`
-    Repo.newGameButton = new NewGameButton(new CoordinateInt(450, 550), 400, 100, "NEW GAME");
-    Repo.exitButton = new ExitButton(new CoordinateInt(450, 650), 400, 100, "EXIT");
-    Repo.restartButton = null;
-    Repo.powerSlider = null;
-  }
-
-
-  /**
-   * Create buttons for gaming
-   */
-  private void createButtonInGame() {
-    Repo.restartButton = new RestartButton(new CoordinateInt(25, 25), 100, 100, "RESET");
-    Repo.powerSlider = new PowerSlider(new CoordinateInt(25, 170), 150, 30);
-    Repo.newGameButton = null;
-    Repo.exitButton = null;
+    ObjectFactory.createObject();
+    ObjectFactory.createButtonInWelcome();
   }
 
 
@@ -208,7 +155,7 @@ public class GUI extends JPanel implements Runnable {
     if (Info.gameState != Info.previousState) {
       Info.previousState = Info.gameState;
       /* Create buttons only for welcome page */
-      createButtonInWelcome();
+      ObjectFactory.createButtonInWelcome();
     }
 
     /* Update buttons and texts */
@@ -236,7 +183,7 @@ public class GUI extends JPanel implements Runnable {
     if (Info.gameState != Info.previousState) {
       Info.previousState = Info.gameState;
       /* Create buttons only for gaming */
-      createButtonInGame();
+      ObjectFactory.createButtonInGame();
       /* Reset all */
       Info.hardReset();
     }
@@ -337,7 +284,7 @@ public class GUI extends JPanel implements Runnable {
     /* Restart if hits */
     if (Info.restart) {
       Info.restart = false;
-      createObject();
+      ObjectFactory.createObject();
     }
 
     /* Update life */
