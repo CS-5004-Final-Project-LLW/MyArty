@@ -139,4 +139,13 @@ public class Tools {
       return radian / Math.PI * 180;
     }
 
+    /**
+     * Convert degree radian to degree
+     *
+     * @param degree
+     * @return double radian
+     */
+    public static double DegreeToRadian(double degree) {
+        return degree * Math.PI / 180;
+      }
 }

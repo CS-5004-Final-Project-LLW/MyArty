@@ -6,6 +6,8 @@ import Coordinate.CoordinateInt;
 import Main.DebugInfo;
 import Main.GUI;
 import Main.Info;
+import Main.Tools;
+import java.awt.geom.AffineTransform;
 
 /**
  * A class for bullet
@@ -18,6 +20,7 @@ public class Bullet extends GameObject {
     private static double GRAVITY = 0.5;
     private static double VELOCITY_SCALE = 0.01;
     private int radius;
+    private double spinAngle;
 
     public int getRadius() {
         return radius;
@@ -55,23 +58,42 @@ public class Bullet extends GameObject {
 
     @Override
     public void draw(Graphics2D graph) {
-        BufferedImage image = Info.getBulletImage();
-        graph.drawImage(image, getX(), getY(), 70, 70, null);
+        BufferedImage bulletImage = Info.getBulletImage();
+        var tempImage = new BufferedImage(bulletImage.getWidth(), bulletImage.getHeight(),
+                bulletImage.getType());
+        tempImage.createGraphics().drawImage(bulletImage, getRotation(), null);
+
+        graph.drawImage(tempImage, getX(), getY(), 70, 70, null);
+
     }
 
     @Override
     public boolean update() {
+        setSpinAngle(spinAngle - 0.1);
         double timeInterval = (double) 1 / GUI.getFps();
         xPercent += speedX * timeInterval;
         yPercent += speedY * timeInterval;
         coordinate.x = (int) (xPercent * GUI.WIDTH);
         coordinate.y = (int) (yPercent * GUI.HEIGHT);
         speedY += GRAVITY * timeInterval;
-        boolean isInside =  coordinate.x >= 0 && coordinate.x <= GUI.WIDTH && coordinate.y >= 0
-                && coordinate.y <= GUI.HEIGHT-150 ;
-        if (!isInside){
+        boolean isInside = coordinate.x >= 0 && coordinate.x <= GUI.WIDTH && coordinate.y >= 0
+                && coordinate.y <= GUI.HEIGHT - 150;
+        if (!isInside) {
             Info.miss();
         }
         return isInside;
     }
+
+    public void setSpinAngle(double spinAngleDegree) {
+        this.spinAngle = spinAngleDegree % 360;
+    }
+
+
+    private AffineTransform getRotation() {
+        BufferedImage bulletImage = Info.getBulletImage();
+        AffineTransform at = new AffineTransform();
+        at.rotate(spinAngle, bulletImage.getWidth() / 2, bulletImage.getHeight() / 2);
+        return at;
+    }
+
 }
