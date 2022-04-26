@@ -31,10 +31,7 @@ public class BackgroundInGame extends AbstractGameObject {
         Image backgroundImage = Info.getBackgroundImage();
 
         // Normal background
-        graph.drawImage(backgroundImage, getCounter() / GUI.getFps() % 2, 0, GUI.WIDTH, GUI.HEIGHT,
-                null);
-        graph.drawImage(backgroundImage, getCounter() / GUI.getFps() % 2 - GUI.WIDTH, 0, GUI.WIDTH,
-                GUI.HEIGHT, null);
+        graph.drawImage(backgroundImage, 0, 0, GUI.WIDTH, GUI.HEIGHT, null);
 
         /* Cut background */
         BufferedImage buffer = new BufferedImage(GUI.WIDTH, cutX, BufferedImage.TYPE_INT_RGB);
