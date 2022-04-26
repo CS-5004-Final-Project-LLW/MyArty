@@ -2,7 +2,7 @@ package Main;
 
 public class DebugInfo implements Runnable {
     private int timeIntervalMill = 1000;
-    private static boolean debugging = true;
+    private static boolean debugging = false;
 
     @Override
     public void run() {

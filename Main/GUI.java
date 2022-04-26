@@ -184,10 +184,10 @@ public class GUI extends JPanel implements Runnable {
     /* Check transition */
     if (Info.gameState != Info.previousState) {
       Info.previousState = Info.gameState;
-      /* Create buttons only for gaming */
-      ObjectFactory.createButtonInGame();
       /* Reset all */
       Info.hardReset();
+      /* Create buttons only for gaming */
+      ObjectFactory.createButtonInGame();
     }
 
     // Update objects and buttons
@@ -230,7 +230,7 @@ public class GUI extends JPanel implements Runnable {
   private boolean updateObject(GameObject object) {
     return object != null && object.update();
   }
-  
+
 
   /**
    * Update all objects and buttons exclusing life and score counter
@@ -264,6 +264,8 @@ public class GUI extends JPanel implements Runnable {
 
     /* Update sliders */
     updateObject(Repo.powerSlider);
+
+    updateObject(Repo.heart);
   }
 
 
@@ -297,6 +299,9 @@ public class GUI extends JPanel implements Runnable {
       Info.setLife(Info.getLife() - 1);
       // check remained life
       if (Info.getLife() <= 0) {
+        /* Re-draw life */
+        // TODO: re-draw life
+
         /* Draw game over */
         drawGameOver();
         /* Wait and then restart */
@@ -330,7 +335,7 @@ public class GUI extends JPanel implements Runnable {
     // Game objects
     drawObject(Repo.cannon, graph);
     drawObject(Repo.target, graph);
-    drawObject(Repo.heart, graph);
+
     for (Bullet bullet : Repo.bullets) {
       drawObject(bullet, graph);
     }
@@ -341,8 +346,8 @@ public class GUI extends JPanel implements Runnable {
 
     // Score display
     Tools.drawStringWithOutline("Score: " + Info.getScore(), 1050, 25,
-    new Font("Arial", Font.BOLD, 40), 15, Color.WHITE, Color.BLACK, graph);
-
+        new Font("Arial", Font.BOLD, 40), 15, Color.WHITE, Color.BLACK, graph);
+    drawObject(Repo.heart, graph);
   }
 
 
@@ -439,7 +444,7 @@ public class GUI extends JPanel implements Runnable {
   public void drawTitleScreen() {
 
     graph.drawImage(Info.getBackgroundImage(), getX(), getY(), WIDTH, HEIGHT, null);
-    
+
     // title name
     graph.setFont(graph.getFont().deriveFont(Font.BOLD, 92F));
     String text = "FLAPPY PIG";
@@ -467,7 +472,7 @@ public class GUI extends JPanel implements Runnable {
     graph.drawString(text3, 400, 430);
     graph.drawString(text4, 400, 460);
 
-    
+
 
     /* Draw buttons */
     drawObject(Repo.newGameButton, graph);
