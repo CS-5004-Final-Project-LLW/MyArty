@@ -13,6 +13,7 @@ import java.awt.geom.AffineTransform;
  * A class for bullet
  */
 public class Bullet extends AbstractGameObject {
+    private static final double SLOW_FACTOR = 1.5;
     private double speedX;
     private double speedY;
     private double xPercent;
@@ -60,7 +61,7 @@ public class Bullet extends AbstractGameObject {
     public boolean update() {
         setSpinAngle(spinAngle - 0.1);
         // TODO: what about making bullets slower
-        double timeInterval = (double) 1 / GUI.getFps();
+        double timeInterval = (double) 1 / GUI.getFps() / SLOW_FACTOR;
         xPercent += speedX * timeInterval;
         yPercent += speedY * timeInterval;
         coordinate.x = (int) (xPercent * GUI.WIDTH);

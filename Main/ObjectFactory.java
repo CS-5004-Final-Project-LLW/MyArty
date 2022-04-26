@@ -16,7 +16,6 @@ import Slider.PowerSlider;
 
 class ObjectFactory {
 
-  // TODO: two buttons are overlapped, height need to be changed
   static ExitButton generateExitButton() {
     return new ExitButton(new CoordinateInt(580, 590), 400, 60, "EXIT");
   }
