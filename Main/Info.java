@@ -63,6 +63,8 @@ public class Info {
 
     private static long counter = 0;
 
+    private static HighestScore highestScore = new HighestScore();
+
 
     public static boolean isPressed() {
         return pressed;
@@ -212,6 +214,9 @@ public class Info {
 
     public static void setScore(int score) {
         Info.score = score;
+        if (score > highestScore.get()) {
+            highestScore.set(score);
+        }
     }
 
 
@@ -358,6 +363,11 @@ public class Info {
         wind = Math.max(MIN_WIND, wind);
         wind = Math.min(MAX_WIND, wind);
         Info.wind = wind;
+    }
+
+
+    public static int getHighestScore() {
+        return highestScore.get();
     }
 
 
