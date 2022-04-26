@@ -309,7 +309,7 @@ public class GUI extends JPanel implements Runnable {
       Info.resetMissShot();
 
       /* make a new target */
-      Repo.target = Tools.generateTarget();
+      Repo.target = ObjectFactory.generateTarget();
 
       // reduce life
       Info.setLife(Info.getLife() - 1);

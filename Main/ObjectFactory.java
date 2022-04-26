@@ -8,19 +8,21 @@ import Button.ExitButton;
 import Button.NewGameButton;
 import Button.RestartButton;
 import Coordinate.CoordinateInt;
+import Object.Cannon;
 import Object.GameObject;
 import Object.Heart;
+import Object.Target;
 import Slider.PowerSlider;
 
 class ObjectFactory {
 
   // TODO: two buttons are overlapped, height need to be changed
   static ExitButton generateExitButton() {
-    return new ExitButton(new CoordinateInt(580, 590), 400, 100, "EXIT");
+    return new ExitButton(new CoordinateInt(580, 590), 400, 60, "EXIT");
   }
 
   static NewGameButton generateNewGameButton() {
-    return new NewGameButton(new CoordinateInt(505, 520), 400, 100, "NEW GAME");
+    return new NewGameButton(new CoordinateInt(505, 520), 400, 60, "NEW GAME");
   }
 
   static PowerSlider generatePowerSlider() {
@@ -54,8 +56,8 @@ class ObjectFactory {
    * Create objects
    */
   static void createObject() {
-    Repo.cannon = Tools.generateCannon();
-    Repo.target = Tools.generateTarget();
+    Repo.cannon = ObjectFactory.generateCannon();
+    Repo.target = ObjectFactory.generateTarget();
     Repo.bullets = new HashSet<>();
   }
 
@@ -99,4 +101,31 @@ class ObjectFactory {
     return new Heart(new CoordinateInt(x, y), 100, 100);
 
   }
+
+/**
+ * Create a target at a random position of the right screen
+ *
+ * @return Target
+ */
+static Target generateTarget() {
+    // x should be at the right screen
+    int x = GUI.WIDTH * 9 / 10 - new Random().nextInt(GUI.WIDTH * 3 / 10);
+    int y = GUI.HEIGHT * 1 / 4 + new Random().nextInt(GUI.HEIGHT / 2);
+
+    Target target = new Target(new CoordinateInt(x, y), 100, 100);
+    return target;
+}
+
+/**
+ * Create a cannon at a random position of the left screen
+ *
+ * @return Cannon
+ */
+static Cannon generateCannon() {
+    // x should be at the left screen
+    int x = new Random().nextInt(GUI.WIDTH * 3 / 10);
+    int y = GUI.HEIGHT * 3 / 4;
+    Cannon cannon = new Cannon(new CoordinateInt(x, y), 150, 50, 80, 60);
+    return cannon;
+}
 }
