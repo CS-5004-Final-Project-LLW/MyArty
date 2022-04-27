@@ -100,7 +100,7 @@ class ObjectFactory {
    * @return Heart
    */
   static Heart generateHeart() {
-    return new Heart(new CoordinateInt(GUI.WIDTH / 2 - 20, 35), 100, 100);
+    return new Heart(new CoordinateInt(GUI.WIDTH / 2 - 20, 35), 50, 50, 60);
   }
 
   /**
