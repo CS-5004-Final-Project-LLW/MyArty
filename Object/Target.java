@@ -16,8 +16,8 @@ public class Target extends AbstractGameObject {
 
     private double preciseY;
     // TODO: need to refine
-    private double speedY = -1;
-    private final double GRAVITY = 10;
+    private double speedY = -6;
+    private final double GRAVITY = 20;
 
     public Target(CoordinateInt coordinate, int width, int height) {
         super(coordinate);

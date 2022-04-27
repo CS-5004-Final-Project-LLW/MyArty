@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
  * All getters are public and all setter are package accessed.
  */
 public class Info {
+
     /* Mouse status */
     private static boolean dragging = false;
     private static boolean clicking = false;
@@ -45,8 +46,8 @@ public class Info {
     private static boolean missShot = false;
 
     /* Fire parameters */
-    public static int angleValue = 45;
-    public static int powerValue = 50;
+    public static int angleValue = 45; // from 0 to 90
+    public static int powerValue = 50; // from 0 to 100
     public static boolean restart;
 
     /* Game States */
@@ -57,6 +58,13 @@ public class Info {
     public static int gameState = TITLE_STATE;
 
     private static boolean freezed = false;
+    public static final int MAX_WIND = 1;
+    public static final int MIN_WIND = -1;
+    private static double wind = 0; // from -1 to 1
+
+    private static long counter = 0;
+
+    private static HighestScore highestScore = new HighestScore();
 
 
     public static boolean isPressed() {
@@ -215,6 +223,9 @@ public class Info {
 
     public static void setScore(int score) {
         Info.score = score;
+        if (score > highestScore.get()) {
+            highestScore.set(score);
+        }
     }
 
 
@@ -338,6 +349,34 @@ public class Info {
 
     static void resetFreeze() {
         freezed = false;
+    }
+
+
+    public static double getWind() {
+        return wind;
+    }
+
+
+
+    public static long getCounter() {
+        return counter;
+    }
+
+
+    public static void addCounter() {
+        counter++;
+    }
+
+
+    static void setWind(double wind) {
+        wind = Math.max(MIN_WIND, wind);
+        wind = Math.min(MAX_WIND, wind);
+        Info.wind = wind;
+    }
+
+
+    public static int getHighestScore() {
+        return highestScore.get();
     }
 
 

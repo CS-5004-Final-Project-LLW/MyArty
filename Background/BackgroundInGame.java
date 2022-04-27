@@ -10,7 +10,7 @@ import Object.AbstractGameObject;
 
 public class BackgroundInGame extends AbstractGameObject {
     private double counter = 0;
-    private double cloudMovingSpeed = 60;
+    private final double MOVEMENT_FACTOR = 2;
 
     public BackgroundInGame(CoordinateInt coordinate) {
         super(coordinate);
@@ -21,7 +21,7 @@ public class BackgroundInGame extends AbstractGameObject {
     }
 
     public void setCounter(double counter) {
-        this.counter = counter % GUI.WIDTH;
+        this.counter = ((counter % GUI.WIDTH) + GUI.WIDTH) % GUI.WIDTH;
     }
 
 
@@ -46,7 +46,7 @@ public class BackgroundInGame extends AbstractGameObject {
 
     @Override
     public boolean update() {
-        setCounter(counter + cloudMovingSpeed / GUI.getFps());
+        setCounter(counter + Info.getWind() * MOVEMENT_FACTOR * 60 / GUI.getFps());
         return true;
     }
 

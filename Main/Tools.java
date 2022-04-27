@@ -12,12 +12,8 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Random;
 import javax.imageio.ImageIO;
 import Coordinate.CoordinateAndSize;
-import Coordinate.CoordinateInt;
-import Object.Cannon;
-import Object.Target;
 import Object.Heart;
 
 
@@ -88,36 +84,6 @@ public class Tools {
     }
 
     /**
-     * Create a cannon at a random position of the left screen
-     *
-     * @return Cannon
-     */
-    static Cannon generateCannon() {
-        // x should be at the left screen
-        int x = new Random().nextInt(GUI.WIDTH * 3 / 10);
-        int y = GUI.HEIGHT * 3 / 4;
-        Cannon cannon = new Cannon(new CoordinateInt(x, y), 150, 50, 80, 60);
-        return cannon;
-    }
-
-    /**
-     * Create a target at a random position of the right screen
-     *
-     * @return Target
-     */
-    static Target generateTarget() {
-        // x should be at the right screen
-        // TODO: need a change
-        int x = GUI.WIDTH * 9 / 10 - new Random().nextInt(GUI.WIDTH * 3 / 10);
-        int y = new Random().nextInt(GUI.HEIGHT * 3 / 4);
-
-        Target target = new Target(new CoordinateInt(x, y), 100, 100);
-        return target;
-    }
-
-
-
-    /**
      * Generate a graph from specified image with rendering hints
      * 
      * @param image a BufferImage
@@ -164,7 +130,7 @@ public class Tools {
         return new CoordinateAndSize(newX, newY, newWidth, newHeight);
     }
 
-    public void printStackTrace() {
+    public static void printStackTrace() {
         try {
             throw new IllegalStateException();
         } catch (IllegalStateException e) {

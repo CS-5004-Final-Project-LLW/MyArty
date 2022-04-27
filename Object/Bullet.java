@@ -13,6 +13,10 @@ import java.awt.geom.AffineTransform;
  * A class for bullet
  */
 public class Bullet extends AbstractGameObject {
+    private static final double SLOW_FACTOR = 1.5;
+    private static final double AIR_RESISTANCE = 0.999;
+    private static final double WIND_FACTOR = 0.5;
+
     private double speedX;
     private double speedY;
     private double xPercent;
@@ -60,12 +64,17 @@ public class Bullet extends AbstractGameObject {
     public boolean update() {
         setSpinAngle(spinAngle - 0.1);
         // TODO: what about making bullets slower
-        double timeInterval = (double) 1 / GUI.getFps();
+        double timeInterval = (double) 1 / GUI.getFps() / SLOW_FACTOR;
         xPercent += speedX * timeInterval;
         yPercent += speedY * timeInterval;
         coordinate.x = (int) (xPercent * GUI.WIDTH);
         coordinate.y = (int) (yPercent * GUI.HEIGHT);
         speedY += GRAVITY * timeInterval;
+
+        // TODO: consider timeInterval
+        speedY *= AIR_RESISTANCE;
+        speedX *= AIR_RESISTANCE;
+        speedX += Info.getWind() * WIND_FACTOR * timeInterval;
         boolean isInside = coordinate.x >= 0 && coordinate.x <= GUI.WIDTH && coordinate.y >= 0
                 && coordinate.y <= GUI.HEIGHT - 150;
         if (!isInside) {
