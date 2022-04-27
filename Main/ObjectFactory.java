@@ -51,6 +51,8 @@ class ObjectFactory {
     Info.setHeartImage(Tools.loadImage("res/heart1.png"));
     Info.setHeartEmptyImage(Tools.loadImage("res/heart2.png"));
     Info.setPigImage(Tools.loadImage("res/pig1.png"));
+    Info.setPigLeftImage(Tools.loadImage("res/pig1_l.png"));
+
   }
 
   /**

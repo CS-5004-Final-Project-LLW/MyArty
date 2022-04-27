@@ -36,6 +36,7 @@ public class Info {
     private static BufferedImage heartImage;
     private static BufferedImage heartEmptyImage;
     private static BufferedImage pigImage;
+    private static BufferedImage pigLeftImage;
 
     /* Player statics */
     private static final int DEFAULT_LIFE = 5;
@@ -185,6 +186,17 @@ public class Info {
     public static void setPigImage(BufferedImage pigImage) {
         Info.pigImage = pigImage;
     }
+
+
+    public static BufferedImage getPigLeftImage() {
+        return pigLeftImage;
+    }
+
+
+    public static void setPigLeftImage(BufferedImage pigLeftImage) {
+        Info.pigLeftImage = pigLeftImage;
+    }
+
 
     public static BufferedImage getHeartEmptyImage() {
         return heartEmptyImage;
