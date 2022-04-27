@@ -28,6 +28,7 @@ public class Repo {
     public static AngleTextField angleTextField;
     public static HashSet<Bullet> bullets = new HashSet<>();
     public static GameObject backgroundInGame;
+    public static GameObject windDisplay;
 
 
     public static final int MAX_BULLETS = 1;

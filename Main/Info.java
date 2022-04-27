@@ -39,17 +39,20 @@ public class Info {
     private static BufferedImage pigLeftImage;
 
     /* Player statics */
+    public static final int MAX_LIFE = 5;
+    public static final int MIN_LIFE = 0;
     private static final int DEFAULT_LIFE = 5;
     private static final int DEFAULT_SCORE = 0;
     private static int score = Info.DEFAULT_SCORE;
-    private static int life = Info.DEFAULT_LIFE;
+    private static double life = Info.DEFAULT_LIFE;
     private static boolean hitTarget = false;
     private static boolean missShot = false;
+    private static boolean restart;
 
     /* Fire parameters */
     public static int angleValue = 45; // from 0 to 90
     public static int powerValue = 50; // from 0 to 100
-    public static boolean restart;
+    
 
     /* Game States */
     static int previousState = -1;
@@ -242,13 +245,27 @@ public class Info {
 
 
     public static int getLife() {
+        return (int) life;
+    }
+
+    public static double getPreciseLife() {
         return life;
     }
 
-
-    static void setLife(int life) {
+    static void setLife(double life) {
+        life = Math.max(MIN_LIFE, life);
+        life = Math.min(MAX_LIFE, life);
         Info.life = life;
     }
+
+    static void addLife(double life) {
+        setLife(getPreciseLife() + life);
+    }
+
+    static void removeOneLife() {
+        setLife(getLife() - 1);
+    }
+
 
     public static double getRotateDegree() {
         return rotateDegree;
@@ -389,6 +406,20 @@ public class Info {
 
     public static int getHighestScore() {
         return highestScore.get();
+    }
+
+
+    public static boolean isRestart() {
+        return restart;
+    }
+
+
+    public static void restart() {
+        Info.restart = true;
+    }
+
+    static void resetRestart(){
+        Info.restart = false;
     }
 
 

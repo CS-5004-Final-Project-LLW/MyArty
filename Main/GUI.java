@@ -281,6 +281,9 @@ public class GUI extends JPanel implements Runnable {
     /* Update sliders */
     updateObject(Repo.powerSlider);
     updateObject(Repo.heart);
+
+    /* Update wind display */
+    updateObject(Repo.windDisplay);
   }
 
 
@@ -298,15 +301,16 @@ public class GUI extends JPanel implements Runnable {
       Info.setScore(Info.getScore() + 10);
 
       // add life
-      Info.setLife(Math.min(5, Info.getLife() + 1));
+      Info.addLife(0.25);
 
     }
 
     /* Restart if hits */
-    if (Info.restart) {
-      // TODO: never used?
-      Info.restart = false;
+    if (Info.isRestart()) {
+      // used for Restart button
+      Info.resetRestart();
       ObjectFactory.createObject();
+      Info.softReset();
 
     }
 
@@ -386,6 +390,9 @@ public class GUI extends JPanel implements Runnable {
 
     /* Draw "heart" representing life */
     drawObject(Repo.heart, graph);
+
+    /* Draw wind display */
+    drawObject(Repo.windDisplay, graph);
   }
 
 
@@ -466,7 +473,7 @@ public class GUI extends JPanel implements Runnable {
         /* Set value to default */
         Info.softReset();
         running = true;
-        Info.restart = true;
+        Info.restart();
 
         /* Print debug info */
         if (DebugInfo.isDebugging()) {
@@ -513,12 +520,10 @@ public class GUI extends JPanel implements Runnable {
     graph.drawString(text4, 400, 460);
 
     graph.setFont(graph.getFont().deriveFont(Font.PLAIN, 22));
-    String text5 =
-        "Credit: This is the final project of CS5004 at Northeatern University, ";
+    String text5 = "Credit: This is the final project of CS5004 at Northeatern University, ";
     graph.drawString(text5, 230, 750);
     String text6 = "produced by Zhongyi Lu, Peiyao Li and Shasha Wang. We hope you enjoy the game!";
     graph.drawString(text6, 230, 780);
-
 
 
 

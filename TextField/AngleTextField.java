@@ -33,7 +33,7 @@ public class AngleTextField extends AbstractGameObject {
   public void draw(Graphics2D graph) {
     Font pf = new Font("Calibri", Font.LAYOUT_LEFT_TO_RIGHT, 40);
     Tools.drawStringWithOutline("Angle: ", getX(), getY(), pf, 15, Color.WHITE, Color.BLACK, graph);
-    String angle = String.format("%.1f", Tools.radianToDegree(Math.abs(Info.getRotateDegree())));
+    String angle = String.format("%d", (int)Tools.radianToDegree(Math.abs(Info.getRotateDegree())));
     Tools.drawStringWithOutline(angle + "°", getX() + 130, getY(), pf, 15, Color.WHITE, Color.RED,
         graph);
   }
