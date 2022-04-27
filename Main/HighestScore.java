@@ -1,8 +1,10 @@
 package Main;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.FilenameFilter;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -47,7 +49,20 @@ public class HighestScore {
     }
 
     private void createFile() {
-        // TODO createFile();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    File myObj = new File(fileName);
+                    myObj.createNewFile();
+                } catch (FileNotFoundException e) {
+                    createFile();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
     }
 
     void set(int highestScore) {
