@@ -26,7 +26,7 @@ public class AngleTextField extends AbstractGameObject {
 
   @Override
   public boolean update() {
-    return false;
+    return true;
   }
 
   @Override

@@ -46,7 +46,7 @@ public class Heart extends AbstractGameObject {
 
     @Override
     public boolean update() {
-        return false;
+        return true;
     }
 
 }
