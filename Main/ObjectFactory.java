@@ -10,6 +10,7 @@ import Button.RestartButton;
 import Coordinate.CoordinateInt;
 import Object.GameObject;
 import Object.Heart;
+import Object.Pig;
 import Slider.PowerSlider;
 
 class ObjectFactory {
@@ -48,6 +49,7 @@ class ObjectFactory {
     Info.setSliderImage(Tools.loadImage("res/bulletSlide.png"));
     Info.setHeartImage(Tools.loadImage("res/heart1.png"));
     Info.setHeartEmptyImage(Tools.loadImage("res/heart2.png"));
+    Info.setPigImage(Tools.loadImage("res/pig1.png"));
   }
 
   /**
@@ -65,6 +67,7 @@ class ObjectFactory {
   static void createButtonInWelcome() {
     Repo.newGameButton = generateNewGameButton();
     Repo.exitButton = generateExitButton();
+    Repo.pig = new Pig(new CoordinateInt(100, 100), 200, 170);
     Repo.restartButton = null;
     Repo.powerSlider = null;
   }

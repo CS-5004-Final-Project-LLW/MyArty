@@ -129,6 +129,7 @@ public class GUI extends JPanel implements Runnable {
         if (Info.gameState == Info.TITLE_STATE) {
           /* Title loop */
           gameLoopTitle();
+
         } else {
           /* Main loop */
           gameLoopPlay();
@@ -162,6 +163,7 @@ public class GUI extends JPanel implements Runnable {
 
     /* Update background */
     updateObject(Repo.backgroundInGame);
+    updateObject(Repo.pig);
 
     /* Update buttons and texts */
     updateObject(Repo.exitButton);
@@ -272,7 +274,6 @@ public class GUI extends JPanel implements Runnable {
 
     /* Update sliders */
     updateObject(Repo.powerSlider);
-
     updateObject(Repo.heart);
   }
 
@@ -467,6 +468,7 @@ public class GUI extends JPanel implements Runnable {
   public void drawTitleScreen() {
 
     graph.drawImage(Info.getBackgroundImage(), getX(), getY(), WIDTH, HEIGHT, null);
+    drawObject(Repo.pig, graph);
 
     // title name
     graph.setFont(graph.getFont().deriveFont(Font.BOLD, 92F));
@@ -499,8 +501,6 @@ public class GUI extends JPanel implements Runnable {
     String text5 = "Credit: This is the final project of CS5004 at Northeatern University, produced by Zhongyi Lu, Peiyao Li and Shasha Wang. We hope you enjoy the game!";
     graph.setColor(Color.gray);
     graph.drawString(text5, 30, 770);
-
-
 
 
     /* Draw buttons */

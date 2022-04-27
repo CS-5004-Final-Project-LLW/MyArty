@@ -8,6 +8,7 @@ import Object.Cannon;
 import Object.GameObject;
 import Object.Target;
 import Object.Heart;
+import Object.Pig;
 import Slider.Slider;
 
 /**
@@ -17,6 +18,7 @@ public class Repo {
     public static Cannon cannon;
     public static Target target;
     public static Heart heart;
+    public static Pig pig;
     public static Button fireButton;
     public static Button restartButton;
     public static Button newGameButton;
