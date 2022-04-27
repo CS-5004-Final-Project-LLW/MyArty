@@ -324,13 +324,13 @@ public class GUI extends JPanel implements Runnable {
       Repo.target = ObjectFactory.generateTarget();
 
       // reduce life
-      Info.setLife(Info.getLife() - 1);
+      Info.setLife(Info.getPreciseLife() - 1);
 
       /* Update wind speed */
       Info.setWind(ObjectFactory.generateRandomWind());
 
       // check remained life
-      if (Info.getLife() <= 0) {
+      if (Info.getPreciseLife() <= 0) {
         /* Pause the game */
         running = false;
 

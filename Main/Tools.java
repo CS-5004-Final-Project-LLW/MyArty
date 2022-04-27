@@ -44,7 +44,7 @@ public class Tools {
         graph.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 
         graph.setColor(outlineColor);
-        graph.setStroke(new BasicStroke(font.getSize2D() / scale));
+        graph.setStroke(new BasicStroke(6, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
         graph.draw(shape);
         graph.setColor(fontColor);
         graph.fill(shape);
