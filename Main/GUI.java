@@ -376,10 +376,14 @@ public class GUI extends JPanel implements Runnable {
     drawObject(Repo.restartButton, graph);
     drawObject(Repo.powerSlider, graph);
 
-    // TODO: add HighestScore
-    // Score display
-    Tools.drawStringWithOutline("Score: " + Info.getScore(), 1050, 25,
+    /* Score display */
+    Tools.drawStringWithOutline("Score: " + Info.getScore(), 1000, 20,
         new Font("Arial", Font.BOLD, 40), 15, Color.WHITE, Color.BLACK, graph);
+
+    Tools.drawStringWithOutline("Hi Score: " + Info.getHighestScore(), 1000, 80,
+        new Font("Arial", Font.BOLD, 40), 15, Color.WHITE, Color.BLACK, graph);
+
+    /* Draw "heart" representing life */
     drawObject(Repo.heart, graph);
   }
 
