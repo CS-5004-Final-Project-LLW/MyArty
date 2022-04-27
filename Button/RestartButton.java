@@ -15,7 +15,7 @@ public class RestartButton extends Button {
     @Override
     public boolean update() {
         if (isClicked()) {
-            Info.restart = true;
+            Info.restart();
         }
         return true;
     }

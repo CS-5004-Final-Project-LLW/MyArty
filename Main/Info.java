@@ -47,11 +47,12 @@ public class Info {
     private static double life = Info.DEFAULT_LIFE;
     private static boolean hitTarget = false;
     private static boolean missShot = false;
+    private static boolean restart;
 
     /* Fire parameters */
     public static int angleValue = 45; // from 0 to 90
     public static int powerValue = 50; // from 0 to 100
-    public static boolean restart;
+    
 
     /* Game States */
     static int previousState = -1;
@@ -405,6 +406,20 @@ public class Info {
 
     public static int getHighestScore() {
         return highestScore.get();
+    }
+
+
+    public static boolean isRestart() {
+        return restart;
+    }
+
+
+    public static void restart() {
+        Info.restart = true;
+    }
+
+    static void resetRestart(){
+        Info.restart = false;
     }
 
 

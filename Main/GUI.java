@@ -306,10 +306,11 @@ public class GUI extends JPanel implements Runnable {
     }
 
     /* Restart if hits */
-    if (Info.restart) {
-      // TODO: never used?
-      Info.restart = false;
+    if (Info.isRestart()) {
+      // used for Restart button
+      Info.resetRestart();
       ObjectFactory.createObject();
+      Info.softReset();
 
     }
 
@@ -472,7 +473,7 @@ public class GUI extends JPanel implements Runnable {
         /* Set value to default */
         Info.softReset();
         running = true;
-        Info.restart = true;
+        Info.restart();
 
         /* Print debug info */
         if (DebugInfo.isDebugging()) {
