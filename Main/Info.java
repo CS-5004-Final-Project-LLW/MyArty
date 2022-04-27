@@ -53,7 +53,7 @@ public class Info {
     /* Fire parameters */
     public static int angleValue = 45; // from 0 to 90
     public static int powerValue = 50; // from 0 to 100
-    
+
 
     /* Game States */
     static int previousState = -1;
@@ -419,7 +419,7 @@ public class Info {
         Info.restart = true;
     }
 
-    static void resetRestart(){
+    static void resetRestart() {
         Info.restart = false;
     }
 
@@ -447,6 +447,44 @@ public class Info {
         powerValue = 50;
         cursorX = 0;
         cursorY = 0;
+    }
+
+
+
+}
+
+
+final class Breaker {
+    private boolean status = false;
+
+    public boolean get() {
+        return status;
+    }
+
+    public void set() {
+        this.status = true;
+    }
+
+    void reset() {
+        this.status = false;
+    }
+
+}
+
+
+final class Poster<T> {
+    private T status;
+
+    public Poster(T status) {
+        this.status = status;
+    }
+
+    public T get() {
+        return status;
+    }
+
+    void set(T status) {
+        this.status = status;
     }
 
 
