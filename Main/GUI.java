@@ -281,6 +281,9 @@ public class GUI extends JPanel implements Runnable {
     /* Update sliders */
     updateObject(Repo.powerSlider);
     updateObject(Repo.heart);
+
+    /* Update wind display */
+    updateObject(Repo.windDisplay);
   }
 
 
@@ -386,6 +389,9 @@ public class GUI extends JPanel implements Runnable {
 
     /* Draw "heart" representing life */
     drawObject(Repo.heart, graph);
+
+    /* Draw wind display */
+    drawObject(Repo.windDisplay, graph);
   }
 
 

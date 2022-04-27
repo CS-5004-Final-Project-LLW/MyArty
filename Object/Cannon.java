@@ -1,14 +1,13 @@
 package Object;
 
-import Main.Tools;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import Coordinate.CoordinateInt;
 import Main.GUI;
 import Main.Info;
 import Main.Repo;
 import Main.Tools;
-import java.awt.geom.AffineTransform;
 
 /** A class for Cannon */
 public class Cannon extends AbstractGameObject {

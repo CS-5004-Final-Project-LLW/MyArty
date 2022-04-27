@@ -16,14 +16,13 @@ public class Heart extends AbstractGameObject {
 
     public Heart(CoordinateInt coordinate, int width, int height) {
         super(coordinate);
-	    this.width = width;
+        this.width = width;
         this.height = height;
     }
 
     @Override
     protected void createBoundary() {
-        setBoundary_min(new CoordinateInt(GUI.WIDTH/2 + 30, 35));
-        setBoundary_max(new CoordinateInt(GUI.WIDTH/2 + 30, 35));
+        createNullBoundary();
     }
 
 
@@ -34,12 +33,12 @@ public class Heart extends AbstractGameObject {
         int x = getX();
         int i = 0;
         BufferedImage heartEmptyImage = Info.getHeartEmptyImage();
-        for(i = 0; i < Info.getLife(); i++){
-            graph.drawImage(heartImage, x, getY(),50, 50,null);
+        for (i = 0; i < Info.getLife(); i++) {
+            graph.drawImage(heartImage, x, getY(), 50, 50, null);
             x += 60;
         }
-        for(i = Info.getLife(); i < 5; i++){
-            graph.drawImage(heartEmptyImage, x, getY(),50,50,null);
+        for (i = Info.getLife(); i < 5; i++) {
+            graph.drawImage(heartEmptyImage, x, getY(), 50, 50, null);
             x += 60;
         }
     }

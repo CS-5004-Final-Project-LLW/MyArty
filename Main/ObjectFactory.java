@@ -1,6 +1,7 @@
 package Main;
 
 import TextField.AngleTextField;
+import TextField.WindDisplay;
 import java.util.HashSet;
 import java.util.Random;
 import Background.BackgroundInGame;
@@ -86,6 +87,7 @@ class ObjectFactory {
     Repo.heart = generateHeart();
     Repo.angleTextField = generateAngleTextField();
     Repo.backgroundInGame = generateBackgroundInGame();
+    Repo.windDisplay = generateWindDisplay();
   }
 
   private static GameObject generateBackgroundInGame() {
@@ -98,12 +100,7 @@ class ObjectFactory {
    * @return Heart
    */
   static Heart generateHeart() {
-    // x should be at the right screen
-    int x = GUI.WIDTH * 9 / 10 - new Random().nextInt(GUI.WIDTH * 3 / 10);
-    int y = new Random().nextInt(GUI.HEIGHT * 3 / 4);
-
-    return new Heart(new CoordinateInt(x, y), 100, 100);
-
+    return new Heart(new CoordinateInt(GUI.WIDTH / 2 - 20, 35), 100, 100);
   }
 
   /**
@@ -135,5 +132,9 @@ class ObjectFactory {
 
   static double generateRandomWind() {
     return new Random().nextDouble(Info.MIN_WIND, Info.MAX_WIND);
+  }
+
+  static WindDisplay generateWindDisplay() {
+    return new WindDisplay(new CoordinateInt(400, 20));
   }
 }
