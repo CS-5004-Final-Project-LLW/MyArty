@@ -486,9 +486,9 @@ public class GUI extends JPanel implements Runnable {
     drawObject(Repo.pig, graph);
 
     // title name
-    graph.setFont(graph.getFont().deriveFont(Font.BOLD, 92F));
-    String text = "FLAPPY PIG";
-    int x = 380;
+    graph.setFont(graph.getFont().deriveFont(Font.BOLD, 90F));
+    String text = "NAUGHTY PIGGY";
+    int x = 280;
     int y = 250;
 
     // shadow
@@ -512,11 +512,14 @@ public class GUI extends JPanel implements Runnable {
     graph.drawString(text3, 400, 430);
     graph.drawString(text4, 400, 460);
 
-    graph.setFont(graph.getFont().deriveFont(Font.PLAIN, 17));
+    graph.setFont(graph.getFont().deriveFont(Font.PLAIN, 22));
     String text5 =
-        "Credit: This is the final project of CS5004 at Northeatern University, produced by Zhongyi Lu, Peiyao Li and Shasha Wang. We hope you enjoy the game!";
-    graph.setColor(Color.gray);
-    graph.drawString(text5, 30, 770);
+        "Credit: This is the final project of CS5004 at Northeatern University, ";
+    graph.drawString(text5, 230, 750);
+    String text6 = "produced by Zhongyi Lu, Peiyao Li and Shasha Wang. We hope you enjoy the game!";
+    graph.drawString(text6, 230, 780);
+
+
 
 
     /* Draw buttons */
