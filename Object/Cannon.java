@@ -72,7 +72,7 @@ public class Cannon extends AbstractGameObject {
     AffineTransform at = getTransformation();
 
     graph.drawImage(cannonImage,at, null);
-    graph.drawImage(cannonBaseImage, getX()+10, getY() + 17, cannonBaseWidth - 10, cannonBaseHeight, null);
+    graph.drawImage(cannonBaseImage, getX()+10, getY() + 17, cannonBaseWidth - 12, cannonBaseHeight + 5, null);
   }
 
   private AffineTransform getTransformation() {
