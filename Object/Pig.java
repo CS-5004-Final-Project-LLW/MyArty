@@ -13,7 +13,9 @@ public class Pig extends AbstractGameObject {
     private int width;
     private int height;
     private int x = 300;
+    private int y = 50;
     private int xSpeed = 60;
+    private int ySpeed = 30;
 
     public Pig(CoordinateInt coordinate, int width, int height) {
         super(coordinate);
@@ -33,19 +35,21 @@ public class Pig extends AbstractGameObject {
         BufferedImage image = Info.getPigImage();
         BufferedImage image_left = Info.getPigLeftImage();
         if (xSpeed >= 0) {
-            graph.drawImage(image,x,200,200,170, null);
+            graph.drawImage(image,x,y,200,170, null);
         } else {
-            graph.drawImage(image_left,x,200,200,170, null);
+            graph.drawImage(image_left,x,y,200,170, null);
         }
     }
 
     @Override
     public boolean update() {
 
-        if (x >= GUI.WIDTH - 300) xSpeed = -xSpeed;
+        if (x >= GUI.WIDTH - 200) xSpeed = -xSpeed;
         if (x <= 0) xSpeed = -xSpeed;
         x += xSpeed / 10;
-
+        if (y >= GUI.HEIGHT - 170) ySpeed = -ySpeed;
+        if (y <= 0) ySpeed = -ySpeed;
+        y += ySpeed / 10;
         return true;
     }
 
