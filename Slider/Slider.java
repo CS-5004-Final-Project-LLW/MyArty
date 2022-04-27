@@ -33,8 +33,8 @@ public abstract class Slider extends AbstractGameObject {
     private boolean isCursorInside() {
         return Info.getCursorX() > getX() - barWidth / 2
                 && Info.getCursorX() < getX() + width + barWidth / 2
-                && Info.getCursorY() > getY() + height / 2 - barHeight / 2
-                && Info.getCursorY() < getY() + height / 2 + barHeight / 2;
+                && Info.getCursorY() > getY() + height / 2 - barHeight / 2 + 30
+                && Info.getCursorY() < getY() + height / 2 + barHeight / 2 + 30;
     }
 
 
@@ -60,19 +60,19 @@ public abstract class Slider extends AbstractGameObject {
     public void draw(Graphics2D graph) {
         /* Draw slider */
         graph.setColor(Color.BLUE);
-        graph.fillRect(getX(), getY(), width, height);
+        graph.fillRect(getX(), getY()+30, width, height);
 
         /* Draw bar */
         graph.setColor(Color.BLACK);
         int barX = (int) (percentage * width) + getX() - barWidth / 2;
         int barY = getY() + height / 2 - barHeight / 2;
-        graph.drawImage(Info.getSliderImage(), barX, barY, barWidth, barHeight, null);
+        graph.drawImage(Info.getSliderImage(), barX, barY+30, barWidth, barHeight, null);
 
     /* Draw string */
     Tools.drawStringWithOutline(
         words,
         getX(),
-        getY() + 2 * height - 30,
+        getY()-40 ,
         new Font("Calibri", Font.LAYOUT_LEFT_TO_RIGHT, 40),
         20,
         Color.WHITE,

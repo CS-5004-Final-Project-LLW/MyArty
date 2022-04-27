@@ -33,6 +33,6 @@ public class PowerSlider extends Slider {
 
         /* Draw string */
         Tools.drawStringWithOutline(String.valueOf(Info.powerValue) + "%", getX() + width + 15,
-                getY() -25, pf, 15, Color.WHITE, Color.RED, graph);
+                getY() +10, pf, 15, Color.WHITE, Color.RED, graph);
     }
 }
