@@ -40,15 +40,20 @@ public class Tools {
         Shape shape =
                 textlayout.getOutline(AffineTransform.getTranslateInstance(x, y + magicNumber));
 
+        /* Store original rendering hints */
         RenderingHints hintsBackup = graph.getRenderingHints();
         graph.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 
+        /* Draw stroke */
         graph.setColor(outlineColor);
         graph.setStroke(new BasicStroke(6, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
         graph.draw(shape);
+
+        /* Fill shape */
         graph.setColor(fontColor);
         graph.fill(shape);
 
+        /* Restore original rendering hints */
         graph.setRenderingHints(hintsBackup);
     }
 
