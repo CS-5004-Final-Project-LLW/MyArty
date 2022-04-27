@@ -263,7 +263,7 @@ public class Info {
     }
 
     static void removeOneLife() {
-        setLife(getLife() - 1);
+        setLife(getPreciseLife() - 1);
     }
 
 
