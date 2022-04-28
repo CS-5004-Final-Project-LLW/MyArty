@@ -37,9 +37,9 @@ public abstract class Button extends AbstractGameObject {
         final int offset = 2;
         if (isMouseHovered()) {
             Tools.drawStringWithOutline(text, getX() + offset, getY(),
-                    new Font("Arial", Font.BOLD, 48), 12, Color.BLUE, Color.WHITE, graph);
+                    new Font("Comic Sans MS", Font.BOLD, 48), 12, Color.BLUE, Color.WHITE, graph);
         } else {
-            Tools.drawStringWithOutline(text, getX(), getY(), new Font("Arial", Font.BOLD, 48), 12,
+            Tools.drawStringWithOutline(text, getX(), getY(), new Font("Comic Sans MS", Font.BOLD, 48), 12,
                     Color.WHITE, Color.BLACK, graph);
         }
 
