@@ -12,19 +12,33 @@ import Main.Tools;
 /** A class for Cannon */
 public class Cannon extends AbstractGameObject {
   /* A special number for gravity after a whole-night testing */
-  CoordinateInt size;
+  // CoordinateInt size;
   private int cannonWidth;
   private int cannonHeight;
   private int cannonBaseWidth;
   private int cannonBaseHeight;
 
-  public Cannon(CoordinateInt coordinate, int cannonWidth, int cannonHeight, int cannonBaseWidth,
-      int cannonBaseHeight) {
+  double cannonScaledFactor;
+
+  public Cannon(CoordinateInt coordinate, int cannonWidth, int cannonBaseWidth) {
     super(coordinate);
+    BufferedImage cannonImage = Info.cannonImage.get();
+
+    int cannonOriginalWidth = cannonImage.getWidth();
+    int cannonOriginalHeight = cannonImage.getHeight();
+    this.cannonScaledFactor = (double) cannonWidth / cannonOriginalWidth;
+
     this.cannonWidth = cannonWidth;
-    this.cannonHeight = cannonHeight;
-    this.cannonBaseHeight = cannonBaseHeight;
+    this.cannonHeight = (int) (cannonOriginalHeight * cannonScaledFactor);
+
+    BufferedImage cannonBaseImage = Info.cannonBaseImage.get();
+
+    int cannonBaseOriginalWidth = cannonBaseImage.getWidth();
+    int cannonBaseOriginalHeight = cannonBaseImage.getHeight();
+    double cannonBaseScaledFactor = (double) cannonBaseWidth / cannonBaseOriginalWidth;
+
     this.cannonBaseWidth = cannonBaseWidth;
+    this.cannonBaseHeight = (int) (cannonBaseOriginalHeight * cannonBaseScaledFactor);
   }
 
   @Override
@@ -36,7 +50,7 @@ public class Cannon extends AbstractGameObject {
   @Override
   public boolean update() {
 
-    int centerX = getX() + cannonWidth / 2;
+    int centerX = getX() + cannonHeight / 2;
     int centerY = getY() + cannonHeight / 2;
 
     /* Update angle */
@@ -57,8 +71,12 @@ public class Cannon extends AbstractGameObject {
     /* Create bullets */
     int range = 400;
     if (Info.clicking.get() && Repo.isReadyForShot() && Math.sqrt(dx * dx + dy * dy) < range) {
-      CoordinateInt bulletPoint = new CoordinateInt(centerX, centerY - 100);
-      Repo.bullets.add(new Bullet(bulletPoint, Info.powerValue, Info.angleValue, 25));
+      final int bulleHeight = 35;
+      final int L = cannonWidth - cannonHeight / 2 + bulleHeight / 2;
+      final double bulletX = centerX + L * Math.cos(Info.getRotateDegree()) - bulleHeight;
+      final double bulletY = centerY + L * Math.sin(Info.getRotateDegree()) - bulleHeight;
+      CoordinateInt bulletPoint = new CoordinateInt(bulletX, bulletY);
+      Repo.bullets.add(new Bullet(bulletPoint, Info.powerValue, Info.angleValue, bulleHeight));
     }
 
     return true;
@@ -70,16 +88,20 @@ public class Cannon extends AbstractGameObject {
     BufferedImage cannonBaseImage = Info.cannonBaseImage.get();
     AffineTransform at = getTransformation();
 
-    graph.drawImage(cannonImage,at, null);
-    graph.drawImage(cannonBaseImage, getX()+10, getY() + 17, cannonBaseWidth - 12, cannonBaseHeight + 5, null);
+    graph.drawImage(cannonImage, at, null);
+
+    graph.drawImage(cannonBaseImage, getX() + cannonHeight / 2 - cannonBaseWidth / 2 - 1,
+        getY() + cannonHeight / 2 - cannonBaseHeight / 2 + 4, cannonBaseWidth + 2,
+        cannonBaseHeight + 2, null);
   }
 
   private AffineTransform getTransformation() {
     AffineTransform at = new AffineTransform();
-    at.translate(getX() + 15, getY());
-    at.rotate(Info.getRotateDegree());
-    at.scale(3, 3);
-    at.translate(-10, -10);
+
+    at.translate(getX(), getY());
+    at.rotate(Info.getRotateDegree(), cannonHeight / 2, cannonHeight / 2);
+    at.scale(cannonScaledFactor, cannonScaledFactor);
+
     return at;
   }
 

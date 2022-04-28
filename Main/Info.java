@@ -8,8 +8,6 @@ import java.awt.image.BufferedImage;
  * All getters are public and all setter are package accessed.
  */
 public class Info {
-    // TODO: add a class name `breaker`
-
     /* Mouse status */
     public static final Poster<Boolean> dragging = new Poster<>(false);
     public static final Poster<Boolean> clicking = new Poster<>(false);

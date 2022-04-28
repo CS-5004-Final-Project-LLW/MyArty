@@ -9,6 +9,10 @@ public class CoordinateInt extends Coordinate<Integer> {
         super(x, y);
     }
 
+    public CoordinateInt(double x, double y) {
+        super((int) x, (int) y);
+    }
+
     public CoordinateInt(CoordinateInt other) {
         super(other);
     }
