@@ -27,7 +27,7 @@ class ObjectFactory {
   }
 
   static PowerSlider generatePowerSlider() {
-    return new PowerSlider(new CoordinateInt(25, 170), 150, 30);
+    return new PowerSlider(new CoordinateInt(25, 170), 150, 40);
   }
 
   static AngleTextField generateAngleTextField() {
@@ -46,9 +46,10 @@ class ObjectFactory {
     Info.setBulletImage(Tools.loadImage("res/apple.png"));
     Info.setCannonImage(Tools.loadImage("res/cannon2.png"));
     Info.setCannonBaseImage(Tools.loadImage("res/cannon1.png"));
-    Info.setTargetImage(Tools.loadImage("res/flyingPig.png"));
+    Info.setTargetImage(Tools.loadImage("res/pig1_l.png"));
     Info.setResetButtonImage(Tools.loadImage("res/bluereset.png"));
     Info.setSliderImage(Tools.loadImage("res/bulletSlide.png"));
+    Info.setSliderBarImage(Tools.loadImage("res/colorBar.png"));
     Info.setHeartImage(Tools.loadImage("res/heart1.png"));
     Info.setHeartEmptyImage(Tools.loadImage("res/heart2.png"));
     Info.setPigImage(Tools.loadImage("res/pig1.png"));

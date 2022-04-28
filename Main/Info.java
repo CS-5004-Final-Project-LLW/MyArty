@@ -34,6 +34,7 @@ public class Info {
     private static BufferedImage targetImage;
     private static BufferedImage resetButtonImage;
     private static BufferedImage sliderImage;
+    private static BufferedImage sliderBarImage;
     private static BufferedImage heartImage;
     private static BufferedImage heartEmptyImage;
     private static BufferedImage pigImage;
@@ -228,6 +229,15 @@ public class Info {
 
     public static void setSliderImage(BufferedImage sliderImage) {
         Info.sliderImage = sliderImage;
+    }
+
+    public static BufferedImage getSliderBarImage() {
+        return sliderBarImage;
+    }
+
+
+    public static void setSliderBarImage(BufferedImage sliderBarImage) {
+        Info.sliderBarImage = sliderBarImage;
     }
 
 
