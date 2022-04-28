@@ -71,8 +71,8 @@ public class Bullet extends AbstractGameObject {
         speedX *= AIR_RESISTANCE;
 
         speedX += Info.getWind() * WIND_FACTOR * timeInterval;
-        boolean isInside = coordinate.x >= 0 && coordinate.x <= GUI.WIDTH && coordinate.y >= 0
-                && coordinate.y <= GUI.HEIGHT - 150;
+        boolean isInside = getX() >= 0 && getX() <= GUI.WIDTH * 5 / 4 && getY() >= -GUI.HEIGHT / 2
+                && getY() + radius <= GUI.HEIGHT;
         if (!isInside) {
             Info.miss();
         }
@@ -90,7 +90,7 @@ public class Bullet extends AbstractGameObject {
         at.translate(getX(), getY());
 
         double scaledFactor = (double) radius / (bulletImage.getHeight() / 2);
-        at.scale(scaledFactor,scaledFactor);
+        at.scale(scaledFactor, scaledFactor);
         at.rotate(spinAngle, bulletImage.getWidth() / 2, bulletImage.getHeight() / 2);
         return at;
     }
