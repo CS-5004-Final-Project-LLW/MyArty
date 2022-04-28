@@ -16,7 +16,7 @@ public class WindDisplay extends AbstractGameObject {
 
     @Override
     public void draw(Graphics2D graph) {
-        var font = new Font("Arial", Font.BOLD, 40);
+        var font = new Font("Dialog", Font.BOLD, 40);
 
         Tools.drawStringWithOutline("Wind", getX() + 20, getY(), font, 15, Color.WHITE, Color.BLACK,
                 graph);
