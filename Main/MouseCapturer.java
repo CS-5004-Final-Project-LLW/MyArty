@@ -16,7 +16,7 @@ class MouseCapturer implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        Info.setDragging(true);
+        Info.dragging.set(true);
         Info.setCursorX(e.getX());
         Info.setCursorY(e.getY());
     }
@@ -40,7 +40,7 @@ class MouseCapturer implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        Info.setDragging(false);
+        Info.dragging.set(false);
         Info.setPressed(false);
     }
 }

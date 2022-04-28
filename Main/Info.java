@@ -11,7 +11,7 @@ public class Info {
     // TODO: add a class name `breaker`
 
     /* Mouse status */
-    private static boolean dragging = false;
+    public static Poster<Boolean> dragging = new Poster<>(false);
     private static boolean clicking = false;
     private static boolean pressed = false;
     private static int cursorX = 0;
@@ -44,8 +44,9 @@ public class Info {
     public static final int MIN_LIFE = 0;
     private static final int DEFAULT_LIFE = 5;
     private static final int DEFAULT_SCORE = 0;
-    private static int score = Info.DEFAULT_SCORE;
-    private static double life = Info.DEFAULT_LIFE;
+
+    private static int score = DEFAULT_SCORE;
+    private static double life = DEFAULT_LIFE;
     private static boolean hitTarget = false;
     private static boolean missShot = false;
     private static boolean restart;
@@ -82,13 +83,6 @@ public class Info {
     }
 
 
-    public static boolean isDragging() {
-        return dragging;
-    }
-
-    static void setDragging(boolean dragging) {
-        Info.dragging = dragging;
-    }
 
     public static boolean isClicking() {
         return clicking;
@@ -431,7 +425,7 @@ public class Info {
         freezed = false;
         resetScore();
         resetLife();
-        dragging = false;
+        dragging.set(false);
         clicking = false;
         pressed = false;
         resetHitTarget();
@@ -448,45 +442,5 @@ public class Info {
         cursorX = 0;
         cursorY = 0;
     }
-
-
-
-}
-
-
-final class Breaker {
-    private boolean status = false;
-
-    public boolean get() {
-        return status;
-    }
-
-    public void set() {
-        this.status = true;
-    }
-
-    void reset() {
-        this.status = false;
-    }
-
-}
-
-
-final class Poster<T> {
-    private T status;
-
-    public Poster(T status) {
-        this.status = status;
-    }
-
-    public T get() {
-        return status;
-    }
-
-    void set(T status) {
-        this.status = status;
-    }
-
-
 
 }

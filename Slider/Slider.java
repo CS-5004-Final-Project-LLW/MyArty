@@ -40,10 +40,10 @@ public abstract class Slider extends AbstractGameObject {
 
     @Override
     public boolean update() {
-        if ((Info.isPressed() || Info.isDragging()) && isCursorInside()) {
+        if ((Info.isPressed() || Info.dragging.get()) && isCursorInside()) {
             grapped = true;
         }
-        if (!(Info.isPressed() || Info.isDragging())) {
+        if (!(Info.isPressed() || Info.dragging.get())) {
             grapped = false;
         }
 
