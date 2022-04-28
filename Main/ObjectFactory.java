@@ -46,7 +46,7 @@ class ObjectFactory {
     Info.bulletImage.set(Tools.loadImage("res/apple.png"));
     Info.cannonImage.set(Tools.loadImage("res/cannon2.png"));
     Info.cannonBaseImage.set(Tools.loadImage("res/cannon1.png"));
-    Info.targetImage.set(Tools.loadImage("res/flyingPig.png"));
+    Info.targetImage.set(Tools.loadImage("res/pig1_l.png"));
     Info.resetButtonImage.set(Tools.loadImage("res/bluereset.png"));
     Info.sliderImage.set(Tools.loadImage("res/bulletSlide.png"));
     Info.sliderBarImage.set(Tools.loadImage("res/colorBar.png"));
