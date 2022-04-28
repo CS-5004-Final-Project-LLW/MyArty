@@ -60,7 +60,7 @@ public abstract class Slider extends AbstractGameObject {
     public void draw(Graphics2D graph) {
         /* Draw slider */
         //graph.setColor(Color.BLUE);
-        graph.drawImage(Info.getSliderBarImage(),getX()-40, getY()+30, width + 70, height,null);
+        graph.drawImage(Info.sliderBarImage.get(),getX()-40, getY()+30, width + 70, height,null);
         //graph.fillRect(getX(), getY()+30, width, height);
 
         /* Draw bar */
