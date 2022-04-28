@@ -29,8 +29,8 @@ public class Heart extends AbstractGameObject {
     @Override
     public void draw(Graphics2D graph) {
         // draw red hearts
-        BufferedImage heartImage = Info.getHeartImage();
-        BufferedImage heartEmptyImage = Info.getHeartEmptyImage();
+        BufferedImage heartImage = Info.heartImage.get();
+        BufferedImage heartEmptyImage = Info.heartEmptyImage.get();
 
         for (int i = 0; i < Info.getLife(); i++) {
             graph.drawImage(heartImage, getX() + i * distance, getY(), width, height, null);

@@ -28,7 +28,7 @@ public class BackgroundInGame extends AbstractGameObject {
     @Override
     public void draw(Graphics2D graph) {
         final int cutX = 250;
-        Image backgroundImage = Info.getBackgroundImage();
+        Image backgroundImage = Info.backgroundImage.get();
 
         // Normal background
         graph.drawImage(backgroundImage, 0, 0, GUI.WIDTH, GUI.HEIGHT, null);

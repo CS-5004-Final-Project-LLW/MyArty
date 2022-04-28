@@ -53,7 +53,7 @@ public class Bullet extends AbstractGameObject {
 
     @Override
     public void draw(Graphics2D graph) {
-        BufferedImage bulletImage = Info.getBulletImage();
+        BufferedImage bulletImage = Info.bulletImage.get();
         var tempImage = new BufferedImage(bulletImage.getWidth(), bulletImage.getHeight(),
                 bulletImage.getType());
         tempImage.createGraphics().drawImage(bulletImage, getRotation(), null);
@@ -90,7 +90,7 @@ public class Bullet extends AbstractGameObject {
 
 
     private AffineTransform getRotation() {
-        BufferedImage bulletImage = Info.getBulletImage();
+        BufferedImage bulletImage = Info.bulletImage.get();
         AffineTransform at = new AffineTransform();
         at.rotate(spinAngle, bulletImage.getWidth() / 2, bulletImage.getHeight() / 2);
         return at;

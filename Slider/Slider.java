@@ -31,24 +31,24 @@ public abstract class Slider extends AbstractGameObject {
     }
 
     private boolean isCursorInside() {
-        return Info.getCursorX() > getX() - barWidth / 2
-                && Info.getCursorX() < getX() + width + barWidth / 2
-                && Info.getCursorY() > getY() + height / 2 - barHeight / 2 + 30
-                && Info.getCursorY() < getY() + height / 2 + barHeight / 2 + 30;
+        return Info.cursorX.get() > getX() - barWidth / 2
+                && Info.cursorX.get() < getX() + width + barWidth / 2
+                && Info.cursorY.get() > getY() + height / 2 - barHeight / 2 + 30
+                && Info.cursorY.get() < getY() + height / 2 + barHeight / 2 + 30;
     }
 
 
     @Override
     public boolean update() {
-        if ((Info.isPressed() || Info.isDragging()) && isCursorInside()) {
+        if ((Info.pressed.get() || Info.dragging.get()) && isCursorInside()) {
             grapped = true;
         }
-        if (!(Info.isPressed() || Info.isDragging())) {
+        if (!(Info.pressed.get() || Info.dragging.get())) {
             grapped = false;
         }
 
         if (grapped) {
-            double temp = ((double) Info.getCursorX() - getX()) / width;
+            double temp = ((double) Info.cursorX.get() - getX()) / width;
             temp = Math.max(0, temp);
             percentage = Math.min(1, temp);
         }
@@ -67,17 +67,10 @@ public abstract class Slider extends AbstractGameObject {
         graph.setColor(Color.BLACK);
         int barX = (int) (percentage * width) + getX() - barWidth / 2;
         int barY = getY() + height / 2 - barHeight / 2;
-        graph.drawImage(Info.getSliderImage(), barX, barY+30, barWidth, barHeight, null);
+        graph.drawImage(Info.sliderImage.get(), barX, barY + 30, barWidth, barHeight, null);
 
-    /* Draw string */
-    Tools.drawStringWithOutline(
-        words,
-        getX(),
-        getY()-40 ,
-        new Font("Calibri", Font.LAYOUT_LEFT_TO_RIGHT, 40),
-        20,
-        Color.WHITE,
-        Color.BLACK,
-        graph);
+        /* Draw string */
+        Tools.drawStringWithOutline(words, getX(), getY()-40, new Font("Dialog", Font.BOLD, 40),
+        15, Color.WHITE, Color.BLACK, graph);
   }
 }

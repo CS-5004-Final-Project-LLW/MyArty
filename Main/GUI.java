@@ -222,8 +222,8 @@ public class GUI extends JPanel implements Runnable {
    */
   private void clearMouseAndKeyboard() {
     // Clear mouse status
-    Info.setClicking(false);
-    Info.setKeyTyped(false);
+    Info.clicking.set(false);
+    Info.keyEntered.set(false);
   }
 
 
@@ -264,7 +264,7 @@ public class GUI extends JPanel implements Runnable {
 
     /* Update target */
     if (!updateObject(Repo.target)) {
-      Info.resetFreeze();
+      Info.freezed.reset();
 
       /* Renew both target and cannon */
       ObjectFactory.createObject();
@@ -292,10 +292,10 @@ public class GUI extends JPanel implements Runnable {
    */
   private void checkAll() {
     /* Deal with Hit */
-    if (Info.isHitTarget()) {
+    if (Info.hitTarget.get()) {
 
       // set hitTarget to false
-      Info.resetHitTarget();
+      Info.hitTarget.reset();
 
       // add score
       Info.setScore(Info.getScore() + 10);
@@ -306,19 +306,19 @@ public class GUI extends JPanel implements Runnable {
     }
 
     /* Restart if hits */
-    if (Info.isRestart()) {
+    if (Info.restart.get()) {
       // used for Restart button
-      Info.resetRestart();
+      Info.restart.reset();
       ObjectFactory.createObject();
       Info.softReset();
 
     }
 
     /* Update life */
-    if (Info.isMissShot()) {
+    if (Info.missShot.get()) {
 
       // set missShot to false
-      Info.resetMissShot();
+      Info.missShot.reset();
 
       /* make a new target */
       Repo.target = ObjectFactory.generateTarget();
@@ -383,10 +383,10 @@ public class GUI extends JPanel implements Runnable {
 
     /* Score display */
     Tools.drawStringWithOutline("Score: " + Info.getScore(), 1000, 20,
-        new Font("Arial", Font.BOLD, 40), 15, Color.WHITE, Color.BLACK, graph);
+        new Font("Dialog", Font.BOLD, 40), 15, Color.WHITE, Color.BLACK, graph);
 
     Tools.drawStringWithOutline("Hi Score: " + Info.getHighestScore(), 1000, 80,
-        new Font("Arial", Font.BOLD, 40), 15, Color.WHITE, Color.BLACK, graph);
+        new Font("Dialog", Font.BOLD, 40), 15, Color.WHITE, Color.BLACK, graph);
 
     /* Draw "heart" representing life */
     drawObject(Repo.heart, graph);
@@ -419,14 +419,14 @@ public class GUI extends JPanel implements Runnable {
     final int borderX = WIDTH / 2 - 230;
     final int borderY = HEIGHT / 2 - 120;
 
-    Tools.drawStringWithOutline("Game Over", borderX, borderY, new Font("Serif", Font.BOLD, 70), 10,
-        Color.WHITE, Color.BLACK, graph);
+    Tools.drawStringWithOutline("Game Over", borderX, borderY,
+        new Font("Comic Sans MS", Font.BOLD, 70), 15, Color.WHITE, Color.BLACK, graph);
 
     Tools.drawStringWithOutline("Score: " + Info.getScore(), borderX, borderY + 70,
-        new Font("Arial", Font.BOLD, 40), 15, Color.WHITE, Color.BLACK, graph);
+        new Font("Dialog", Font.BOLD, 40), 15, Color.WHITE, Color.BLACK, graph);
 
     Tools.drawStringWithOutline("Press any key to continue", borderX, borderY + 130,
-        new Font("Arial", Font.BOLD, 40), 15, Color.WHITE, Color.BLACK, graph);
+        new Font("Dialog", Font.BOLD, 40), 15, Color.WHITE, Color.BLACK, graph);
 
   }
 
@@ -465,7 +465,7 @@ public class GUI extends JPanel implements Runnable {
           Tools.sleepForMills(1000 / fps);
 
           // If any key pressed, restart game
-          if (Info.isKeyPressed()) {
+          if (Info.keyPressed.get()) {
             break;
           }
         }
@@ -473,7 +473,7 @@ public class GUI extends JPanel implements Runnable {
         /* Set value to default */
         Info.softReset();
         running = true;
-        Info.restart();
+        Info.restart.set();
 
         /* Print debug info */
         if (DebugInfo.isDebugging()) {
@@ -489,11 +489,11 @@ public class GUI extends JPanel implements Runnable {
    */
   public void drawTitleScreen() {
 
-    graph.drawImage(Info.getBackgroundImage(), getX(), getY(), WIDTH, HEIGHT, null);
+    graph.drawImage(Info.backgroundImage.get(), getX(), getY(), WIDTH, HEIGHT, null);
     drawObject(Repo.pig, graph);
 
     // title name
-    graph.setFont(graph.getFont().deriveFont(Font.BOLD, 90F));
+    graph.setFont(new Font("Comic Sans MS", Font.BOLD, 90));
     String text = "NAUGHTY PIGGY";
     int x = 280;
     int y = 250;
@@ -508,7 +508,7 @@ public class GUI extends JPanel implements Runnable {
 
 
     // instructions
-    graph.setFont(graph.getFont().deriveFont(Font.ITALIC, 25));
+    graph.setFont(new Font("Dialog", Font.ITALIC, 25));
     String text2 = "*            Mouse Click: fire cannon        *";
     String text3 = "*     Move Cursor: manage the angle    *";
     String text4 = "*       Drag Slider: control the power     *";
@@ -519,7 +519,7 @@ public class GUI extends JPanel implements Runnable {
     graph.drawString(text3, 400, 430);
     graph.drawString(text4, 400, 460);
 
-    graph.setFont(graph.getFont().deriveFont(Font.PLAIN, 22));
+    graph.setFont(new Font("Dialog", Font.PLAIN, 22));
     String text5 = "Credit: This is the final project of CS5004 at Northeatern University, ";
     graph.drawString(text5, 230, 750);
     String text6 = "produced by Zhongyi Lu, Peiyao Li and Shasha Wang. We hope you enjoy the game!";

@@ -7,21 +7,21 @@ public class KeyboardListener implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        Info.setKeyPressed(true);
-        Info.setKeyReleased(false);
+        Info.keyPressed.set(true);
+        Info.keyReleased.set(false);
 
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        Info.setKeyReleased(true);
-        Info.setKeyPressed(false);
+        Info.keyReleased.set(true);
+        Info.keyPressed.set(false);
 
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-        Info.setKeyTyped(true);
+        Info.keyEntered.set(true);
 
     }
 
