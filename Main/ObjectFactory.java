@@ -127,7 +127,7 @@ class ObjectFactory {
   static Cannon generateCannon() {
     // x should be at the left screen
     int x = new Random().nextInt(GUI.WIDTH * 3 / 10);
-    int y = GUI.HEIGHT * 3 / 4;
+    int y = GUI.HEIGHT * 3 / 4 - 50;
     Cannon cannon = new Cannon(new CoordinateInt(x, y), 200, 80);
     return cannon;
   }
