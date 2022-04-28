@@ -11,11 +11,11 @@ public class Info {
     // TODO: add a class name `breaker`
 
     /* Mouse status */
-    public static Poster<Boolean> dragging = new Poster<>(false);
-    private static boolean clicking = false;
-    private static boolean pressed = false;
-    private static int cursorX = 0;
-    private static int cursorY = 0;
+    public static final Poster<Boolean> dragging = new Poster<>(false);
+    public static final Poster<Boolean> clicking = new Poster<Boolean>(false);
+    public static final Poster<Boolean> pressed = new Poster<Boolean>(false);
+    public static final Poster<Integer> cursorX = new Poster<Integer>(0);
+    public static final Poster<Integer> cursorY = new Poster<Integer>(0);
 
     /* Keyboard status */
     private static boolean keyPressed = false;
@@ -71,42 +71,6 @@ public class Info {
     private static long counter = 0;
 
     private static HighestScore highestScore = new HighestScore();
-
-
-    public static boolean isPressed() {
-        return pressed;
-    }
-
-
-    static void setPressed(boolean pressed) {
-        Info.pressed = pressed;
-    }
-
-
-
-    public static boolean isClicking() {
-        return clicking;
-    }
-
-    static void setClicking(boolean clicking) {
-        Info.clicking = clicking;
-    }
-
-    public static int getCursorX() {
-        return cursorX;
-    }
-
-    static void setCursorX(int cursorX) {
-        Info.cursorX = cursorX;
-    }
-
-    public static int getCursorY() {
-        return cursorY;
-    }
-
-    static void setCursorY(int cursorY) {
-        Info.cursorY = cursorY;
-    }
 
     public static String getDebugInfo() {
         return "Angle value:" + angleValue + ", Power value:" + powerValue + ", Dragging:"
@@ -426,8 +390,8 @@ public class Info {
         resetScore();
         resetLife();
         dragging.set(false);
-        clicking = false;
-        pressed = false;
+        clicking.set(false);
+        pressed.set(false);
         resetHitTarget();
         resetMissShot();
     }
@@ -439,8 +403,8 @@ public class Info {
         softReset();
         angleValue = 45;
         powerValue = 50;
-        cursorX = 0;
-        cursorY = 0;
+        cursorX.set(0);
+        cursorY.set(0);
     }
 
 }

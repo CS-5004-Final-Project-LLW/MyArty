@@ -222,7 +222,7 @@ public class GUI extends JPanel implements Runnable {
    */
   private void clearMouseAndKeyboard() {
     // Clear mouse status
-    Info.setClicking(false);
+    Info.clicking.set(false);
     Info.setKeyTyped(false);
   }
 

@@ -31,24 +31,24 @@ public abstract class Slider extends AbstractGameObject {
     }
 
     private boolean isCursorInside() {
-        return Info.getCursorX() > getX() - barWidth / 2
-                && Info.getCursorX() < getX() + width + barWidth / 2
-                && Info.getCursorY() > getY() + height / 2 - barHeight / 2 + 30
-                && Info.getCursorY() < getY() + height / 2 + barHeight / 2 + 30;
+        return Info.cursorX.get() > getX() - barWidth / 2
+                && Info.cursorX.get() < getX() + width + barWidth / 2
+                && Info.cursorY.get() > getY() + height / 2 - barHeight / 2 + 30
+                && Info.cursorY.get() < getY() + height / 2 + barHeight / 2 + 30;
     }
 
 
     @Override
     public boolean update() {
-        if ((Info.isPressed() || Info.dragging.get()) && isCursorInside()) {
+        if ((Info.pressed.get() || Info.dragging.get()) && isCursorInside()) {
             grapped = true;
         }
-        if (!(Info.isPressed() || Info.dragging.get())) {
+        if (!(Info.pressed.get() || Info.dragging.get())) {
             grapped = false;
         }
 
         if (grapped) {
-            double temp = ((double) Info.getCursorX() - getX()) / width;
+            double temp = ((double) Info.cursorX.get() - getX()) / width;
             temp = Math.max(0, temp);
             percentage = Math.min(1, temp);
         }

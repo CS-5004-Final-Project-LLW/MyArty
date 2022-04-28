@@ -55,12 +55,12 @@ public abstract class Button extends AbstractGameObject {
     }
 
     protected boolean isMouseHovered() {
-        return Info.getCursorX() >= getX() && Info.getCursorX() <= getX() + width
-                && Info.getCursorY() >= getY() && Info.getCursorY() <= getY() + height;
+        return Info.cursorX.get() >= getX() && Info.cursorX.get() <= getX() + width
+                && Info.cursorY.get() >= getY() && Info.cursorY.get() <= getY() + height;
     }
 
     public boolean isClicked() {
-        return Info.isClicking() && isMouseHovered();
+        return Info.clicking.get() && isMouseHovered();
     }
 
 

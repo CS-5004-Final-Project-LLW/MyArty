@@ -40,8 +40,8 @@ public class Cannon extends AbstractGameObject {
     int centerY = getY() + cannonHeight / 2;
 
     /* Update angle */
-    double dy = Info.getCursorY() - centerY;
-    double dx = Info.getCursorX() - centerX;
+    double dy = Info.cursorY.get() - centerY;
+    double dx = Info.cursorX.get() - centerX;
 
     double radian = Math.atan2(dy, dx);
     // TODO: angleValue should be valid too
@@ -56,7 +56,7 @@ public class Cannon extends AbstractGameObject {
 
     /* Create bullets */
     int range = 400;
-    if (Info.isClicking() && Repo.isReadyForShot() && Math.sqrt(dx * dx + dy * dy) < range) {
+    if (Info.clicking.get() && Repo.isReadyForShot() && Math.sqrt(dx * dx + dy * dy) < range) {
       CoordinateInt bulletPoint = new CoordinateInt(centerX, centerY - 100);
       Repo.bullets.add(new Bullet(bulletPoint, Info.powerValue, Info.angleValue, 25));
     }
