@@ -42,17 +42,17 @@ class ObjectFactory {
    * Load all images from files
    */
   static void loadAllImage() {
-    Info.setBackgroundImage(Tools.loadImage("res/background.png"));
-    Info.setBulletImage(Tools.loadImage("res/apple.png"));
-    Info.setCannonImage(Tools.loadImage("res/cannon2.png"));
-    Info.setCannonBaseImage(Tools.loadImage("res/cannon1.png"));
-    Info.setTargetImage(Tools.loadImage("res/flyingPig.png"));
-    Info.setResetButtonImage(Tools.loadImage("res/bluereset.png"));
-    Info.setSliderImage(Tools.loadImage("res/bulletSlide.png"));
-    Info.setHeartImage(Tools.loadImage("res/heart1.png"));
-    Info.setHeartEmptyImage(Tools.loadImage("res/heart2.png"));
-    Info.setPigImage(Tools.loadImage("res/pig1.png"));
-    Info.setPigLeftImage(Tools.loadImage("res/pig1_l.png"));
+    Info.backgroundImage.set(Tools.loadImage("res/background.png"));
+    Info.bulletImage.set(Tools.loadImage("res/apple.png"));
+    Info.cannonImage.set(Tools.loadImage("res/cannon2.png"));
+    Info.cannonBaseImage.set(Tools.loadImage("res/cannon1.png"));
+    Info.targetImage.set(Tools.loadImage("res/flyingPig.png"));
+    Info.resetButtonImage.set(Tools.loadImage("res/bluereset.png"));
+    Info.sliderImage.set(Tools.loadImage("res/bulletSlide.png"));
+    Info.heartImage.set(Tools.loadImage("res/heart1.png"));
+    Info.heartEmptyImage.set(Tools.loadImage("res/heart2.png"));
+    Info.pigImage.set(Tools.loadImage("res/pig1.png"));
+    Info.pigLeftImage.set(Tools.loadImage("res/pig1_l.png"));
 
   }
 

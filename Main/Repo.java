@@ -40,7 +40,7 @@ public class Repo {
      * @return boolean {@code true} if the number of bullets does not reach the limit
      */
     public static boolean isReadyForShot() {
-        return Repo.bullets.size() < MAX_BULLETS && !Info.isFreezed();
+        return Repo.bullets.size() < MAX_BULLETS && !Info.freezed.get();
     }
 
 }

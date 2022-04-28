@@ -12,32 +12,32 @@ public class Info {
 
     /* Mouse status */
     public static final Poster<Boolean> dragging = new Poster<>(false);
-    public static final Poster<Boolean> clicking = new Poster<Boolean>(false);
-    public static final Poster<Boolean> pressed = new Poster<Boolean>(false);
+    public static final Poster<Boolean> clicking = new Poster<>(false);
+    public static final Poster<Boolean> pressed = new Poster<>(false);
     public static final Poster<Integer> cursorX = new Poster<Integer>(0);
     public static final Poster<Integer> cursorY = new Poster<Integer>(0);
 
     /* Keyboard status */
-    private static boolean keyPressed = false;
-    private static boolean keyReleased = false;
-    private static boolean keyEntered = false;
+    public static final Poster<Boolean> keyPressed = new Poster<>(false);
+    public static final Poster<Boolean> keyReleased = new Poster<>(false);
+    public static final Poster<Boolean> keyEntered = new Poster<>(false);
 
     /* Debugging for time per frame. Working as a queue */
     private static ArrayList<Integer> sleepTimeRecord = new ArrayList<>();
     private static double rotateDegree = 0;
 
     /* Images */
-    private static Image backgroundImage;
-    private static BufferedImage bulletImage;
-    private static BufferedImage cannonImage;
-    private static BufferedImage cannonBaseImage;
-    private static BufferedImage targetImage;
-    private static BufferedImage resetButtonImage;
-    private static BufferedImage sliderImage;
-    private static BufferedImage heartImage;
-    private static BufferedImage heartEmptyImage;
-    private static BufferedImage pigImage;
-    private static BufferedImage pigLeftImage;
+    public static final Poster<BufferedImage> backgroundImage = new Poster<>(null);
+    public static final Poster<BufferedImage> bulletImage = new Poster<>(null);
+    public static final Poster<BufferedImage> cannonImage = new Poster<>(null);
+    public static final Poster<BufferedImage> cannonBaseImage = new Poster<>(null);
+    public static final Poster<BufferedImage> targetImage = new Poster<>(null);
+    public static final Poster<BufferedImage> resetButtonImage = new Poster<>(null);
+    public static final Poster<BufferedImage> sliderImage = new Poster<>(null);
+    public static final Poster<BufferedImage> heartImage = new Poster<>(null);
+    public static final Poster<BufferedImage> heartEmptyImage = new Poster<>(null);
+    public static final Poster<BufferedImage> pigImage = new Poster<>(null);
+    public static final Poster<BufferedImage> pigLeftImage = new Poster<>(null);
 
     /* Player statics */
     public static final int MAX_LIFE = 5;
@@ -47,9 +47,11 @@ public class Info {
 
     private static int score = DEFAULT_SCORE;
     private static double life = DEFAULT_LIFE;
-    private static boolean hitTarget = false;
-    private static boolean missShot = false;
-    private static boolean restart;
+
+    public static final Breaker hitTarget = new Breaker();
+    public static final Breaker missShot = new Breaker();
+    public static final Breaker restart = new Breaker();
+    public static final Breaker freezed = new Breaker();
 
     /* Fire parameters */
     public static int angleValue = 45; // from 0 to 90
@@ -57,20 +59,21 @@ public class Info {
 
 
     /* Game States */
-    static int previousState = -1;
     public final static int TITLE_STATE = 0;
     public final static int PLAY_STATE = 1;
     public final static int PAUSE_STATE = 2;
+
+    static int previousState = -1;
     public static int gameState = TITLE_STATE;
 
-    private static boolean freezed = false;
     public static final int MAX_WIND = 1;
     public static final int MIN_WIND = -1;
+
     private static double wind = 0; // from -1 to 1
 
     private static long counter = 0;
 
-    private static HighestScore highestScore = new HighestScore();
+    private static final HighestScore highestScore = new HighestScore();
 
     public static String getDebugInfo() {
         return "Angle value:" + angleValue + ", Power value:" + powerValue + ", Dragging:"
@@ -90,104 +93,6 @@ public class Info {
         }
         sleepTimeRecord.add(sleepTime);
     }
-
-
-    public static BufferedImage getBulletImage() {
-        return bulletImage;
-    }
-
-
-    public static void setBulletImage(BufferedImage bulletImage) {
-        Info.bulletImage = bulletImage;
-    }
-
-
-    public static BufferedImage getCannonImage() {
-        return cannonImage;
-    }
-
-
-    public static void setCannonImage(BufferedImage cannonImage) {
-        Info.cannonImage = cannonImage;
-    }
-
-    public static BufferedImage getCannonBaseImage() {
-        return cannonBaseImage;
-    }
-
-
-    public static void setCannonBaseImage(BufferedImage cannonBaseImage) {
-        Info.cannonBaseImage = cannonBaseImage;
-    }
-
-
-    public static BufferedImage getTargetImage() {
-        return targetImage;
-    }
-
-
-    public static void setTargetImage(BufferedImage targetImage) {
-        Info.targetImage = targetImage;
-    }
-
-
-    public static BufferedImage getHeartImage() {
-        return heartImage;
-    }
-
-
-    public static void setHeartImage(BufferedImage heartImage) {
-        Info.heartImage = heartImage;
-    }
-
-    public static BufferedImage getPigImage() {
-        return pigImage;
-    }
-
-
-    public static void setPigImage(BufferedImage pigImage) {
-        Info.pigImage = pigImage;
-    }
-
-
-    public static BufferedImage getPigLeftImage() {
-        return pigLeftImage;
-    }
-
-
-    public static void setPigLeftImage(BufferedImage pigLeftImage) {
-        Info.pigLeftImage = pigLeftImage;
-    }
-
-
-    public static BufferedImage getHeartEmptyImage() {
-        return heartEmptyImage;
-    }
-
-
-    public static void setHeartEmptyImage(BufferedImage heartEmptyImage) {
-        Info.heartEmptyImage = heartEmptyImage;
-    }
-
-
-    public static BufferedImage getResetButtonImage() {
-        return resetButtonImage;
-    }
-
-
-    public static void setResetButtonImage(BufferedImage resetButtonImage) {
-        Info.resetButtonImage = resetButtonImage;
-    }
-
-    public static BufferedImage getSliderImage() {
-        return sliderImage;
-    }
-
-
-    public static void setSliderImage(BufferedImage sliderImage) {
-        Info.sliderImage = sliderImage;
-    }
-
 
 
     public static int getScore() {
@@ -234,57 +139,20 @@ public class Info {
         Info.rotateDegree = rotateDegree;
     }
 
-    public static Image getBackgroundImage() {
-        return backgroundImage;
-    }
-
-
-    public static void setBackgroundImage(Image backgroundImage) {
-        Info.backgroundImage = backgroundImage;
-    }
 
     /**
      * Set `hit target` flag to true
      */
     public static void Hit() {
-        hitTarget = true;
-        freezed = true;
+        hitTarget.set();
+        freezed.set();
     }
 
     /**
      * Set `miss` flag to true
      */
     public static void miss() {
-        missShot = true;
-    }
-
-
-
-    public static boolean isHitTarget() {
-        return hitTarget;
-    }
-
-
-    public static boolean isMissShot() {
-        return missShot;
-    }
-
-
-    /*-
-     * Set `hit target` flag to true.
-     * Package access only
-     */
-    static void resetHitTarget() {
-        hitTarget = false;
-    }
-
-
-    /*-
-     * Set `miss` flag to true.
-     * Package access only
-     */
-    static void resetMissShot() {
-        missShot = false;
+        missShot.set();
     }
 
     static void resetScore() {
@@ -293,50 +161,6 @@ public class Info {
 
     static void resetLife() {
         setLife(DEFAULT_LIFE);
-    }
-
-
-    public static boolean isKeyPressed() {
-        return keyPressed;
-    }
-
-
-    static void setKeyPressed(boolean keyPressed) {
-        Info.keyPressed = keyPressed;
-    }
-
-
-    public static boolean isKeyReleased() {
-        return keyReleased;
-    }
-
-
-    static void setKeyReleased(boolean keyReleased) {
-        Info.keyReleased = keyReleased;
-    }
-
-
-    public static boolean isKeyEntered() {
-        return keyEntered;
-    }
-
-
-    static void setKeyTyped(boolean keyEntered) {
-        Info.keyEntered = keyEntered;
-    }
-
-
-    public static boolean isFreezed() {
-        return freezed;
-    }
-
-
-    public static void freeze() {
-        freezed = true;
-    }
-
-    static void resetFreeze() {
-        freezed = false;
     }
 
 
@@ -368,32 +192,19 @@ public class Info {
     }
 
 
-    public static boolean isRestart() {
-        return restart;
-    }
-
-
-    public static void restart() {
-        Info.restart = true;
-    }
-
-    static void resetRestart() {
-        Info.restart = false;
-    }
-
 
     /**
      * Reset most of parameters but retain angel, power and cursor.
      */
     static void softReset() {
-        freezed = false;
+        freezed.reset();
         resetScore();
         resetLife();
         dragging.set(false);
         clicking.set(false);
         pressed.set(false);
-        resetHitTarget();
-        resetMissShot();
+        hitTarget.reset();
+        missShot.reset();
     }
 
     /**

@@ -15,7 +15,7 @@ public class RestartButton extends Button {
     @Override
     public boolean update() {
         if (isClicked()) {
-            Info.restart();
+            Info.restart.set();
         }
         return true;
     }
@@ -27,10 +27,10 @@ public class RestartButton extends Button {
             var scaledCAS = Tools.scaledImage(scaleFactor,
                     new CoordinateAndSize(getX(), getY(), width, height));
 
-            graph.drawImage(Info.getResetButtonImage(), scaledCAS.x, scaledCAS.y, scaledCAS.width,
+            graph.drawImage(Info.resetButtonImage.get(), scaledCAS.x, scaledCAS.y, scaledCAS.width,
                     scaledCAS.height, null);
         } else {
-            graph.drawImage(Info.getResetButtonImage(), getX(), getY(), width, height, null);
+            graph.drawImage(Info.resetButtonImage.get(), getX(), getY(), width, height, null);
         }
     }
 

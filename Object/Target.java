@@ -37,13 +37,13 @@ public class Target extends AbstractGameObject {
 
     @Override
     public void draw(Graphics2D graph) {
-        BufferedImage image = Info.getTargetImage();
+        BufferedImage image = Info.targetImage.get();
         graph.drawImage(image, getX(), getY(), 100, 100, null);
     }
 
     @Override
     public boolean update() {
-        if (Info.isFreezed()) {
+        if (Info.freezed.get()) {
             preciseY += speedY;
             coordinate.y = (int) preciseY;
             speedY += GRAVITY / GUI.getFps();

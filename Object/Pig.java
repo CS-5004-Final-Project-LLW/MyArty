@@ -32,8 +32,8 @@ public class Pig extends AbstractGameObject {
 
     @Override
     public void draw(Graphics2D graph) {
-        BufferedImage image = Info.getPigImage();
-        BufferedImage image_left = Info.getPigLeftImage();
+        BufferedImage image = Info.pigImage.get();
+        BufferedImage image_left = Info.pigLeftImage.get();
         if (xSpeed >= 0) {
             graph.drawImage(image,x,y,200,170, null);
         } else {

@@ -66,8 +66,8 @@ public class Cannon extends AbstractGameObject {
 
   @Override
   public void draw(Graphics2D graph) {
-    BufferedImage cannonImage = Info.getCannonImage();
-    BufferedImage cannonBaseImage = Info.getCannonBaseImage();
+    BufferedImage cannonImage = Info.cannonImage.get();
+    BufferedImage cannonBaseImage = Info.cannonBaseImage.get();
     AffineTransform at = getTransformation();
 
     graph.drawImage(cannonImage,at, null);
