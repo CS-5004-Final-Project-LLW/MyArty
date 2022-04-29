@@ -1,4 +1,5 @@
 # Naughty Piggy
+This is the final project of CS5004 at Northeatern University, designed and programmed by **Zhongyi Lu**, **Peiyao Li** and **Shasha Wang**.
 
 
 # Background
@@ -13,25 +14,26 @@ Run the `main(String[])` method in the `MainGame` class and enjoy the game.
 ![](UML/Instructions_Welcome.jpg)
 * Users reach a welcome page that attracts their attention and get information to make sure users know what they are expected to do during the game.
 
+
 ![](UML/Instructions_PlayPage.jpg)
-* Gaming page involves the objects and elements virtually.
+* Gaming page involves the objects and elements virtually;
 * You can click the restart button in the upper left corner to reset the game if necessary.
 
 
 ![](UML/Instructions_Cannon.jpg)
-* Move your mouse to adjust the shooting angle (0-90°).
+* Move your mouse to adjust the shooting angle (0-90°);
 * Each round, you get random locations of the apple cannon and target piggy.
 
 
 ![](UML/Instructions_Bullet.jpg)
-* Slide the power bar to adjust the shooting power(0 to 100) of the apple cannon；
+* Slide the power bar to adjust the shooting power(0 to 100) of the apple cannon;
 * Be aware of the random wind direction and amount of wind resistance each round;
-* Click around the apple cannon to shoot;
+* Click around the apple cannon to shoot.
 
 
 ![](UML/Instructions_Target.jpg)
 * The piggy falls down when you have shot an apple bullet at it, and randomly appears on the next turn;
-* You only have 5 lives, once you hit the piggy 4 times  you can retrieve a quarter of life back;
+* You only have 5 lives. Once you hit the piggy 4 times you can retrieve a life back;
 * Game over if there is no life left;
 * Highest score record will be saved in the system. Try to beat it!
 
@@ -39,9 +41,9 @@ Run the `main(String[])` method in the `MainGame` class and enjoy the game.
 
 # Code Structure
 ## Libraries
-* `java.awt`: user interface drawing
-* `javax.swing`: user interface panel
-* `java.io`: image loading, score storing
+* `java.awt`: user interface drawing;
+* `javax.swing`: user interface panel;
+* `java.io`: image loading, score storing.
 
 ## Classes Overview
 ### Main Package
@@ -58,11 +60,11 @@ Run the `main(String[])` method in the `MainGame` class and enjoy the game.
 The game runs at 60 frames per second. During each interface between frames, the main loop calls `draw()` methods in each game object and then calls `update()` methods and finally runs `checkAll()` method to renew game status.
 
 ## Game Status
-At the title page, the main thread creates buttons and texts. During the transition from the title page to gaming, the main thread destories old objects and creates new ones for gaming. `drawObject(GameObject, Graphic2D)` and `updateObject(GameObject)` methods automatically check if an object is null without throwing exceptions.
+At the title page, the main thread creates buttons and texts. During the transition from the title page to gaming, the main thread destories old objects and creates new ones for gaming. Note `drawObject(GameObject, Graphic2D)` and `updateObject(GameObject)` methods automatically check if an object is null without throwing exceptions.
 
 
 ## Game Objects
-All game objects including cannon, pig and buttons should implement GameObject interface. For convenience, game objects also inherit AbstractGameObject that provides 4 methods named `getX()`, `getY()`, `update()` and `draw()`. With polymorphism, the main class uses game objects without knowing their exact class types.
+All game objects including cannon, pig and buttons should implement GameObject interface. For convenience, game objects also inherit AbstractGameObject that provides four methods named `getX()`, `getY()`, `update()` and `draw()`. With polymorphism, the main class uses game objects without knowing their exact class types.
 
 
 ## Information Callboard
