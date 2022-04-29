@@ -4,3 +4,5 @@
 .vscode/
 MyArty.iml
 highest_score.log
+out/
+UML/*.puml
