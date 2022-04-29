@@ -67,7 +67,7 @@ All game objects including cannon, pig and buttons should implement GameObject i
 
 ## Information Callboard
 ### `Poster<T>`
-* The types of the data posted by the main loop are all 1Poster<T>1 where all classes can get data but only the ones in the Main package have the access to change.
+* The types of the data posted by the main loop are all `Poster<T>` where all classes can get data but only the ones in the Main package have the access to change.
 * For example, images read from files, mouse and keyboard status.
 ### `Breaker`
 * Another type of data named Breaker enables the access to set status to true for all classes but to false only for classes in the Main package.
