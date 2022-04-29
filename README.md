@@ -1,11 +1,11 @@
 # Naughty Piggy
 
 
+# Background
+
+
 # Installation
 Run the `main(String[])` method in the MainGame class and enjoy the game.
-
-
-# Background
 
 
 # Instruction
