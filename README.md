@@ -17,21 +17,15 @@ Run the `main(String[])` method in the MainGame class and enjoy the game.
 * `java.io`: image loading, score storing
 
 ## Classes Overview
+### Main Package
 ![](UML/main_without_private.png)
-<br>
-Main Package without Info
-<br>
-![](UML/info_without_private.png)
-<br>
-Info Class
-<br>
+
+### Game Objects
 ![](UML/object_without_private.png)
-<br>
-Game Objects
-<br>
+
+### Buttons, Texts and Backgrounds
 ![](UML/all_without_private.png)
-<br>
-Buttons, Texts and Backgrounds
+
 
 ## Main Loop
 The game runs at 60 frames per second. During each interface between frames, the main loop calls `draw()` methods in each game object and then calls `update()` methods and finally runs `checkAll()` method to renew game status.
